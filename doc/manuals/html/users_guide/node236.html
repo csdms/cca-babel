@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception catching</TITLE>
+<META NAME="description" CONTENT="Exception catching">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node237.html">
+<LINK REL="previous" HREF="node235.html">
+<LINK REL="up" HREF="node229.html">
+<LINK REL="next" HREF="node237.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4681"
+  HREF="node237.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4675"
+  HREF="node229.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4669"
+  HREF="node235.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4677"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4679"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4682"
+  HREF="node237.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html4676"
+  HREF="node229.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4670"
+  HREF="node235.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html4678"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4680"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03537000000000000000"></A><A NAME="ss:Java:exceptioncatching"></A><A NAME="14003"></A>
+<A NAME="14004"></A>
+<BR>
+Exception catching
+</H2>
+
+<P>
+Recall Subsection&nbsp;<A HREF="node225.html#sss:java:exceptions">10.2.3</A> discussed issues associated
+with the fact that SIDL supports exception interfaces while Java does not.
+In the following example, derived from regression tests, a <TT>getFibi</TT> 
+method takes an integer argument and can throw one of two exceptions 
+specified as SIDL exception interfaces<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>NegativeValueException</TT> 
+and <TT>TooDeepException</TT>.  
+<A NAME="14009"></A>
+<A NAME="14010"></A><A NAME="14011"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">
+try {
+  fib.getFibi(-1);
+} catch (NegativeValueException.Wrapper ex) {
+  System.err.println(ex.getNote());
+} catch (TooDeepException.Wrapper ex) {
+  System.err.println(ex.getNote());
+} catch (java.lang.Exception ex) {
+  if (((sidl.BaseInterface)ex).isType("sidl.SIDLException")) {
+    System.err.println("Unexpected SIDL Exception thrown");
+  } else {
+    System.err.println("Unexpected and unknown exception thrown");
+  }
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Since the two exception types are specified as interfaces, the code to trap
+each must reference their <TT>Wrapper</TT> classes.  Hence, the use of each
+class's fully qualified name<A NAME="14014"></A> in the <TT>catch</TT> clauses.
+
+<P>
+The example also illustrates another option that is generally available for
+distinguishing between exception types.  That is, the body of the final 
+<TT>catch</TT> includes a call to the <TT>isType()</TT> method, which is used
+to check the exception against a named type.  In this example, however,
+SIDL can cast between the two interfaces, so <TT>isType()</TT> would return 
+true regardless of the the type of the exception instance.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

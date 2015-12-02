@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type casting</TITLE>
+<META NAME="description" CONTENT="Type casting">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node250.html">
+<LINK REL="up" HREF="node247.html">
+<LINK REL="next" HREF="node258.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5016"
+  HREF="node258.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5010"
+  HREF="node247.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5006"
+  HREF="node256.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5012"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5014"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5017"
+  HREF="node258.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html5011"
+  HREF="node247.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html5007"
+  HREF="node256.html">Opaque</A>
+ &nbsp; <B>  <A NAME="tex2html5013"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5015"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03624000000000000000"></A><A NAME="ss:python:casting"></A><A NAME="15709"></A><A NAME="15710"></A>
+<A NAME="15711"></A><A NAME="15712"></A>
+<BR>
+Type casting
+</H2>
+
+<P>
+Given an object, <TT>obj</TT>, it is possible to determine if it is an 
+instance of a SIDL class or interface whose fully qualified name is 
+<TT>X.Y.Z</TT> as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15715"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT><SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$&#187;&gt;$"></SPAN></TT> <TT><B>import X.Y.Z</B></TT>
+<BR><TT><SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$&#187;&gt;$"></SPAN></TT> <TT><B>zobj = X.Y.Z.Z(obj)</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+Of course, the import is not needed if <TT>X.Y.Z</TT> has already been imported. 
+If <TT>zobj</TT> is not equal to <TT>None</TT>, the cast was successful.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

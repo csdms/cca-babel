@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Babel's Object Model</TITLE>
+<META NAME="description" CONTENT="Babel's Object Model">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node114.html">
+<LINK REL="previous" HREF="node112.html">
+<LINK REL="up" HREF="node112.html">
+<LINK REL="next" HREF="node114.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2601"
+  HREF="node114.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2595"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2589"
+  HREF="node112.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2597"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2599"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2602"
+  HREF="node114.html">Methods on Objects</A>
+<B> Up:</B> <A NAME="tex2html2596"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2590"
+  HREF="node112.html">Objects</A>
+ &nbsp; <B>  <A NAME="tex2html2598"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2600"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02471000000000000000"></A><A NAME="sec:basics:objects:babelom"></A>
+<BR>
+Babel's Object Model
+</H2>
+
+<P>
+SIDL defines three types of objects: interfaces, classes, 
+and abstract classes.  A SIDL
+<TT><I CLASS="slanted">interface</I></TT><A NAME="6165"></A><A NAME="6166"></A> 
+is akin to 
+a Java interface or a C++ pure abstract base class.
+It is an object that defines methods (aka member functions), 
+but carries no implementation of those methods.  
+A <TT><I CLASS="slanted">class</I></TT><A NAME="6168"></A><A NAME="6169"></A>  
+by comparison is always concrete; meaning 
+that there is an implementation for each of its methods
+and it can be instantiated.  An 
+<TT><I CLASS="slanted">abstract class</I></TT><A NAME="6171"></A><A NAME="6172"></A>  
+falls somewhere
+between an <TT><I CLASS="slanted">interface</I></TT> and a <TT><I CLASS="slanted">class</I></TT>.  It has at least
+one method unimplemented, so it cannot be instantiated, but it
+also may have several methods that are implemented and these
+implementations can be inherited.
+
+<P>
+SIDL supports multiple inheritance<A NAME="6175"></A> of interfaces and single 
+inheritance of implementation.<A NAME="6176"></A>  This is a strategy found in 
+other OO languages such as Java and ObjectiveC.  The
+words to distinguish these two forms of inheritance are
+<TT><I CLASS="slanted">extends</I></TT> and <TT><I CLASS="slanted">implements</I></TT>.  Interfaces can
+extend multiple interfaces, but they cannot implement anything.
+Classes can extend at most one other class (abstract or not), 
+but can implement multiple interfaces.
+
+<P>
+Furthermore, any inherited abstract methods (inherited from either and
+abstract parent class or and implemented interface) will default to
+abstract unless they are re-declared in the current class.  If a
+concrete class
+implements many large interfaces, this can result in a fairly large
+list of redeclared functions in the class definition.  As a shortcut,
+we included the <TT>implements-all</TT> directive, a short hand
+that states explicitly that we intend to implement every
+method in the named interface concretely.  That's why, in the
+following example, class B must be declared abstract, but class D is
+concrete.  Class B does not redeclare the <TT>printMe</TT> function,
+but class D <TT>implements-all</TT>.  There is no similar directive for
+inheritance from abstract classes.
+
+<P>
+We display a small SIDL file below and finish this
+subsection with a discussion of its details.
+<A NAME="6182"></A>
+<BR>
+<PRE  CLASS="verbatim">package object version 1.0 { 
+  
+  interface A { 
+    void display();
+    void printMe();
+  }
+
+  abstract class B implements A { 
+    void display();
+  }
+
+  class C extends B { 
+    void printMe();
+  }
+
+  class D implements-all A { 
+  }
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+<TT><I CLASS="slanted">object.A</I></TT> is
+an interface that has two methods <TT><I CLASS="slanted">display()</I></TT> and <TT><I CLASS="slanted">print()</I></TT>.
+Both of these methods take no arguments and return no value.
+(We will discuss arguments and return values in the next section.)
+Since <TT><I CLASS="slanted">object.A</I></TT> is an interface, there is no implementation
+associated with it, and Babel will not generate any implementation
+code associated with it.  
+
+<P>
+<TT><I CLASS="slanted">object.B</I></TT> is an abstract class that <A NAME="6189"></A><A NAME="6190"></A>
+inherits from <TT><I CLASS="slanted">object.A</I></TT>.  Since it redeclares the
+<TT><I CLASS="slanted">display()</I></TT> method, Babel will generate the appropriate
+code for an implementation of this method only.  It will not
+generate code for the other inherited method <TT><I CLASS="slanted">print()</I></TT>
+(since it wasn't declared in the SIDL file) and it will not
+generate constructors/destructors since the class is abstract.
+
+<P>
+<TT><I CLASS="slanted">object.C</I></TT> is a concrete class that extends 
+the abstract class <A NAME="6195"></A><A NAME="6196"></A>
+<TT><I CLASS="slanted">object.B</I></TT> it then lists only the unimplemented method
+<TT><I CLASS="slanted">print()</I></TT>, implying that it will use the implementation
+of <TT><I CLASS="slanted">display()</I></TT> it inherited from its parent.
+
+<P>
+<TT><I CLASS="slanted">object.D</I></TT> is also a concrete class that uses the
+<TT><I CLASS="slanted">implements-all</I></TT><A NAME="6202"></A><A NAME="6203"></A>
+
+<P>
+directive.  This is identical to using <TT><I CLASS="slanted">implements</I></TT> and then
+listing all the methods declared in the interface.  
+The <TT><I CLASS="slanted">implements-all</I></TT> directive was added to SIDL 
+as a convenience construct and to save excessive typing
+in the SIDL file.  By virtue of the <TT><I CLASS="slanted">implements-all</I></TT>
+directive, <TT><I CLASS="slanted">object.D</I></TT> will provide its own implementation of 
+all of <TT><I CLASS="slanted">object.A</I></TT>'s methods, namely 
+<TT><I CLASS="slanted">display()</I></TT> and <TT><I CLASS="slanted">print()</I></TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2601"
+  HREF="node114.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2595"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2589"
+  HREF="node112.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2597"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2599"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2602"
+  HREF="node114.html">Methods on Objects</A>
+<B> Up:</B> <A NAME="tex2html2596"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2590"
+  HREF="node112.html">Objects</A>
+ &nbsp; <B>  <A NAME="tex2html2598"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2600"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

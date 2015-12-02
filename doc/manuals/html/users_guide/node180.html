@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object management</TITLE>
+<META NAME="description" CONTENT="Object management">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node181.html">
+<LINK REL="previous" HREF="node179.html">
+<LINK REL="up" HREF="node178.html">
+<LINK REL="next" HREF="node181.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3816"
+  HREF="node181.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3810"
+  HREF="node178.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3804"
+  HREF="node179.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3812"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3814"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3817"
+  HREF="node181.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html3811"
+  HREF="node178.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3805"
+  HREF="node179.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3813"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3815"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03332000000000000000"></A>
+<A NAME="9973"></A>
+<A NAME="9974"></A>
+<BR>
+Object management
+</H2>
+
+<P>
+SIDL-specified objects are managed through explicit creation and
+reference counting<A NAME="9975"></A>.  Babel automatically generates 
+an <TT>_create</TT> method for concrete classes.  The method is used to 
+instantiate the class and return the
+associated reference.  The owner of the instance is responsible for 
+its proper disposal.
+In other words, when processing with the object is done, the owner must 
+invoke <TT>deleteRef</TT> on it.  Similarly, any object references returned 
+by a subroutine call must be deleted or given to another part of the code 
+that will take ownership of and, therefore, responsibility 
+for <TT>deleteRef</TT>'ing it.  
+
+<P>
+For example, the following calls <TT>deleteRef()</TT> using the 
+<TT><I CLASS="slanted">sidl.BaseInterface</I></TT> version of the method<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9981"></A>
+<A NAME="9982"></A><A NAME="9983"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       integer*8 interface1, except
+C      code to initialize interface1 here
+       call sidl_BaseInterface_deleteRef_f(interface1, except)
+</PRE></td></tr></table></blockquote>
+<P>
+When it is necessary to determine if two references point to the same object,
+the built-in <TT>isSame</TT> method can be used.  For example, the following
+attempts to determine if <TT>interface1</TT> and <TT>interface2</TT> point to
+the same object<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9988"></A><A NAME="9989"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       integer*8 interface1, interface2, except
+       logical areSame
+C      code to initialize interface1 and interface2 here
+       call sidl_BaseInterface_isSame_f(interface1,
+     $     interface2, areSame, except)
+C      now areSame holds the return value
+</PRE></td></tr></table></blockquote>
+<P>
+Similarly, it is sometimes necessary to find out if a given method is of a
+specific type.  One case in point is when trying to determine if an exception
+is of a given type.  The built-in <TT>isType</TT> method is provided for that
+purpose.  For example, the following tries to determin if <TT>interface1</TT>
+is of type <TT>x.y.z</TT><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9994"></A><A NAME="9995"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       integer*8 interface1, except
+       logical typeMatch
+C      code to initialize interface1 here
+       call sidl_BaseInterface_isType_f(interface1, 'x.y.z',
+     $   typeMatch, except)
+</PRE></td></tr></table></blockquote>
+<P>
+Along those same lines, it is possible to find the name of a SIDL class that
+implements a particular interface.  Using a sequence of calls with
+<TT><I CLASS="slanted">sidl.BaseInterface</I></TT> interface, this can be accomplished as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9998"></A>
+<A NAME="9999"></A>
+<A NAME="10000"></A><A NAME="10001"></A>
+<A NAME="10002"></A><A NAME="10003"></A>
+<A NAME="10004"></A><A NAME="10005"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       integer*8 interface1, classinfo, except
+       character*256 className
+C      code to initialize interface1 here
+       call sidl_BaseInterface_getClassInfo_f(interface1,
+     $   classinfo, except)
+       call sidl_ClassInfo_getName_f(classinfo, className, except)
+       call sidl_BaseInterface_deleteRef_f(classinfo, except)
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3816"
+  HREF="node181.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3810"
+  HREF="node178.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3804"
+  HREF="node179.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3812"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3814"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3817"
+  HREF="node181.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html3811"
+  HREF="node178.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3805"
+  HREF="node179.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3813"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3815"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Overloaded methods</TITLE>
+<META NAME="description" CONTENT="Overloaded methods">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node208.html">
+<LINK REL="previous" HREF="node206.html">
+<LINK REL="up" HREF="node203.html">
+<LINK REL="next" HREF="node208.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4232"
+  HREF="node208.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4226"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4220"
+  HREF="node206.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4228"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4230"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4233"
+  HREF="node208.html">Exception catching</A>
+<B> Up:</B> <A NAME="tex2html4227"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4221"
+  HREF="node206.html">Static methods</A>
+ &nbsp; <B>  <A NAME="tex2html4229"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4231"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03434000000000000000"></A>
+<A NAME="11768"></A>
+<A NAME="11769"></A>
+<BR>
+Overloaded methods
+</H2>
+
+<P>
+Examples of calls to SIDL overloaded methods are based on the 
+<TT>overload_sample.sidl</TT> file shown in Section&nbsp;<A HREF="node116.html#sec:overloading">5.7</A>.  
+Recall that the file describes three versions of the <TT>getValue</TT> method.  
+The first takes no arguments, the second takes an integer argument, and the 
+third takes a boolean.  Each is called in the following code snippet<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11773"></A>
+<A NAME="11774"></A><A NAME="11775"></A>
+<A NAME="11776"></A><A NAME="11777"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl
+  use Overload_Sample
+  type(Overload_Sample_t)         :: t
+  type(sidl_BaseInterface_t)      :: exception
+  logical                         :: b1, bretval
+  integer (kind=sidl_int)  :: i1, iretval
+
+  call new(t, exception)
+
+  call getValue (t, iretval, exception)
+  call getValueInt (t, i1, iretval, exception)
+  call getValueBool (t, b1, bretval, exception)
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

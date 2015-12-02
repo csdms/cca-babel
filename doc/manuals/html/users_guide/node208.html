@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception catching</TITLE>
+<META NAME="description" CONTENT="Exception catching">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node209.html">
+<LINK REL="previous" HREF="node207.html">
+<LINK REL="up" HREF="node203.html">
+<LINK REL="next" HREF="node209.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4246"
+  HREF="node209.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4240"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4234"
+  HREF="node207.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4242"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4244"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4247"
+  HREF="node209.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html4241"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4235"
+  HREF="node207.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html4243"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4245"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03435000000000000000"></A><A NAME="ss:f90:exceptioncatching"></A><A NAME="11781"></A><A NAME="11782"></A>
+<A NAME="11783"></A>
+<BR>
+Exception catching
+</H2>
+
+<P>
+Since all methods can now throw <TT><I CLASS="slanted">sidl.RuntimeException</I></TT>
+<A NAME="11785"></A>, Babel ensures there is an
+<TT><I CLASS="slanted">out</I></TT> argument to hold an exception.  If not explicitly specified,
+Babel will automatically add the argument.
+For maximum backward compatibility, the exception argument type is 
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.BaseInterface</I></TT>, while the base exception class is
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.SIDLException</I></TT>.  The exception argument, which behaves like 
+an <TT>out</TT> parameter, will appear after the return value when both 
+occur in a method.  After the call, the client should test this argument 
+using <TT>is_null</TT><A NAME="11794"></A> or <TT>not_null</TT>.  
+If it is <TT>not_null</TT><A NAME="11799"></A><TT>_null</TT>, an exception was 
+thrown by the method
+so the caller should respond appropriately.  When an exception is thrown,
+the values of all other arguments are undefined.  So the best course of
+action is to ignore them.  If the code does not check the
+exception argument after each call (that can throw one), any
+exceptions that are thrown will be utterly ignored as a result of not being
+automatically propagated to higher level routines.
+
+<P>
+It is possible to determine which exception was thrown through
+casting the argument.  A successful cast indicates the type of exception
+that occurred.  An example of this process is illustrated below.
+Package <TT>ExceptionTest</TT> has a class named <TT>Fib</TT> with a 
+<TT>getFib</TT> method declared in SIDL as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> 
+<A NAME="11804"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int getFib(in int n, in int max_depth, in int max_value, in int depth)
+    throws NegativeValueException, FibException;
+</I></PRE></td></tr></table></blockquote>
+<P>
+The code to catch specified exception types is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11806"></A><A NAME="11807"></A>
+<A NAME="11808"></A><A NAME="11809"></A>
+<A NAME="11810"></A><A NAME="11811"></A>
+<A NAME="11812"></A><A NAME="11813"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl
+  use ExceptionTest_Fib
+  use ExceptionTest_FibException
+  use ExceptionTest_NegativeValueException
+  use sidl_BaseInterface
+  type(ExceptionTest_Fib_t)                    :: fib
+  type(sidl_BaseInterface_t)                   :: except, except2
+  type(ExceptionTest_FibException_t)           :: fibexcept
+  type(ExceptionTest_NegativeValueException_t) :: nvexcept
+  integer (kind=sidl_int)  :: index, maxdepth, maxval, depth, result
+  call new(fib, except)
+
+  index    = 4
+  maxdepth = 100
+  maxvalue = 32000
+  depth    = 0
+  call getFib(fib, index, maxdepth, maxvalue, depth, result, except)
+  if (not_null(except)) then
+    call cast(except, fibexcept, except2)
+    if (not_null(fibexcept)) then
+!      do something here with the FibException
+       call deleteRef(fibexcept, except2)
+    else
+      call cast(except, nvexcept, except2)
+!     do something here with the NegativeValueException
+      call deleteRef(nvexcept, except2)
+    endif
+    call deleteRef(except, except2)
+  else
+    write (*,*) 'getFib for ', index, ' returned ', result
+  endif
+  call deleteRef(fib, except2)
+</PRE></td></tr></table></blockquote>
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+Any caller of a method that returns an exception should ignore
+the values of <TT>out</TT> and <TT>inout</TT> parameters.  Anything not
+freed becomes a reference and memory leak.  
+</SPAN>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4246"
+  HREF="node209.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4240"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4234"
+  HREF="node207.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4242"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4244"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4247"
+  HREF="node209.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html4241"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4235"
+  HREF="node207.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html4243"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4245"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

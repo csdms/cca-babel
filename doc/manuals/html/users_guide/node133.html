@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Overloaded methods</TITLE>
+<META NAME="description" CONTENT="Overloaded methods">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node134.html">
+<LINK REL="previous" HREF="node132.html">
+<LINK REL="up" HREF="node128.html">
+<LINK REL="next" HREF="node134.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3086"
+  HREF="node134.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3080"
+  HREF="node128.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3074"
+  HREF="node132.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3082"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3084"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3087"
+  HREF="node134.html">Exception catching</A>
+<B> Up:</B> <A NAME="tex2html3081"
+  HREF="node128.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3075"
+  HREF="node132.html">Static methods</A>
+ &nbsp; <B>  <A NAME="tex2html3083"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3085"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03135000000000000000"></A>
+<A NAME="6972"></A>
+<A NAME="6973"></A>
+<BR>
+Overloaded methods
+</H2>
+
+<P>
+Using the <TT>overload_sample.sidl</TT> file from Section&nbsp;<A HREF="node116.html#sec:overloading">5.7</A>
+as an example, recall that three versions of the <TT>getValue</TT> method are
+specified.  The first signature takes no arguments, the second takes an 
+integer, and the third a boolean.  The code snippet below illustrates 
+object creation, method invocation for each of the overloaded methods, 
+and exception handling.
+<A NAME="6977"></A>
+<A NAME="6978"></A><A NAME="6979"></A>
+<A NAME="6980"></A><A NAME="6981"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">
+  int32_t b1, i1, iresult, nresult;
+  sidl_BaseInterface ex;
+
+  Overload_Sample t  = Overload_Sample__create (&amp;ex); SIDL_CHECK(ex);
+
+  nresult = Overload_Sample_getValue(t, &amp;ex); SIDL_CHECK(ex);
+  iresult = Overload_Sample_getValueInt(t, i1, &amp;ex); SIDL_CHECK(ex);
+  bresult = Overload_Sample_getValueBool(t, b1, &amp;ex); SIDL_CHECK(ex);
+</PRE></td></tr></table></blockquote>
+<P>
+
+<TT>SIDL_CHECK</TT><A NAME="6984"></A> is used to check if an exception has 
+been thrown.  If so, control jumps to the code after the <TT>EXIT</TT> label, 
+which is not illustrated here but is in the example presented in 
+Subsection&nbsp;<A HREF="node134.html#ss:c:exceptions">6.3.6</A>.
+<A NAME="6987"></A><A NAME="6988"></A>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

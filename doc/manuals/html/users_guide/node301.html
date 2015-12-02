@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Casting Remote Objects</TITLE>
+<META NAME="description" CONTENT="Casting Remote Objects">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node300.html">
+<LINK REL="up" HREF="node296.html">
+<LINK REL="next" HREF="node302.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5738"
+  HREF="node302.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5732"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5728"
+  HREF="node300.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5734"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5736"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5739"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Up:</B> <A NAME="tex2html5733"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5729"
+  HREF="node300.html">RMI Arguments</A>
+ &nbsp; <B>  <A NAME="tex2html5735"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5737"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04125000000000000000"></A><A NAME="ss:RMIobjargs"></A><A NAME="17613"></A>
+<BR>
+Casting Remote Objects
+</H2>
+
+<P>
+Babel RMI casting works the same as normal Babel casting, the user
+calls casts an object to a new type, and gets a new reference back of
+the object of the new type.  In normal Babel, the new reference
+points to the same IOR object as the old reference.  This is because
+all Babel objects are internally represented as the type they were
+created as, so
+casting is simply a matter of checking if the internal Babel type
+extends the target type or not.
+
+<P>
+Babel RMI objects are more complex, a cast may result in a new stub.
+If <TT>_connect()</TT> is called on a remote object, the object can be
+connected as a super type of its actual type, such as an interface.
+If this object is later cast to a more derived type, a new local
+object stub must be created.  These two stubs must be
+deleteRef'd individually.
+
+<P>
+Here is an example where foo_Quux extends foo_Bar.   The first is what the user
+should do, the second is an error. 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar fb = foo_Bar__connect("simhandle://pc1:9999/quux1234", &amp;_ex);
+foo_Quux fz = foo_Quux__cast(fb);
+foo_Bar_deleteRef(fb);
+foo_Quux_deleteRef(fz); //object is destroyed
+</PRE></td></tr></table></blockquote>
+<P>
+Do not do this:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar fb = foo_Bar__connect("simhandle://pc1:9999/quux1234", &amp;_ex);
+foo_Quux fz = foo_Quux__cast(fb);
+foo_Bar_deleteRef(fb);
+foo_Quux_deleteRef(fb); //ERROR!!!
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5738"
+  HREF="node302.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5732"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5728"
+  HREF="node300.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5734"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5736"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5739"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Up:</B> <A NAME="tex2html5733"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5729"
+  HREF="node300.html">RMI Arguments</A>
+ &nbsp; <B>  <A NAME="tex2html5735"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5737"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

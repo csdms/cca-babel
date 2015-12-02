@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: borrow</TITLE>
+<META NAME="description" CONTENT="Function: borrow">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node79.html">
+<LINK REL="previous" HREF="node77.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node79.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2111"
+  HREF="node79.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2105"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2099"
+  HREF="node77.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2107"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2109"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2112"
+  HREF="node79.html">Function: smartCopy</A>
+<B> Up:</B> <A NAME="tex2html2106"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2100"
+  HREF="node77.html">Function: slice</A>
+ &nbsp; <B>  <A NAME="tex2html2108"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2110"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION02448700000000000000"></A><A NAME="3619"></A>
+<BR>
+Function: borrow
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+struct sidl_double__array*
+sidl_double__array_borrow(double*       firstElement,
+                          int32_t       dimen,
+                          const int32_t lower[],
+                          const int32_t upper[],
+                          const int32_t stride[]);
+//
+// C++
+void
+sidl::array&lt;double&gt;::borrow(double*       firstElement,
+                            int32_t       dimen,
+                            const int32_t lower[],
+                            const int32_t upper[],
+                            const int32_t stride[]);
+C
+C FORTRAN 77
+       subroutine sidl_double__array_borrow_f(firstElement, dimen, lower,
+     $      upper, stride, result)
+       real*8 firstElement()
+       integer*4 dimen, lower(dimen), upper(dimen), stride(dimen)
+       integer*8 result
+!
+! FORTRAN 90
+subroutine borrow(firstElement, dimen, lower, upper, stride, &amp;
+                                    result)
+  real (selected_real_kind(17,308)), intent(in) :: firstElement
+  integer (selected_int_kind(9)), intent(in) :: dimen
+  integer (selected_int_kind(9)), dimension(:), intent(in) :: lower, upper,&amp;
+                                              stride
+  type(sidl_double_1d), intent(out) :: result ! type depends on array dimension
+</PRE></td></tr></table></blockquote>
+<P>
+This method creates a proxy SIDL multi-dimensional array using data
+provided by a third party. In some cases, this routine can be used to
+avoid making a copy of the array data. <TT>dimen</TT>, <TT>lower</TT>, and
+<TT>upper</TT> have the same meaning and constraints as in
+<TT>SIDL_double__array_createCol</TT>.  The <TT>firstElement</TT> argument
+should be a pointer to the first element of the array; in this
+context, the first element is the one whose index is <TT>lower</TT>.
+
+<P>
+<TT>stride[i]</TT> specifies the signed offset from one element in
+dimension <TT>i</TT> to the next element in dimension <TT>i</TT>.  For a
+one dimensional array, the first element has the address
+<TT>firstElement</TT>, the second element has the address
+<TT>firstElement + stride[0]</TT>, the third element has the address
+<TT>firstElement + 2 * stride[0]</TT>, etc.  The algorithm for
+determining the address of the element in a multi-dimensional
+array whose index is in array <TT>ind[]</TT> is as follows:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int32_t* addr = firstElement;
+for(int i = 0; i &lt; dimen; ++i) {
+  addr += (ind[i] - lower[i])*stride[i];
+}
+/* now addr is the address of element ind */
+</PRE></td></tr></table></blockquote>
+<P>
+Note elements of stride need not be positive.
+
+<P>
+The function makes copies of the information provided by <TT>dimen</TT>, 
+<TT>lower</TT>, <TT>upper</TT>, and <TT>stride</TT>. 
+The type of <TT>firstElement</TT> is changed depending on the array value type
+(see Table&nbsp;<A HREF="node71.html#tbl:basics:arraytypes">5.2</A>).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2111"
+  HREF="node79.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2105"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2099"
+  HREF="node77.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2107"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2109"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2112"
+  HREF="node79.html">Function: smartCopy</A>
+<B> Up:</B> <A NAME="tex2html2106"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2100"
+  HREF="node77.html">Function: slice</A>
+ &nbsp; <B>  <A NAME="tex2html2108"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2110"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

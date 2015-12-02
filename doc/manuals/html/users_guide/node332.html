@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in C</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in C">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node333.html">
+<LINK REL="previous" HREF="node331.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node333.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6194"
+  HREF="node333.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6188"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6182"
+  HREF="node331.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6190"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6192"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6195"
+  HREF="node333.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6189"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6183"
+  HREF="node331.html">Example</A>
+ &nbsp; <B>  <A NAME="tex2html6191"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6193"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04340000000000000000"></A><A NAME="s:c"></A>
+<BR>
+The Backdoor Initializer in C
+</H1>
+
+<P>
+<A NAME="19533"></A><A NAME="19534"></A>
+In C, the Backdoor Initializer is used through a new <TT>_create</TT>
+like static method, <TT>_wrapObj</TT>.  <TT>_wrapObj</TT> takes a
+pointer to the private data to be wrapped (a simple struct defined in
+<TT>wrapper_Data__Impl.h</TT>).
+
+<P>
+from wrapper_Data_Impl.h:
+<BR>
+<PRE  CLASS="verbatim">struct wrapper_Data__data {
+  /* DO-NOT-DELETE splicer.begin(wrapper.Data._data) */
+  char* d_ctortest;
+  char* d_string;
+  int d_int;
+  /* DO-NOT-DELETE splicer.end(wrapper.Data._data) */
+};
+</PRE></td></tr></table></blockquote>    
+
+<P>
+From wrapper_Data_Impl.c; notice the new constructor <TT>ctor2</TT><A NAME="19541"></A>,
+which is only called with backdoor initialization.
+<BR>
+<PRE  CLASS="verbatim">void impl_wrapper_Data__ctor2(
+  /* in */ wrapper_Data self,
+  /* in */ void* private_data,
+  /* out */ sidl_BaseInterface *_ex) {
+  /* DO-NOT-DELETE splicer.begin(wrapper.Data._ctor2) */
+  struct wrapper_Data__data *dptr = (struct wrapper_Data__data *) private_data;
+  dptr-&gt;d_ctorTest = "ctor was run";
+  /* DO-NOT-DELETE splicer.end(wrapper.Data._ctor2) */
+}
+
+void impl_wrapper_Data_setString(
+  /* in */ wrapper_Data self,
+  /* in */ const char* s,
+  /* out */ sidl_BaseInterface *_ex) {
+  *_ex = 0;
+  /* DO-NOT-DELETE splicer.begin(wrapper.Data.setString) */
+  struct wrapper_Data__data *dptr = 
+    wrapper_Data__get_data(self);
+  if (dptr) {
+    dptr-&gt;d_string = "Hello World!";
+  }
+  /* DO-NOT-DELETE splicer.end(wrapper.Data.setString) */
+}
+
+void impl_wrapper_Data_setInt(
+  /* in */ wrapper_Data self,
+  /* in */ int32_t i,
+  /* out */ sidl_BaseInterface *_ex) {
+  /* DO-NOT-DELETE splicer.begin(wrapper.Data.setInt) */
+  struct wrapper_Data__data *dptr = 
+    wrapper_Data__get_data(self);
+  if (dptr) {
+    dptr-&gt;d_int = 3;
+  }
+  /* DO-NOT-DELETE splicer.end(wrapper.Data.setInt) */
+}
+</PRE></td></tr></table></blockquote>    
+
+<P>
+from the client program wraptest.c:  (Note that we must include wrapper_Data_Impl.h)
+<BR>
+<PRE  CLASS="verbatim">#include "wrapper_User.h"
+#include "wrapper_Data.h"
+#include "wrapper_Data_Impl.h"
+int main(int argc, char** argv) { 
+
+  sidl_BaseInterface exception = NULL;
+  wrapper_Data data = NULL;
+  wrapper_User user = NULL;
+  struct wrapper_Data__data *d_data = NULL;
+  struct wrapper_Data__data *dptr = NULL;
+
+  /*Create the data*/
+  dptr = malloc(sizeof(struct wrapper_Data__data));
+  /*Wrap the data*/
+  data = wrapper_Data__wrapObj(dptr, &amp;exception);
+  user = wrapper_User__create(&amp;exception);
+
+  ASSERT( strcmp(d_data-&gt;d_ctortest, "ctor was run") == 0);
+
+  /* Test the data setting*/
+  wrapper_User_accept(user, data, &amp;exception);
+
+  ASSERT( strcmp(d_data-&gt;d_string, "Hello World!") == 0);
+  ASSERT( d_data-&gt;d_int == 3);
+
+  return 0;
+}
+</PRE></td></tr></table></blockquote>    
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

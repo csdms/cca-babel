@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Writing the Fortran&nbsp;90 Implementation</TITLE>
+<META NAME="description" CONTENT="Writing the Fortran&nbsp;90 Implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node46.html">
+<LINK REL="previous" HREF="node44.html">
+<LINK REL="up" HREF="node43.html">
+<LINK REL="next" HREF="node46.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1508"
+  HREF="node46.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1502"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1496"
+  HREF="node44.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1504"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1506"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1509"
+  HREF="node46.html">Writing the C Client</A>
+<B> Up:</B> <A NAME="tex2html1503"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Previous:</B> <A NAME="tex2html1497"
+  HREF="node44.html">Writing the C++ Implementation</A>
+ &nbsp; <B>  <A NAME="tex2html1505"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1507"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02322000000000000000"></A><A NAME="1882"></A>
+<BR>
+Writing the Fortran&nbsp;90 Implementation
+</H2>
+
+<P>
+Before writing the client, let's generate a Fortran implementation as well.
+It is highly instructive to see how the makefiles differ between 
+the different language bindings.  From within the <TT>minimal/libCxx</TT>
+directory we do.
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>cd ../libF90</B></TT>
+<BR><TT>%</TT> <TT><B>babel -makefile -sF90 ../../hello.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+This time there's even more files generated (Fortran 90 bindings are harder
+after all), and we need to add our implementation to the <TT>Hello_World_Impl.F90</TT> file.
+The modified code will look like this.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 !
+   2 ! Method:  getMsg[]
+   3 !
+   4 
+   5 recursive subroutine Hello_World_getMsg_mi(self, retval, exception)
+   6   use sidl
+   7   use sidl_BaseInterface
+   8   use sidl_RuntimeException
+   9   use Hello_World
+  10   use Hello_World_impl
+  11   ! DO-NOT-DELETE splicer.begin(Hello.World.getMsg.use)
+  12   ! Insert-Code-Here {Hello.World.getMsg.use} (use statements)
+  13   ! DO-NOT-DELETE splicer.end(Hello.World.getMsg.use)
+  14   implicit none
+  15   type(Hello_World_t) :: self ! in
+  16   character (len=*) :: retval ! out
+  17   type(sidl_BaseInterface_t) :: exception ! out
+  18  
+  19 ! DO-NOT-DELETE splicer.begin(Hello.World.getMsg)
+  20 retval='Hello from Fortran 90!'
+  21 ! DO-NOT-DELETE splicer.end(Hello.World.getMsg)
+  22 end subroutine Hello_World_getMsg_mi
+  23  
+</PRE></td></tr></table></blockquote>
+<P>
+Note that the C function appears as a subroutine in Fortran.  
+What was the return value appears here as the argument <TT>retval</TT> (line 5).  
+For Fortran&nbsp;90 there are also two splicer blocks per subroutine, 
+one for use statements (lines 11-13) and another for the actual
+implementation (lines 19-21).  This is where we put our implementation
+by setting <TT>retval</TT> to the string we want.
+
+<P>
+There are important differences in this Makefile from the C++ 
+implementation, so we reproduce it in its entirety here.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 include babel.make
+   2 # please name the server library here
+   3 LIBNAME=hello
+   4 # please name the SIDL file here
+   5 SIDLFILE=../../hello.sidl
+   6 # extra include/compile flags 
+   7 EXTRAFLAGS=
+   8 # extra librarys that the implementation needs to link against
+   9 EXTRALIBS=
+  10 # library version number
+  11 VERSION=0.1.1
+  12 # PREFIX specifies the top of the installation directory
+  13 PREFIX=/usr/local
+  14 # the default installation installs the .la and .scl (if any) into the
+  15 # LIBDIR
+  16 LIBDIR=$(PREFIX)/lib
+  17 # the default installation installs the stub header and IOR header files
+  18 # in INCLDIR
+  19 INCLDIR=$(PREFIX)/include
+  20 
+  21 # most of the rest of the file should not require editing
+  22 
+  23 ifeq ($(IMPLSRCS),)
+  24   SCLFILE=
+  25   BABELFLAG=--client=f90
+  26   MODFLAG=
+  27 else
+  28   SCLFILE=lib$(LIBNAME).scl
+  29   BABELFLAG=--server=f90
+  30   MODFLAG=-module
+  31 endif
+  32 
+  33 all : lib$(LIBNAME).la $(SCLFILE)
+  34 
+  35 CC=`babel-config --query-var=CC`
+  36 CPP=`babel-config --query-var=CPP`
+  37 FC=`babel-config --query-var=FC`
+  38 INCLUDES=`babel-config --includes` `babel-config --includes-f90`
+  39 CFLAGS=`babel-config --flags-c`
+  40 FCFLAGS=`babel-config --flags-f90`
+  41 MODINCLUDES=`babel-config --includes-f90-mod`
+  42 LIBS=`babel-config --libs-f90-client`
+  43 F90CPPSUFFIX=`babel-config --query-var=F90CPPSUFFIX`
+  44 
+  45 STUBOBJS=$(STUBSRCS:.c=.lo)
+  46 STUBMODULEOBJS=$(STUBMODULESRCS:.F90=.lo)
+  47 TYPEMODULEOBJS=$(TYPEMODULESRCS:.F90=.lo)
+  48 IOROBJS=$(IORSRCS:.c=.lo)
+  49 SKELOBJS=$(SKELSRCS:.c=.lo)
+  50 IMPLOBJS=$(IMPLSRCS:.F90=.lo)
+  51 IMPLMODULEOBJS=$(IMPLMODULESRCS:.F90=.lo)
+  52 BASICMODULEOBJ=$(BASICMODULESRC:.F90=.lo)
+  53 ARRAYMODULEOBJS=$(ARRAYMODULESRCS:.F90=.lo)
+  54 ALLOBJS=$(STUBOBJS) $(STUBMODULEOBJS) $(TYPEMODULEOBJS) $(IOROBJS) \
+  55 	$(SKELOBJS) $(IMPLOBJS) $(IMPLMODULEOBJS) $(BASICMODULEOBJ) \
+  56 	$(ARRAYMODULEOBJS)
+  57 
+  58 PUREBABELGEN=$(ARRAYMODULESRCS) $(BASICMODULESRC) $(STUBMODULESRCS) \
+  59 	$(TYPEMODULESRCS) \
+  60 	$(IORHDRS) $(IORSRCS) $(STUBSRCS) $(STUBHDRS) $(SKELSRCS)
+  61 BABELGEN=$(IMPLSRCS) $(IMPLMODULESRCS)
+  62 
+  63 $(TYPEMODULEOBJS)  : $(BASICMODULEOBJ)
+  64 $(ARRAYMODULEOBJS)  : $(TYPEMODULEOBJS)
+  65 $(STUBMODULEOBJS) : $(ARRAYMODULEOBJS) $(TYPEMODULEOBJS)
+  66 $(IMPLMODULEOBJS) : $(STUBMODULEOBJS)
+  67 $(IMPLOBJS) : $(IMPLMODULEOBJS) $(STUBMODULEOBJS) \
+  68 
+  69 lib$(LIBNAME).la : $(ALLOBJS)
+  70 	babel-libtool --mode=link --tag=FC $(FC) -o lib$(LIBNAME).la \
+  71 	  -rpath $(LIBDIR) -release $(VERSION) \
+  72 	  -no-undefined $(MODFLAG) \
+  73 	  $(FCFLAGS) $(EXTRAFLAGS) $^ $(LIBS) \
+  74 	  $(EXTRALIBS)
+  75 
+  76 $(PUREBABELGEN) $(BABELGEN) : babel-stamp
+  77 	@if test -f $@; then \
+  78 	    touch $@; \
+  79 	else \
+  80 	    rm -f babel-stamp ; \
+  81 	    $(MAKE) babel-stamp; \
+  82 	fi
+  83 
+  84 babel-stamp: $(SIDLFILE)
+  85 	@rm -f babel-temp
+  86 	@touch babel-temp
+  87 	babel $(BABELFLAG) $(SIDLFILE) 
+  88 	@mv -f babel-temp $@
+  89 
+  90 lib$(LIBNAME).scl : $(IORSRCS)
+  91 ifeq ($(IORSRCS),)
+  92 	echo "lib$(LIBNAME).scl is not needed for client-side C bindings."
+  93 else
+  94 	-rm -f $@
+  95 	echo '&lt;?xml version="1.0" ?&gt;' &gt; $@
+  96 	echo '&lt;scl&gt;' &gt;&gt; $@	
+  97 	if test `uname` = "Darwin"; then scope="global"; else scope="local"; \
+  98 	   fi ; \
+  99           echo ' &lt;library uri="'`pwd`/lib$(LIBNAME).la'" scope="'"$$scope"'" resolution="lazy" &gt;' &gt;&gt; $@
+ 100 	grep __set_epv $^ /dev/null | awk 'BEGIN {FS=":"} { print $$1}' | sort -u | sed -e 's/_IOR.c//g' -e 's/_/./g' | awk ' { printf "    &lt;class name=\"%s\" desc=\"ior/impl\" /&gt;\n", $$1 }' &gt;&gt;$@
+ 101 	echo "  &lt;/library&gt;" &gt;&gt;$@
+ 102 	echo "&lt;/scl&gt;" &gt;&gt;$@
+ 103 endif
+ 104 
+ 105 .SUFFIXES: .lo .F90 .c
+ 106 
+ 107 .c.lo:
+ 108 	babel-libtool --mode=compile --tag=CC $(CC) $(INCLUDES) $(CFLAGS) $(EXTRAFLAGS) -c -o $@ $&lt;
+ 109 
+ 110 .F90.lo:
+ 111 	$(CPP) -traditional $(INCLUDES) -P -o $(@:.lo=.tmp) -x c $&lt;
+ 112 	sed -e 's/^#pragma.*$$//' &lt; $(@:.lo=.tmp) &gt; $(@:.lo=$(F90CPPSUFFIX))
+ 113 	babel-libtool --mode=compile --tag=FC $(FC) $(MODINCLUDES) $(FCFLAGS) -c -o $@ $(@:.lo=$(F90CPPSUFFIX))
+ 114 	rm -f $(@:.lo=$(F90CPPSUFFIX)) $(@:.lo=.tmp)
+ 115 
+ 116 clean : 
+ 117 	-rm -f $(PUREBABELGEN) babel-temp babel-stamp *.o *.lo *.mod
+ 118 
+ 119 realclean : clean
+ 120 	-rm -f lib$(LIBNAME).la lib$(LIBNAME).scl
+ 121 	-rm -rf .libs
+ 122 
+ 123 install : install-libs install-headers install-scl
+ 124 
+ 125 
+ 126 install-libs : lib$(LIBNAME).la
+ 127 	-mkdir -p $(LIBDIR)
+ 128 	babel-libtool --mode=install install -c lib$(LIBNAME).la \
+ 129 	  $(LIBDIR)/lib$(LIBNAME).la
+ 130 
+ 131 install-scl : $(SCLFILE)
+ 132 ifneq ($(IORSRCS),)
+ 133 	-mkdir -p $(LIBDIR)
+ 134 	-rm -f $(LIBDIR)/lib$(LIBNAME).scl
+ 135 	echo '&lt;?xml version="1.0" ?&gt;' &gt; $(LIBDIR)/lib$(LIBNAME).scl
+ 136 	echo '&lt;scl&gt;' &gt;&gt; $(LIBDIR)/lib$(LIBNAME).scl	
+ 137 	if test `uname` = "Darwin"; then scope="global"; else scope="local"; \
+ 138 	   fi ; \
+ 139           echo ' &lt;library uri="'$(LIBDIR)/lib$(LIBNAME).la'" scope="'"$$scope"'" resolution="lazy" &gt;' &gt;&gt; $(LIBDIR)/lib$(LIBNAME).scl
+ 140 	grep __set_epv $^ /dev/null | awk 'BEGIN {FS=":"} { print $$1}' | sort -u | sed -e 's/_IOR.c//g' -e 's/_/./g' | awk ' { printf "    &lt;class name=\"%s\" desc=\"ior/impl\" /&gt;\n", $$1 }' &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 141 	echo "  &lt;/library&gt;" &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 142 	echo "&lt;/scl&gt;" &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 143 endif
+ 144 
+ 145 install-headers : $(IORHDRS) $(STUBHDRS) $(STUBDOCS)
+ 146 	-mkdir -p $(INCLDIR)
+ 147 	for i in $^ ; do \
+ 148 	  babel-libtool --mode=install cp $$i $(INCLDIR)/$$i ; \
+ 149 	done
+ 150 
+ 151 .PHONY: all clean realclean install install-libs install-headers install-scl
+</PRE></td></tr></table></blockquote>
+<P><DL>
+<DT><STRONG>line 1:</STRONG></DT>
+<DD>Again Babel will generate a <TT>babel.make</TT> file, but we 
+  will see that its contents are different.
+</DD>
+<DT><STRONG>line 3:</STRONG></DT>
+<DD>The name of the library will be <TT>libhello.la</TT>
+  again. <EM>This is the only line that I had to edit in the
+  babel-generated GNUmakefile.</EM>
+</DD>
+<DT><STRONG>lines 7-19:</STRONG></DT>
+<DD>These variables have the same meanings as above.
+<TT>EXTRAFLAGS</TT> are extra compile flags, and <TT>EXTRALIBS</TT>
+defines extra libraries to list when linkings. <TT>PREFIX</TT> defines
+where the library should be installed.
+</DD>
+<DT><STRONG>lines 35-43:</STRONG></DT>
+<DD>Note that we use <TT>babel-config</TT> to generate
+  the proper flag for the preprocessor to find the Babel Fortran headers, 
+  and the compiler to find the Babel MOD files.
+</DD>
+<DT><STRONG>lines 45-56:</STRONG></DT>
+<DD>Are building a <TT>$(OBJS)</TT> variable like before, 
+  but this time we see suffix substitutions for more kinds of files.
+</DD>
+<DT><STRONG>lines 63-67:</STRONG></DT>
+<DD>The order that files are compiled is important
+  because Fortran 90's use of MOD files<A NAME="tex2html27"
+  HREF="footnode.html#foot1903"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> makes the ordering of these items
+  very important.  
+  (Not Babel's fault, blame the Fortran 90 language designers.)
+  C/C++ has no such constraint on the order that 
+  individual units of compilation are performed.  
+  As long as Fortran&nbsp;90 programmers stick with the ordering shown
+  in these lines, they should not encounter compiler complaints about 
+  dependent MOD files not found.
+</DD>
+<DT><STRONG>lines 110-114:</STRONG></DT>
+<DD>This bit of code admittedly looks very strange, 
+  but the explanation is simple.  
+  We preprocess our Fortran&nbsp;90 source to workaround the 31 character
+  limit specified in the language.
+  Check out Chapter&nbsp;<A HREF="node192.html#c:f90">9</A> for more details about this issue.
+</DD>
+</DL>
+
+<P>
+Again, we simply type make, and should end up with another <TT>libhello.la</TT>
+file.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1508"
+  HREF="node46.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1502"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1496"
+  HREF="node44.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1504"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1506"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1509"
+  HREF="node46.html">Writing the C Client</A>
+<B> Up:</B> <A NAME="tex2html1503"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Previous:</B> <A NAME="tex2html1497"
+  HREF="node44.html">Writing the C++ Implementation</A>
+ &nbsp; <B>  <A NAME="tex2html1505"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1507"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

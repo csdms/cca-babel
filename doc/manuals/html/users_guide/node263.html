@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object management</TITLE>
+<META NAME="description" CONTENT="Object management">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node264.html">
+<LINK REL="previous" HREF="node261.html">
+<LINK REL="up" HREF="node258.html">
+<LINK REL="next" HREF="node264.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5109"
+  HREF="node264.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5103"
+  HREF="node258.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5097"
+  HREF="node262.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5105"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5107"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5110"
+  HREF="node264.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html5104"
+  HREF="node258.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html5098"
+  HREF="node262.html">Common problems</A>
+ &nbsp; <B>  <A NAME="tex2html5106"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5108"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03634000000000000000"></A><A NAME="ss:python:objectmanagement"></A><A NAME="15811"></A>
+<A NAME="15812"></A>
+<A NAME="15813"></A><A NAME="15814"></A>
+<BR>
+Object management
+</H2>
+
+<P>
+Once the Python extension module is built and imported, an instance 
+can be created.  
+For example, given the <TT>Args.Cdouble</TT> example in 
+Subsection&nbsp;<A HREF="node249.html#ss:python:signatures">11.2.2</A> with the method <TT>passeverywhere</TT>,
+the process for instantiating the class and printing its calling signature
+is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15819"></A>
+<A NAME="15820"></A><A NAME="15821"></A>
+<A NAME="15822"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">$ python
+&gt;&gt;&gt; import Args.Cdouble
+&gt;&gt;&gt; obj = Args.Cdouble.Cdouble()
+&gt;&gt;&gt; print obj.passeverywhere.__doc__
+passeverywhere(in double d1,
+               inout double d3)
+RETURNS
+   (double _return,
+    out double d2,
+    inout double d3)
+</PRE></td></tr></table></blockquote>
+<P>
+In this case the last part of the class name is repeated when assigning
+the instance to <TT>obj</TT>.
+Any SIDL document comments (i.e. comments enclosed in <TT>/** */</TT>) will
+appear below the signature documentation.
+
+<P>
+In some cases, the Python extension module may be named
+<TT>Cdoublemodule.so</TT> instead of simply <TT>Cdouble.so</TT>.  
+This might result in the temptation to <TT><B>import Args.Cdoublemodule</B></TT>
+instead of <TT><B>import Args.Cdouble</B></TT>; <SPAN  CLASS="textit">resist!</SPAN>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

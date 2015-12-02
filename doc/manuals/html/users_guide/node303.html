@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Adding Protocols</TITLE>
+<META NAME="description" CONTENT="Adding Protocols">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node304.html">
+<LINK REL="previous" HREF="node302.html">
+<LINK REL="up" HREF="node302.html">
+<LINK REL="next" HREF="node304.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5769"
+  HREF="node304.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5763"
+  HREF="node302.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5757"
+  HREF="node302.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5765"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5767"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5770"
+  HREF="node304.html">Built-in Functions</A>
+<B> Up:</B> <A NAME="tex2html5764"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Previous:</B> <A NAME="tex2html5758"
+  HREF="node302.html">Babel RMI Usage</A>
+ &nbsp; <B>  <A NAME="tex2html5766"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5768"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04131000000000000000"></A><A NAME="ss:RMIaddprotocols"></A><A NAME="17621"></A> <A NAME="17622"></A>
+<BR>
+Adding Protocols
+</H2>
+
+<P>
+In a normal Babel RMI client program, the first thing that needs to be
+done is adding any protocols that the user plans to use to the
+ProtocolFactory.  The ProtocolFactory is a mapping from protocol
+prefix that normally proceeds a URL, and the protocol's actual
+implementation. The only method the user ever needs to access is <TT>addProtocol</TT>. 
+
+<P>
+<TT><I CLASS="slanted">static bool addProtocol( in string prefix, in string typeName );</I></TT>
+
+<P>
+<TT>addProtocol</TT> takes the protocol prefix and the fully qualified SIDL
+protocol typename. It returns <TT>TRUE</TT> on success.  For example, normally the
+shortname for the ``Simple Protocol'' protocol is ``simhandle.''  So
+we would call the ProtocolFactory like this:
+
+<P>
+<TT>sidl_rmi__addProtocol(``simhandle'',''sidl.rmi.SimHandle'');</TT>
+
+<P>
+Now Babel RMI knows what to call when it encounters a URL prefixed by ``simhandle://''.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Opaque</TITLE>
+<META NAME="description" CONTENT="Opaque">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node61.html">
+<LINK REL="previous" HREF="node59.html">
+<LINK REL="up" HREF="node57.html">
+<LINK REL="next" HREF="node61.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1787"
+  HREF="node61.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1781"
+  HREF="node57.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1775"
+  HREF="node59.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1783"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1785"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1788"
+  HREF="node61.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html1782"
+  HREF="node57.html">Fundamental Types</A>
+<B> Previous:</B> <A NAME="tex2html1776"
+  HREF="node59.html">Strings</A>
+ &nbsp; <B>  <A NAME="tex2html1784"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1786"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02433000000000000000"></A><A NAME="ssec:basics:fundamental:opaque"></A><A NAME="2839"></A><A NAME="2840"></A>
+<BR>
+Opaque
+</H2>
+
+<P>
+The <TT><I CLASS="slanted">opaque</I></TT> type is dangerous and rarely useful.  However, 
+there are particular times when an opaque type is the only
+way to solve a problem; for example, it is one of the few portable
+ways to implement an object with state in FORTRAN 77 (see
+Section&nbsp;<A HREF="#sec:F77:state"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>).  When a SIDL file uses an 
+<TT><I CLASS="slanted">opaque</I></TT> type, Babel guarantees only bits will be
+relayed exactly between caller and callee.  If there is a need
+to pass more information than an opaque provides, than the
+developer can simply pass a pointer to that information.
+
+<P>
+Use of a <TT><I CLASS="slanted">opaque</I></TT> carries a heavy penalty.  
+When Babel matures enough to support distributed computing, 
+any method calls with <TT><I CLASS="slanted">opaque</I></TT> in the argument list
+(or return type) will be restricted to in-process calls only.
+<BR>
+<IMG
+ WIDTH="477" HEIGHT="31" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.png"
+ ALT="\begin{rationale}
+Since {\ttfamily\slshape {opaque}\/} is typically used for a p...
+...equence of bits has no meaning outside of its own
+process space.
+\end{rationale}">
+<BR>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

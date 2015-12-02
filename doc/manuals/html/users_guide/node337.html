@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in Python</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in Python">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node336.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node338.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6262"
+  HREF="node338.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6256"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6252"
+  HREF="node336.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6258"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6260"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6263"
+  HREF="node338.html">Interface Contracts</A>
+<B> Up:</B> <A NAME="tex2html6257"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6253"
+  HREF="node336.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6259"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6261"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04390000000000000000"></A><A NAME="s:Java"></A><A NAME="19578"></A>
+<BR>
+The Backdoor Initializer in Python
+</H1>
+
+<P>
+In Object Oriented languages there is no <TT>_wrapObj</TT> method
+exposed to the user.  Instead, the same functionality is achieved
+simply by calling ``new'' on the Impl class.  
+
+<P>
+However, writing the Python backdoor constructor is a little trickier
+than Java or C++.  This is because there is no overloading in Python,
+so multiple constructors were a problem.  Instead, the class
+implementor needs to determine if the object is being constructed
+directly by the user, or through the normal Babel process.  This can
+be achieved with an if statement.  If the argument <TT>IORself ==
+None</TT>, then the user has called the backdoor constructor, if
+<TT>IORself != None</TT>, it is a normal Babel construction.
+
+<P>
+Here is an excerpt from the class definition for wrapper.Data_Impl.Data:
+<BR>
+<PRE  CLASS="verbatim">class Data:
+  def __init__(self, IORself = None):
+    if (IORself == None):
+      self.__IORself = wrapper.Data.Data(impl = self)
+    else:
+      self.__IORself = IORself
+    # DO-NOT-DELETE splicer.begin(__init__)
+    if(IORself == None):
+      self.d_string = "placeholder value"
+      self.d_ctortest = "ctor was run"
+      self.d_int = 0
+    # DO-NOT-DELETE splicer.end(__init__)
+
+  def setString(self, s):
+    # DO-NOT-DELETE splicer.begin(setString)
+    self.d_string = s
+    # DO-NOT-DELETE splicer.end(setString)
+
+  def setInt(self, i):
+    # DO-NOT-DELETE splicer.begin(setInt)
+    self.d_int = i
+    # DO-NOT-DELETE splicer.end(setInt)
+</PRE></td></tr></table></blockquote> 
+
+<P>
+Here is the client code from WrapTest.java:  
+<BR>
+<PRE  CLASS="verbatim">import wrapper.User
+import wrapper.Data
+import wrapper.Data_Impl
+
+if __name__ == '__main__':
+  user = wrapper.User.User()
+  data = wrapper.Data_Impl.Data()
+
+  print data.d_ctortest
+  user.accept(data._getStub())
+  print data.d_string + " " + d_int
+0
+</PRE></td></tr></table></blockquote>
+<P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

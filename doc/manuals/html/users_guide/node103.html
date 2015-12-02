@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: first</TITLE>
+<META NAME="description" CONTENT="Function: first">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node102.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node104.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2459"
+  HREF="node104.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2453"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2449"
+  HREF="node102.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2455"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2457"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2460"
+  HREF="node104.html">The C Macro API</A>
+<B> Up:</B> <A NAME="tex2html2454"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2450"
+  HREF="node102.html">Function: ensure</A>
+ &nbsp; <B>  <A NAME="tex2html2456"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2458"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024483200000000000000"></A><A NAME="3800"></A>
+<BR>
+Function: first
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+double *
+sidl_double__array_first(const struct sidl_double__array *src);
+
+// C++
+double* first() throw();
+
+C FORTRAN 77
+      subroutine sidl_double__array_access_f(array, ref, lower, upper,
+     $   stride, index)
+      integer*8 array, index
+      integer*4 lower(), upper(), stride()
+      integer*4 ref()
+</PRE></td></tr></table></blockquote>
+<P>
+This method provides direct access to the element data.  Using this
+pointer and the stride information, you can perform your own array
+accesses without function calls.  This method isn't available for
+arrays of strings, interface and objects because of memory/reference
+management issues.  There is no equivalent of this
+function in Java or Python.  To see how to get direct array access in
+Fortran 90, see Chapter&nbsp;<A HREF="node192.html#c:f90">9</A>.<A NAME="3803"></A><A NAME="3804"></A>
+
+<P>
+The Fortran versions of the method return the lower, upper and
+stride information in three arrays, each with enough elements to hold
+an entry for each dimension of <TT>array</TT>.  Because FORTRAN 77 does
+not have pointers, you must pass in a reference array, <TT>array</TT>.
+Upon exit, <TT>ref(index)</TT> is the first element of the array.  The
+type of <TT>ref</TT> depends on the type of the array.
+
+<P>
+ <BLOCKQUOTE>
+WARNING:<A NAME="3810"></A><A NAME="3811"></A>
+While calling the Fortran direct access routines, there is a
+possibility of an alignment error between your reference pointer,
+<TT>ref</TT>, and the pointer to the first element of the array data.
+The problem is more likely with arrays of <TT>double</TT> or
+<TT>dcomplex</TT>; although, it could occur with any type on some future
+platform.  If <TT>index</TT> is zero on return, an alignment error
+occurred.  If an alignment error occurs, you may be able to solve it
+by recompiling your Fortran files with flags to force doubles to be
+aligned on 8 byte boundaries.  For example, the <TT>-malign-double</TT>
+flag for g77 forces doubles to be aligned on 64-bit boundaries.  An
+alignment error occurs when <TT>(char *)ref</TT> minus <TT>(char
+*)sidl_double__array_first(array)</TT> is not integer divisible by
+<TT>sizeof(datatype)</TT> where <TT>ref</TT> refers to the address of the
+reference array.
+</BLOCKQUOTE>
+<BR><P>
+Here is an example FORTRAN 77 subroutine to output each element of
+a <A NAME="3822"></A> 
+1-dimensional array of doubles using the direct access
+routine. Fortran 90 has a pointer in the array derived type when
+direct access is possible.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">C This subroutine will print each element of an array of doubles
+      subroutine print_array(dblarray)
+      implicit none
+      integer*8 dblarray, index
+      real*8 refarray(1)
+      integer*4 lower(1), upper(1), stride(1), dimen, i
+      if (dblarray .ne. 0) then
+         call sidl_double__array_dimen_f(dblarray, dimen)
+         if (dimen .eq. 1) then
+            call sidl_double__array_access_f(dblarray, refarray,
+     $           lower, upper, stride, index)
+            if (index .ne. 0) then
+               do i = lower(1), upper(1)
+                  write(*,*) refarray(index + (i-lower(1))*stride(1))
+               enddo
+            else
+               write(*,*) 'Alignment error occured'
+            endif
+         endif
+      endif
+      end
+</PRE></td></tr></table></blockquote>
+<P>
+For a 2-dimensional array, the loop and array access is
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">      do i = lower(1), upper(1)
+         do j = lower(2), upper(2)
+            write(*,*) refarray(index+(i-lower(1))*stride(1)+
+     $           (j - lower(2))*stride(2))
+         enddo
+      enddo
+</PRE></td></tr></table></blockquote>
+<P>
+Suppose you are wrapping a legacy Fortran application and you need to
+pass a SIDL array to a Fortran subroutine.  Further suppose there is
+a FORTRAN 77 and Fortran 90 version of the subroutine.  For example,
+the FORTRAN 77 subroutine has a signature such as:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">      subroutine TriedAndTrue(x, n)
+      integer n
+      real*8 x(n)
+C insert wonderful, efficient, debugged code here
+      end
+</PRE></td></tr></table></blockquote>
+<P>
+The Fortran 90 subroutine has basically the same signature as follows:
+<A NAME="3826"></A> 
+<BR>
+<PRE  CLASS="verbatim">subroutine TriedAndTrue(x, n)
+  integer (selected_int_kind(9))     :: n
+  real (selected_real_kind(17, 308)) :: x(n)
+
+  ! insert wonderful, efficient, debugged code here
+end subroutine TriedAndTrue
+</PRE></td></tr></table></blockquote>
+<P>
+Here is one way to wrap this method using SIDL.  First of all, the
+SIDL method definition specifies that the array must be a
+1-dimensional, column-major ordered array.  This forces the incoming
+array to be a dense column.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">    static void TriedAndTrue(inout array&lt;double,1,column-major&gt; arg);
+</I></PRE></td></tr></table></blockquote>
+<P>
+Given that method definition in a class named Class and a package
+named Pkg, the implementation of the wrapper should look something
+like the following for FORTRAN 77:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine Pkg_Class_TriedAndTrue_fi(arg)
+        implicit none
+        integer*8 arg
+C       DO-NOT-DELETE splicer.begin(Pkg.Class.TriedAndTrue)
+        real*8 refarray(1)
+        integer*4 lower(1), upper(1), stride(1)
+        integer*8 index
+        integer n
+        call sidl_double__array_access_f(arg, refarray,
+     $       lower, upper, stride, index)
+        if (index .ne. 0) then
+c we can assume stride(1) = 1 because of column-major specification
+           n = 1 + upper(1) - lower(1)
+           call TriedAndTrue(refarray(index), n)
+        else
+           write(*,*) 'ERROR: array alignment'
+        endif
+C       DO-NOT-DELETE splicer.end(Pkg.Class.TriedAndTrue)
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+Similarly, it should look something like the following for Fortran 90, where
+the include statements are required at the top of the Impl file to ensure
+proper handling of subroutine names that have automatically been mangled
+by the Babel compiler:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">#include "Pkg_Class_fAbbrev.h"
+#include "sidl_BaseClass_fAbbrev.h"
+#include "sidl_BaseInterface_fAbbrev.h"
+! DO-NOT-DELETE splicer.begin(_miscellaneous_code_start)
+#include "sidl_double_fAbbrev.h"
+! DO-NOT-DELETE splicer.end(_miscellaneous_code_start)
+.
+.
+.
+subroutine Pkg_Class_TriedAndTrue_mi(arg)
+  ! DO-NOT-DELETE splicer.begin(Pkg.Class.TriedAndTrue.use)
+  use SIDL_double_array
+  ! DO-NOT-DELETE splicer.end(Pkg.Class.TriedAndTrue.use)
+  implicit none
+  type(sidl_double_a) :: arg
+
+! DO-NOT-DELETE splicer.begin(Pkg.Class.TriedAndTrue)
+  real (selected_real_kind(17,308)), dimension(1) :: refarray
+  integer (selected_int_kind(8)), dimension(1)    :: low, up, str
+  integer (selected_int_kind(8))    :: index, n
+  call access(arg, refarray, low, up, str, index)
+  if (index .ne. 0) then
+    ! We can assume stride(1) = 1 because of column-major specification
+    n = 1 + upper(1) - lower(1)
+    call TriedAndTrue(refarray(index), n)
+  else
+    write(*,*) 'ERROR: array alignment'
+  endif
+! DO-NOT-DELETE splicer.end(Pkg.Class.TriedAndTrue)
+end subroutine Pkg_Class_TriedAndTrue_mi
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2459"
+  HREF="node104.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2453"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2449"
+  HREF="node102.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2455"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2457"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2460"
+  HREF="node104.html">The C Macro API</A>
+<B> Up:</B> <A NAME="tex2html2454"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2450"
+  HREF="node102.html">Function: ensure</A>
+ &nbsp; <B>  <A NAME="tex2html2456"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2458"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

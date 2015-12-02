@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Portable Makefiles: using babel-config</TITLE>
+<META NAME="description" CONTENT="Portable Makefiles: using babel-config">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node48.html">
+<LINK REL="previous" HREF="node43.html">
+<LINK REL="up" HREF="node41.html">
+<LINK REL="next" HREF="node48.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1534"
+  HREF="node48.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1528"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1522"
+  HREF="node46.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1530"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1532"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1535"
+  HREF="node48.html">Final Remarks</A>
+<B> Up:</B> <A NAME="tex2html1529"
+  HREF="node41.html">Hello World Tutorial</A>
+<B> Previous:</B> <A NAME="tex2html1523"
+  HREF="node46.html">Writing the C Client</A>
+ &nbsp; <B>  <A NAME="tex2html1531"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1533"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION02330000000000000000"></A><A NAME="sec:static-miniconfig"></A>
+<BR>
+Portable Makefiles: using <TT>babel-config</TT>
+</H1>
+
+<P>
+Since Babelized software must be built the same way
+that Babel itself was configured, it seems reasonable
+to lean on <TT>babel-config</TT> quite heavily.
+By now you are probably wondering how many 
+secrets <TT>babel-config</TT> holds and can provide on request.
+The simplest way to find out is to ask it.  (Though you
+may get a slightly different result than what is shown
+here depending on the version of Babel.)
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel-config -dump-vars | wc -l</B></TT>
+<BR>
+128
+</TT></BLOCKQUOTE>
+<P>
+<TT>babel-config</TT> can provide a wealth of information determined by
+Babel during its configuration and installation.  Even if you do not
+use the GNUmakefile's that Babel can generate, you will likely end up
+using <TT>babel-config</TT> to determine important information about
+Babel's installation
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Common problems</TITLE>
+<META NAME="description" CONTENT="Common problems">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node261.html">
+<LINK REL="up" HREF="node261.html">
+<LINK REL="next" HREF="node263.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5095"
+  HREF="node263.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5089"
+  HREF="node261.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5085"
+  HREF="node261.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5091"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5093"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5096"
+  HREF="node263.html">Object management</A>
+<B> Up:</B> <A NAME="tex2html5090"
+  HREF="node261.html">Imports</A>
+<B> Previous:</B> <A NAME="tex2html5086"
+  HREF="node261.html">Imports</A>
+ &nbsp; <B>  <A NAME="tex2html5092"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5094"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03633100000000000000"></A>
+<A NAME="15779"></A>
+<A NAME="15780"></A>
+<BR>
+Common problems
+</H3>
+
+<P>
+This subsection elaborates on a few of the common problems (and possible
+solutions) that occur when importing SIDL-specified extensions.
+
+<P>
+<DL>
+<DT><STRONG>ImportError: undefined function.</STRONG></DT>
+<DD>The following illustrates an error that can arise that appears to be
+associated with an undefined function<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15782"></A>
+<A NAME="15783"></A><A NAME="15784"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT><SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$&#187;&gt;$"></SPAN></TT> <TT><B>import X.Y.Zmodule</B></TT>
+<BR>
+Traceback (innermost last):
+<BR>
+File "&lt;stdin&gt;", line 1, in ?
+<BR>
+ImportError: dynamic module does not define init function (initZmodule)
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+This could be a matter of an incorrect import or a problem with the 
+environment.  Consider the following<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<DL>
+<DT><STRONG>Is the name of your SIDL interface (or class) <TT>X.Y.Z</TT> or <TT>X.Y.Zmodule</TT>?</STRONG></DT>
+<DD>In the former case, the command should be <TT><B>import X.Y.Z</B></TT> instead.
+<A NAME="15792"></A>
+
+<P>
+</DD>
+<DT><STRONG>Is <TT>PYTHONPATH</TT> set properly?</STRONG></DT>
+<DD>Make sure this environment variable contains directories for all 
+required Python shared libraries.
+
+<P>
+</DD>
+</DL>
+
+<P>
+If the answers to these questions do not solve the problem, 
+submit a bug report for Babel. 
+
+<P>
+</DD>
+<DT><STRONG>Fatal Python error: class load</STRONG></DT>
+<DD>If the class fails to load, for example, the following occurs<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15795"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT><SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$&#187;&gt;$"></SPAN></TT> <TT><B>import X.Y.Z</B></TT>
+<BR>
+Fatal Python error: Cannot load implementation for SIDL class X.Y.Z
+<BR>
+Abort (core dumped)
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+then the Python stub code -- the code that links Python to SIDL's 
+independent object representation (IOR) -- failed in its attempt to load 
+the shared or dynamically linked library that contains the implementation 
+of SIDL class <TT>X.Y.Z</TT>.   
+This is likely to be a path problem so consider the following<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<DL>
+<DT><STRONG>Is <TT>SIDL_DLL_PATH</TT> set properly?</STRONG></DT>
+<DD>Make sure it lists all directories where the shared (or dynamic) link 
+libraries for the required SIDL objects and interfaces are stored.  
+
+<P>
+</DD>
+<DT><STRONG>Is <TT>LD_LIBRARY_PATH</TT> set properly?</STRONG></DT>
+<DD>Make sure this environment variable (or whatever your machine's mechanism for
+locating shared library files) also includes the directory in which the SIDL 
+runtime resides.
+
+<P>
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>Fatal Python error: interface load.</STRONG></DT>
+<DD>If the following error occurs<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15804"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT><SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$&#187;&gt;$"></SPAN></TT> <TT><B>import X.Y.Z</B></TT>
+<BR>
+Fatal Python error: Cannot load implementation for SIDL interface X.Y.Z
+<BR>
+Abort (core dumped)
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+it is the same problem described for the fatal error encountered when
+attempting to load a SIDL class.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5095"
+  HREF="node263.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5089"
+  HREF="node261.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5085"
+  HREF="node261.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5091"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5093"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5096"
+  HREF="node263.html">Object management</A>
+<B> Up:</B> <A NAME="tex2html5090"
+  HREF="node261.html">Imports</A>
+<B> Previous:</B> <A NAME="tex2html5086"
+  HREF="node261.html">Imports</A>
+ &nbsp; <B>  <A NAME="tex2html5092"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5094"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

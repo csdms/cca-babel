@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Starting up a Babel Object Server</TITLE>
+<META NAME="description" CONTENT="Starting up a Babel Object Server">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node308.html">
+<LINK REL="previous" HREF="node306.html">
+<LINK REL="up" HREF="node306.html">
+<LINK REL="next" HREF="node308.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5826"
+  HREF="node308.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5820"
+  HREF="node306.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5814"
+  HREF="node306.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5822"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5824"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5827"
+  HREF="node308.html">Publishing Babel Objects</A>
+<B> Up:</B> <A NAME="tex2html5821"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Previous:</B> <A NAME="tex2html5815"
+  HREF="node306.html">Babel Object Servers</A>
+ &nbsp; <B>  <A NAME="tex2html5823"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5825"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04141000000000000000"></A><A NAME="ss:RMIstartBOS"></A>
+<BR>
+Starting up a Babel Object Server
+</H2>
+
+<P>
+Babel Object Servers are generally easy to start up, although each BOS
+may have a different construction interface.  Here is an example of
+starting up the ``Simple Protocol'' 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlx_rmi_SimpleOrb echo = NULL;
+int tid;
+sidl_rmi_ServerInfo si = NULL;
+int port_number = 9999;
+
+echo = sidlx_rmi_SimpleOrb__create(&amp;ex);SIDL_CHECK(ex);  
+sidlx_rmi_SimpleOrb_requestPort( echo, port_number, &amp;ex);SIDL_CHECK(ex);
+tid = sidlx_rmi_SimpleOrb_run( echo, &amp;ex );SIDL_CHECK(ex);
+si = sidl_rmi_ServerInfo__cast(echo,&amp;ex);SIDL_CHECK(ex);
+sidl_rmi_ServerRegistry_registerServer(si, &amp;ex);SIDL_CHECK(ex);
+sidl_rmi_ServerInfo_deleteRef(si,&amp;ex);SIDL_CHECK(ex);
+
+pthread_join(tid, NULL); //Optional PTHREAD join
+</PRE></td></tr></table></blockquote>
+<P>
+Notice that before the server is run, <TT>requestPort</TT> must be
+called. There are actually two versions of <TT>requestPort</TT>:
+<TT>requestPort</TT>, and <TT>requestPort[InRange]</TT>.
+<TT>requestPort</TT> takes one argument, a TCP port number (integer). The
+port number is the TCP port that the BOS should
+listen to for connections. <TT>requestPort[InRange]</TT> takes two
+integers, which denote a range of ports the BOS may try. Because only
+one server can listen on any TCP port, if the port is already in use
+by another program, <TT>requestPort</TT> may fail.
+<TT>requestPort[InRange]</TT> gets around this by giving the BOS a
+range of ports to try.  The BOS will try ports in this range until
+the whole range is exausted, or the BOS succeeds is getting a port.
+
+<P>
+<TT>run</TT> returns a long.  This return argument is meant to hold the
+thread id of the thread waiting for connections. The user may wish to join on the
+thread in order to keep the ``Simple Protocol'' server from exiting
+prematurely. (We are now past the ``Simple Protocol'' specific portion
+of this section)
+
+<P>
+After calling <TT>run</TT> the server is running, but you won't be able to export any local
+objects until you register the server with the
+<TT><I CLASS="slanted">sidl.rmi.ServerRegistry</I></TT><A NAME="17679"></A>.  Every BOS must be registered with the
+<TT><I CLASS="slanted">ServerRegistry</I></TT>, and therefore every BOS must implement the
+<TT><I CLASS="slanted">sidl.rmi.ServerInfo</I></TT> <A NAME="17682"></A> interface. This interface is what allows
+the server to interact with the <TT><I CLASS="slanted">ServerRegistry</I></TT>.     
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">class ServerRegistry {
+  static void registerServer(in sidl.rmi.ServerInfo si);
+  static string getServerURL(in string objID);
+  static string isLocalObject(in string url);
+  static array&lt;sidl.io.Serializable,1&gt; getExceptions();		      
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+The <TT><I CLASS="slanted">ServerRegistry</I></TT> is a singleton class that Babel RMI uses
+internally to interface with the BOS.  It interfaces through the
+<TT><I CLASS="slanted">sidl.rmi.ServerInfo</I></TT> interface:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">interface ServerInfo {
+  string getServerURL(in string objID);
+  string isLocalObject(in string url);
+  array&lt;sidl.io.Serializable,1&gt; getExceptions();
+}
+
+</I></PRE></td></tr></table></blockquote>
+<P>
+Simply cast the BOS to a <TT><I CLASS="slanted">ServerInfo</I></TT> and register it with the <TT><I CLASS="slanted">ServerRegistry</I></TT>.
+
+<P>
+The user is never really meant to use the <TT><I CLASS="slanted">ServerInfo</I></TT>
+interface.  In some cases a user may wish to call
+<TT>getExceptions()</TT> through the <TT><I CLASS="slanted">ServerRegistry</I></TT>.
+<TT>getExceptions()</TT> is an advanced function. Usually,
+if there is an exception is raised in the BOS by a remote
+call, the exception is returned back to the caller.  However, in some
+cases this is not possible.  In those cases the BOS logs the
+exceptions.  Later, a user may use getExceptions to get the logged
+exceptions.  
+
+<P>
+NOTE: Currently the  <TT><I CLASS="slanted">ServerRegistry</I></TT> can only handle one
+<TT><I CLASS="slanted">ServerInfo</I></TT>.  This means that Babel can effectively only support
+one BOS at a time for exporting local objects.  (There are hairy ways
+around this)  This is because there are a lot of issues that appear
+when a user can export objects with a number of different protocols
+that we have not dealt with.  This may be researched further in the future.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5826"
+  HREF="node308.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5820"
+  HREF="node306.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5814"
+  HREF="node306.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5822"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5824"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5827"
+  HREF="node308.html">Publishing Babel Objects</A>
+<B> Up:</B> <A NAME="tex2html5821"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Previous:</B> <A NAME="tex2html5815"
+  HREF="node306.html">Babel Object Servers</A>
+ &nbsp; <B>  <A NAME="tex2html5823"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5825"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

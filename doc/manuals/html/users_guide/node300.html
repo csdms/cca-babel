@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>RMI Arguments</TITLE>
+<META NAME="description" CONTENT="RMI Arguments">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node301.html">
+<LINK REL="previous" HREF="node299.html">
+<LINK REL="up" HREF="node296.html">
+<LINK REL="next" HREF="node301.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5726"
+  HREF="node301.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5720"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5714"
+  HREF="node299.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5722"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5724"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5727"
+  HREF="node301.html">Casting Remote Objects</A>
+<B> Up:</B> <A NAME="tex2html5721"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5715"
+  HREF="node299.html">Object Creation and Connection</A>
+ &nbsp; <B>  <A NAME="tex2html5723"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5725"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04124000000000000000"></A><A NAME="ss:RMIobjargs"></A>
+<BR>
+RMI Arguments
+</H2>
+
+<P>
+All basic types are passed by value in Babel RMI. They are
+actually copied across the network.  This is reasonable since they are
+small.  Arrays are also copy-only, so anytime an array is passed
+remotely through Babel RMI, it is actually copied to the remote
+machine.
+
+<P>
+Because arrays are copy-only for RMI, there is a noticable difference
+in the behavior of an <TT>in array</TT><A NAME="17597"></A> argument between a non-RMI call
+and an RMI call. For the non-RMI call, the code implementing the
+method can change elements of the incoming array. Because the caller
+and callee share the same array, the caller's copy of the array will
+also be changed. For an RMI call, even if the code implementing the
+method changes elements of the incoming array, the caller's copy can
+never be modified because the client and server each have a distinct
+copy of the array data.
+
+<P>
+There are two ways one can pass objects <A NAME="17598"></A>
+<A NAME="17599"></A> <A NAME="17600"></A> in Babel RMI, by
+reference, and by copy.  The default method is pass-by-reference.
+For example, server A calls a function foo on server B,
+and passes a local object Bar as an argument.  In this case A will actually
+pass the URL of Bar to B, B will then call <TT>_connect</TT> on the URL, which
+connects back to the object Bar on A.
+
+<P>
+Pass-by-copy (also called serialization) <A NAME="17602"></A>
+<A NAME="17603"></A> is different.  Pass-by-copy
+means that a new object is actually created locally on B, and
+filled in with the values from the object Bar on A. The result is two
+distinct local objects, one on A and one on B.  In order to pass
+by copy, copy must be used as an argument modifier in the SIDL file.
+For example:
+
+<P>
+<TT><I CLASS="slanted">copy Bar retBar(copy in Foo f)</I></TT>
+
+<P>
+This sidl function takes a copy of a Foo and returns a copy of a Bar. 
+
+<P>
+Passing by copy also requires the the object being passed implements
+<TT><I CLASS="slanted">sidl.io.Serializable</I></TT>:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 package sidl.io version 9.15 {
+   2   interface Serializable { 
+   3     void packObj( in Serializer ser );
+   4     void unpackObj( in Deserializer des );
+   5   } 
+   6 }
+</PRE></I></td></tr></table></blockquote>
+<P>
+Serializable declares two methods, packObj and <A NAME="17607"></A> <A NAME="17608"></A>
+unPackObj. packObj serializes the internal object data to a string.
+unPackObj reinstates the data into the new object by unserializing it
+from a string.  The library developer must implement these functions
+because Babel does not know what data is in the object, or how it
+should be serialized.  Examples of packObj and unpackObj
+implementations can be found
+in <TT><I CLASS="slanted">sidl.rmi.SIDLException</I></TT> and <TT><I CLASS="slanted">sidl.rmi.NetworkException</I></TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5726"
+  HREF="node301.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5720"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5714"
+  HREF="node299.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5722"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5724"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5727"
+  HREF="node301.html">Casting Remote Objects</A>
+<B> Up:</B> <A NAME="tex2html5721"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5715"
+  HREF="node299.html">Object Creation and Connection</A>
+ &nbsp; <B>  <A NAME="tex2html5723"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5725"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

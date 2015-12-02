@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Name space</TITLE>
+<META NAME="description" CONTENT="Name space">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node147.html">
+<LINK REL="previous" HREF="node145.html">
+<LINK REL="up" HREF="node145.html">
+<LINK REL="next" HREF="node147.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3296"
+  HREF="node147.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3290"
+  HREF="node145.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3284"
+  HREF="node145.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3292"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3294"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3297"
+  HREF="node147.html">Method signatures</A>
+<B> Up:</B> <A NAME="tex2html3291"
+  HREF="node145.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3285"
+  HREF="node145.html">Basics</A>
+ &nbsp; <B>  <A NAME="tex2html3293"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3295"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03221000000000000000"></A><A NAME="ss:cxx:namespace"></A><A NAME="8373"></A>
+<A NAME="8374"></A>
+<BR>
+Name space
+</H2>
+
+<P>
+The C++ bindings take advantage of language features to protect the global
+name space.  In particular, SIDL packages are mapped to C++ name spaces.
+Interfaces and classes are mapped to 
+proxy classes, called ``stubs'', which serve as the firewall 
+between the application in C++ and Babel's internal workings. 
+Static SIDL methods are translated into static C++ member functions,
+while non-static methods are mapped to non-static C++ member functions.
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+For backward compatibility, as of the 1.0 release, the
+<TT>SIDL_USE_UCXX</TT>, <TT>UCXX</TT>, and <TT>UCXX_LOCAL</TT> 
+preprocessor macros are undefined.  <TT>SIDL_USE_UCXX</TT> is used in
+<TT>#ifdef SIDL_USE_CXX</TT>/<TT>#endif</TT> blocks to specify 
+the <TT>ucxx</TT> name space.  Hence, <TT>UCXX</TT> was to be used where 
+<TT>::ucxx</TT> would normally appear and <TT>UCXX_LOCAL</TT> where 
+<TT>ucxx::</TT> would appear.
+</SPAN>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

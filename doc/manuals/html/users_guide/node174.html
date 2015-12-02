@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Pointers</TITLE>
+<META NAME="description" CONTENT="Pointers">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node175.html">
+<LINK REL="previous" HREF="node173.html">
+<LINK REL="up" HREF="node172.html">
+<LINK REL="next" HREF="node175.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3729"
+  HREF="node175.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3723"
+  HREF="node172.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3717"
+  HREF="node173.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3725"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3727"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3730"
+  HREF="node175.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html3724"
+  HREF="node172.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3718"
+  HREF="node173.html">Strings</A>
+ &nbsp; <B>  <A NAME="tex2html3726"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3728"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03323200000000000000"></A><A NAME="sss:f77:pointers"></A><A NAME="9835"></A><A NAME="9836"></A>
+<A NAME="9837"></A><A NAME="9838"></A>
+<BR>
+Pointers
+</H3>
+
+<P>
+<A NAME="9839"></A><A NAME="9840"></A><A NAME="9841"></A><A NAME="9842"></A>
+<A NAME="9843"></A>
+<A NAME="9844"></A>
+<A NAME="9845"></A>
+<A NAME="9846"></A>
+Pointer types, such as opaque, interface, class, and array, translate into
+64-bit integers to enable FORTRAN 77 code portability between systems 
+with 32-bit and 64-bit address spaces. 
+On a 32-bit system, the upper 32 bits of these quantities are ignored. 
+Systems with more than 64-bit pointers aren't currently supported.
+<A NAME="9847"></A>
+
+<P>
+Generally, clients should treat opaque, interface, class, and array values 
+as black boxes. 
+However, there is one value that is special. 
+A value of zero for any of these quantities indicates the pointer does 
+not refer to an object, thus making zero the FORTRAN 77 equivalent of 
+<TT>NULL</TT>.  Any nonzero value is or should be a valid object reference.
+Developers should initialize values to be passed as 
+<TT><I CLASS="slanted">in</I></TT> or <TT><I CLASS="slanted">inout</I></TT> parameters to zero or a valid object reference.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings generation</TITLE>
+<META NAME="description" CONTENT="Bindings generation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node241.html">
+<LINK REL="previous" HREF="node239.html">
+<LINK REL="up" HREF="node239.html">
+<LINK REL="next" HREF="node241.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4738"
+  HREF="node241.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4732"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4726"
+  HREF="node239.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4734"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4736"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4739"
+  HREF="node241.html">Bindings implementation</A>
+<B> Up:</B> <A NAME="tex2html4733"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4727"
+  HREF="node239.html">Implementation-side</A>
+ &nbsp; <B>  <A NAME="tex2html4735"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4737"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03541000000000000000"></A><A NAME="ss:java:implgen"></A><A NAME="14047"></A>
+<A NAME="14048"></A><A NAME="14049"></A>
+<BR>
+Bindings generation
+</H2>
+
+<P>
+Babel supports calls to SIDL classes implemented in Java.  These
+classes obey the same rules described in Subsection&nbsp;<A HREF="node230.html#ss:java:clientgen">10.3.1</A> 
+for client-side Java classes, except
+that in this case the file, class, and method names all end in <TT>_Impl</TT>.
+Implementation of a set of SIDL classes in Java first requires the 
+generation of the necessary bindings.  This is accomplished by invoking
+Babel as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="14052"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -exclude-external -server=Java file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>or simply
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -E -sJava file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+The directory structure that results from this command is the same as
+that produced on the client-side except there are many more files.  Given 
+the SIDL file is named ``file.sidl'', as above, a <TT>file</TT> subdirectory is 
+created and ``Impl'' files (i.e., those ending in <TT>_Impl.java</TT>) are 
+automatically generated in that subdirectory.
+These Java ``Impl'' files are supposed to contain implementation 
+details.  Refer to Subsection&nbsp;<A HREF="node241.html#ss:java:implfill">10.4.2</A> for details.
+
+<P>
+In the current directory there are also new files that end in
+<TT>_jniSkel.c</TT>.  These files are equivalent to the client-side 
+<TT>_jniStub.c</TT>.  In fact, all client-side files are generated 
+from this call as well to allow for calling methods 
+on the current object in the Java ``Impl'' file.  Consequently, they 
+can safely be ignored.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4738"
+  HREF="node241.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4732"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4726"
+  HREF="node239.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4734"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4736"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4739"
+  HREF="node241.html">Bindings implementation</A>
+<B> Up:</B> <A NAME="tex2html4733"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4727"
+  HREF="node239.html">Implementation-side</A>
+ &nbsp; <B>  <A NAME="tex2html4735"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4737"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

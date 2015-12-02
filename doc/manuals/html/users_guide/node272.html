@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Python Extension Modules</TITLE>
+<META NAME="description" CONTENT="Python Extension Modules">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node273.html">
+<LINK REL="previous" HREF="node271.html">
+<LINK REL="up" HREF="node269.html">
+<LINK REL="next" HREF="node273.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5237"
+  HREF="node273.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5231"
+  HREF="node269.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5225"
+  HREF="node271.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5233"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5235"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5238"
+  HREF="node273.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html5232"
+  HREF="node269.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html5226"
+  HREF="node271.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html5234"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5236"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03643000000000000000"></A><A NAME="ss:python:extbuild"></A><A NAME="15932"></A>
+<BR>
+Python Extension Modules
+</H2>
+
+<P>
+Babel creates a <TT>setup.py</TT> file that can be used to build the 
+Python extension modules that you create. <TT>setup.py</TT> uses the
+Python distutils package to build the Python extension modules.  The
+following are two extra command line arguments<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+
+<UL>
+<LI><TT>-include-dirs=</TT> -- 
+      Use this to specify extra directories for the preprocessor
+      include path.  That is, use it like <TT>-I</TT> is used for 
+      most C compilers.
+</LI>
+<LI><TT>-library-dirs=</TT> -- 
+      Use this to specify extra directories for static or shared
+      libraries.  That is, use it like <TT>-L</TT> is used for most 
+      C compilers/loaders.
+</LI>
+</UL>
+
+<P>
+The directory containing the SIDL runtime and Python headers 
+is normally specified with <TT>-include-dirs=</TT>.  The 
+directory where <TT>libsidl.so</TT> is stored must also be specified.
+The following is a hypothetical example<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BLOCKQUOTE>
+<TT> setup.py -include-dirs=/usr/local/include 
+<BR>  -include-dirs=/usr/local/include/python 
+<BR>  -library-dirs=/usr/local/lib build_ext -inplace
+</TT></BLOCKQUOTE>
+<P>
+although any real installation is unlikely to actually use those settings.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

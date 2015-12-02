@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Generic Arrays</TITLE>
+<META NAME="description" CONTENT="Generic Arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node63.html">
+<LINK REL="up" HREF="node63.html">
+<LINK REL="next" HREF="node65.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1883"
+  HREF="node65.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1877"
+  HREF="node63.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1873"
+  HREF="node63.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1879"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1881"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1884"
+  HREF="node65.html">R-arrays</A>
+<B> Up:</B> <A NAME="tex2html1878"
+  HREF="node63.html">SIDL Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1874"
+  HREF="node63.html">SIDL Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html1880"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1882"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION02441100000000000000"></A><A NAME="sss:basics:genericarrays"></A><A NAME="3283"></A><A NAME="3284"></A>
+<BR>
+Generic Arrays
+</H3>
+
+<P>
+The design of the (normal) array data structure enables the concept of a
+generic array, an array whose data type and dimension are
+unspecified.  In SIDL, a generic array is indicated with the type
+<TT><I CLASS="slanted">array<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN> <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$&gt;$"></SPAN></I></TT>.  There is no type or dimension information
+between the <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN> and <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$&gt;$"></SPAN>. 
+
+<P>
+Generic arrays are useful for making interfaces that are very flexible
+without requiring numerous methods to be defined. For example, if you
+were writing an interface to serialize an array, you could write one
+method <TT><I CLASS="slanted">void serialize(in array<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN> <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$&gt;$"></SPAN> array);</I></TT> to handle an
+array of any type or dimension. Without generic arrays, you would have
+to define 77 different <TT><I CLASS="slanted">serialize</I></TT> methods to handle each
+possible array type and dimension.
+
+<P>
+In C, you can use the macro API to determine the dimension, bounds on
+each dimension and stride for a generic array. All other languages
+except Python provide a function API to determine the same information
+for a generic array. 
+
+<P>
+Starting with Babel 1.1.0, Babel's Python binding now uses either the
+Python NumPy or Numeric Python array API. This switch in Babel follows
+a switch in the Python community where the Python community has
+deprecated Numeric Python and appointed NumPy as its successor. If you
+need examples about how to write code that can work with either Python
+array API look at Babel's array regression tests, arrays and ordering.
+
+<P>
+The function API for generic arrays includes the following methods:
+<TT>addRef</TT>, <TT>smartCopy</TT>, <TT>deleteRef</TT>, <TT>dimen</TT>,
+<TT>lower</TT>, <TT>upper</TT>, <TT>length</TT>, <TT>stride</TT>,
+<TT>isColumnOrder</TT>, <TT>isRowOrder</TT>, and <TT>type</TT>.  With the
+exception of <TT>type</TT>, these methods have all been presented
+above.  The name of the method has the type left
+empty. Where the name for <TT>addRef</TT> in C on a double array is
+<TT>sidl_double_array_addRef</TT>, its name is
+<TT>sidl__array_addRef</TT> for a generic array.  Note, there are two
+underscores between <TT>sidl</TT> and <TT>array</TT> in the generic array
+case.
+
+<P>
+The <TT>type</TT> method is defined as follows in the case of C.
+<BR>
+<PRE  CLASS="verbatim">/**
+ * Return an integer indicating the type of elements held by the
+ * array. Zero is returned if array is NULL.
+ */
+int32_t
+sidl__array_type(const struct sidl__array* array);
+</PRE></td></tr></table></blockquote>It returns a value that indicates what the underlying type of the
+array actually is.  The return value is either zero or one of the
+values in <TT>sidl_array_type</TT>.
+<BR>
+<PRE  CLASS="verbatim">enum sidl_array_type {
+  /* these values must match values used in F77 &amp; F90 too */
+  sidl_bool_array      = 1,
+  sidl_char_array      = 2,
+  sidl_dcomplex_array  = 3,
+  sidl_double_array    = 4,
+  sidl_fcomplex_array  = 5,
+  sidl_float_array     = 6,
+  sidl_int_array       = 7,
+  sidl_long_array      = 8,
+  sidl_opaque_array    = 9,
+  sidl_string_array    = 10,
+  sidl_interface_array = 11 /* an array of sidl.BaseInterface's */
+};
+</PRE></td></tr></table></blockquote>Once you've discovered the underlying type of the generic array, you
+can safely cast its pointer to the actual pointer type (in languages
+like C). Each language binding provides a way to cast generic array
+pointers to specific types and vice versa.
+
+<P>
+In the case of a <TT>sidl_interface_array</TT>, you can case the array
+to an array of <TT><I CLASS="slanted">sidl.BaseInterface</I></TT> interface references. Your
+code should treat it as such. You can downcast individual elements of
+the array as you need. Your code should consider the possibility that
+downcasting may fail. Babel can only guarantee that the elements of
+the array are <TT><I CLASS="slanted">sidl.BaseInterface</I></TT>'s.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1883"
+  HREF="node65.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1877"
+  HREF="node63.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1873"
+  HREF="node63.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1879"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1881"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1884"
+  HREF="node65.html">R-arrays</A>
+<B> Up:</B> <A NAME="tex2html1878"
+  HREF="node63.html">SIDL Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1874"
+  HREF="node63.html">SIDL Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html1880"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1882"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

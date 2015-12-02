@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Recommended</TITLE>
+<META NAME="description" CONTENT="Recommended">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node34.html">
+<LINK REL="previous" HREF="node32.html">
+<LINK REL="up" HREF="node30.html">
+<LINK REL="next" HREF="node34.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1328"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1322"
+  HREF="node30.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1316"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1324"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1326"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1329"
+  HREF="node34.html">Optional</A>
+<B> Up:</B> <A NAME="tex2html1323"
+  HREF="node30.html">External Software Requirements</A>
+<B> Previous:</B> <A NAME="tex2html1317"
+  HREF="node32.html">Required but Separate</A>
+ &nbsp; <B>  <A NAME="tex2html1325"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1327"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02123000000000000000">
+Recommended</A>
+</H2>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textbf">Python:</SPAN><A NAME="798"></A>
+Needed for the python language binding (obviously) and for the testing harness.
+Since the Linux kernel is often configured with a Python-based tool, its
+hard to find a Linux without python already installed.  Python can be 
+downloaded from 
+<A NAME="tex2html15"
+  HREF="http://www.python.org">http://www.python.org</A>.
+
+<P>
+One important gotcha is a special case where non-python applications create
+Babel objects implemented in python.  In this case, the Babel runtime 
+needs to dynamically load the python virtual machine (libpython.so).
+Unfortunately, python does not always build a dynamically loadable version
+of this library by default.  If the Babel configure script cannot find
+a libpython.so, it will disable server-side Python support.
+
+<P>
+At the time of this writing, Python cannot be coerced to build a 
+libpython.so on AIX.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">NumPy:</SPAN><A NAME="802"></A><A NAME="803"></A>
+This is a scientific array python extension module.  It 
+provides native C arrays (and the ability to manipulate very
+big arrays) similar to python lists.  Babel's python
+language binding requires this extension module available
+at <A NAME="tex2html16"
+  HREF="http://numpy.scipy.ord">http://numpy.scipy.org</A>.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">Python Meta Widgets (Pmw):</SPAN><A NAME="807"></A>
+This is a library of GUI widgets built on top of Python's native
+tcl/tk interface (tkinter).  Its available on SourceForge
+<A NAME="tex2html17"
+  HREF="http://pmw.sourceforge.net">http://pmw.sourceforge.net</A>
+Pmw is only needed by the GUI in the
+babel-life supercomputing demo.  This Babel implementation of Conway's
+Game of Life is a separate tarball found in the contrib/ directory of 
+the Babel distro.  There is no test for Pmw in Babel's configuration script.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf">pthreads:</SPAN><A NAME="811"></A> Needed for Java language binding.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1328"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1322"
+  HREF="node30.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1316"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1324"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1326"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1329"
+  HREF="node34.html">Optional</A>
+<B> Up:</B> <A NAME="tex2html1323"
+  HREF="node30.html">External Software Requirements</A>
+<B> Previous:</B> <A NAME="tex2html1317"
+  HREF="node32.html">Required but Separate</A>
+ &nbsp; <B>  <A NAME="tex2html1325"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1327"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

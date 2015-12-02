@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: get</TITLE>
+<META NAME="description" CONTENT="Function: get">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node88.html">
+<LINK REL="previous" HREF="node86.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node88.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2237"
+  HREF="node88.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2231"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2225"
+  HREF="node86.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2233"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2235"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2238"
+  HREF="node88.html">Function: set1</A>
+<B> Up:</B> <A NAME="tex2html2232"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2226"
+  HREF="node86.html">Function: get5-7</A>
+ &nbsp; <B>  <A NAME="tex2html2234"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2236"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024481600000000000000"></A><A NAME="3702"></A>
+<BR>
+Function: get
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+double
+sidl_double__array_get(const struct sidl_double__array* array,
+                    const int32_t                 indices[]);
+
+// C++
+double
+sidl::array&lt;double&gt;::get(const int32_t indices[]);
+
+C FORTRAN 77
+       subroutine sidl_double__array_get_f(array, indices, result)
+       integer*8 array
+       integer*4 indices()
+       real*8 result
+
+! FORTRAN 90
+subroutine get(array, indices, result)
+  type(sidl_real_1d), intent(in) :: array ! type depends on dimension
+  integer (selected_int_kind(9)), dimension(:), intent(in) ::indices
+  real (selected_real_kind(17,308)), intent(out) :: result
+
+// Java
+  public native double _get(int i, int j, int k, int l, int m, int n, int o);
+</PRE></td></tr></table></blockquote>
+<P>
+This method returns the element whose index is indices for an array of any dimension. 
+The return type of this method is the value type for the SIDL type being held
+(see Table&nbsp;<A HREF="node71.html#tbl:basics:arraytypes">5.2</A>). 
+This method can be called for any positively dimensioned array. 
+For objects and interfaces, the client owns the returned reference 
+(i.e., the client is obliged to call <TT>deleteRef()</TT> when they are 
+done with the reference unless it is <TT>NULL</TT>). 
+For arrays of strings, the client owns the returned string (i.e., the client is
+obliged to call <TT>free()</TT> on the returned pointer unless it is <TT>NULL</TT>). 
+There is no reliable way to determine from the return value cases when indices
+has an element out of bounds.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

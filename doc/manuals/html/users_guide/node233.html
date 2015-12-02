@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object management</TITLE>
+<META NAME="description" CONTENT="Object management">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node234.html">
+<LINK REL="previous" HREF="node232.html">
+<LINK REL="up" HREF="node229.html">
+<LINK REL="next" HREF="node234.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4639"
+  HREF="node234.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4633"
+  HREF="node229.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4627"
+  HREF="node232.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4635"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4637"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4640"
+  HREF="node234.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html4634"
+  HREF="node229.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4628"
+  HREF="node232.html">Imports</A>
+ &nbsp; <B>  <A NAME="tex2html4636"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4638"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03534000000000000000"></A>
+<A NAME="13969"></A>
+<A NAME="13970"></A>
+<BR>
+Object management
+</H2>
+
+<P>
+SIDL-specified objects are managed through explicit creation but explicit
+reference counting<A NAME="13971"></A> is basically unnecessary.
+Thanks to the straightforward mapping between SIDL and Java types, 
+SIDL-specified concrete classes can be instantiated through Java's
+<TT>new</TT>.
+For example, given a package <TT>test</TT> that includes
+the class <TT>HelloWorld</TT>, the following code snippet illustrates
+the creation of an object as well as its use<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13975"></A>
+<A NAME="13976"></A><A NAME="13977"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">import test.HelloWorld;
+
+public static main(String args[]) {
+
+  HelloWorld hi = new HelloWorld();
+  hi.printMsg();
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Writing the fully qualified class name would also have sufficed as in<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13979"></A><A NAME="13980"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public static main(String args[]) {
+
+  test.HelloWorld hi = new test.HelloWorld();
+  hi.printMsg();
+}
+</PRE></td></tr></table></blockquote>
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">WARNING</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+Although <TT>addRef</TT> and <TT>deleteRef</TT> exist in Java,
+they should <SPAN  CLASS="textbf">not</SPAN> be used because Java decrements the reference count
+itself when it garbage collects a SIDL object.
+</SPAN>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

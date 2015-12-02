@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Array API</TITLE>
+<META NAME="description" CONTENT="The Array API">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node104.html">
+<LINK REL="previous" HREF="node70.html">
+<LINK REL="up" HREF="node62.html">
+<LINK REL="next" HREF="node72.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1981"
+  HREF="node72.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1975"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1969"
+  HREF="node70.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1977"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1979"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1982"
+  HREF="node72.html">Function: createCol</A>
+<B> Up:</B> <A NAME="tex2html1976"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1970"
+  HREF="node70.html">The Language Bindings</A>
+ &nbsp; <B>  <A NAME="tex2html1978"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1980"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02448000000000000000"></A><A NAME="ss:basics:array:api"></A>
+<BR>
+The Array API
+</H2>
+
+<P>
+In the following presentation, we use the SIDL <TT><I CLASS="slanted">double</I></TT> type; however,
+everything in this section applies to all types except where noted.
+The basic types are in the SIDL
+namespace. Table&nbsp;<A HREF="#tbl:basics:arraytypes"
+ NAME="3396">5.2</A> shows the prefix for SIDL
+base types and the actual value type held by the array...
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="tbl:basics:arraytypes"></A>
+<DIV ALIGN="CENTER">
+<A NAME="3398"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 5.2:</STRONG>
+SIDL types to array function prefixes</CAPTION>
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">SIDL TYPE</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">ARRAY FUNCTION PREFIX</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">VALUE TYPE</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">bool</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_bool</TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_bool</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">char</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_char</TT></TD>
+<TD ALIGN="LEFT"><TT>char</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">dcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_dcomplex</TT></TD>
+<TD ALIGN="LEFT"><TT>struct sidl_dcomplex</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">double</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_double</TT></TD>
+<TD ALIGN="LEFT"><TT>double</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">fcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_fcomplex</TT></TD>
+<TD ALIGN="LEFT"><TT>struct sidl_fcomplex</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">float</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_float</TT></TD>
+<TD ALIGN="LEFT"><TT>float</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">int</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_int</TT></TD>
+<TD ALIGN="LEFT"><TT>int32_t</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">long</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_long</TT></TD>
+<TD ALIGN="LEFT"><TT>int64_t</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">opaque</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_opaque</TT></TD>
+<TD ALIGN="LEFT"><TT>void *</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">string</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl_string</TT></TD>
+<TD ALIGN="LEFT"><TT>char *</TT></TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+For arrays of interfaces or classes, the name of the 
+array function prefix is derived from the fully qualified type name. 
+For example, for the type <TT><I CLASS="slanted">sidl.BaseClass</I></TT>, the
+array functions all begin with <TT>sidl_BaseClass</TT>. 
+For <TT><I CLASS="slanted">sidl.BaseInterface</I></TT>, they all begin with
+<TT>sidl_BaseInterface</TT>.
+
+<P>
+When you add an object or interface to an array,
+the reference count of the element being overwritten is
+decremented, and the reference count of the element being added is
+incremented.  When you get an object or interface from an array,
+the caller owns the returned reference.
+
+<P>
+For arrays of strings<A NAME="3443"></A> when you add a string to any array, the array
+will store a copy of the string.  When you retrieve a string from an
+array, you will receive a copy of the string.  You should
+<TT>sidl_String_free</TT> the returned string when you are done with it.
+
+<P>
+When you create an array of interfaces, classes, or strings, all
+elements of the array are initialized<A NAME="3445"></A> to NULL.  Other arrays are not
+initialized.  When an array of interfaces, classes, or strings is
+destroyed, it releases any held references in the case of objects or
+interfaces.  In the case of strings, it frees any non-NULL pointers.
+
+<P>
+The name of the data structure that holds the array if double is 
+<TT>struct sidl_double__array</TT>. For some types, the data structure 
+is an opaque type, and for others, it is defined in a public C header
+file.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="tbl:basics:arrayfuncs"></A>
+<DIV ALIGN="CENTER">
+<A NAME="3448"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 5.3:</STRONG>
+SIDL Array Functions</CAPTION>
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">SHORT NAME</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">DESCRIPTION</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>createCol</TT></TD>
+<TD ALIGN="LEFT">Creates a column-major order SIDL array <A NAME="3456"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>createRow</TT></TD>
+<TD ALIGN="LEFT">Creates a row-major order SIDL array <A NAME="3458"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>create1d</TT></TD>
+<TD ALIGN="LEFT">Creates a dense one-dimensional SIDL array <A NAME="3460"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>create2dCol</TT></TD>
+<TD ALIGN="LEFT">Creates a dense, column-major, two-dimensional SIDL array <A NAME="3462"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>create2dRow</TT></TD>
+<TD ALIGN="LEFT">Creates a dense, column-major, two-dimensional SIDL array <A NAME="3464"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>slice</TT></TD>
+<TD ALIGN="LEFT">Creates a sub-array of another array.  Takes
+parameters to define array properties. <A NAME="3466"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>borrow</TT></TD>
+<TD ALIGN="LEFT">Makes a SIDL array from thrid party data
+without copying it <A NAME="3468"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>smartCopy</TT></TD>
+<TD ALIGN="LEFT">Copies a borrowed array or addRefs a
+non-borrowed array <A NAME="3470"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>addRef</TT></TD>
+<TD ALIGN="LEFT">Increments the reference count. <A NAME="3472"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>deleteRef</TT></TD>
+<TD ALIGN="LEFT">Decrements the reference count. <A NAME="3474"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get1</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+one-dimensional array <A NAME="3476"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get2</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+two-dimensional array <A NAME="3478"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get3</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+three-dimensional array <A NAME="3480"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get4</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+four-dimensional array <A NAME="3482"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get5</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+five-dimensional array <A NAME="3484"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get6</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+six-dimensional array <A NAME="3486"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get7</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from a
+seven-dimensional array <A NAME="3488"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>get</TT></TD>
+<TD ALIGN="LEFT">Returns the indexed element from 
+an array of any dimension <A NAME="3490"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set1</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+one-dimensional array <A NAME="3492"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set2</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+two-dimensional array <A NAME="3494"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set3</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+three-dimensional array <A NAME="3496"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set4</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+four-dimensional array <A NAME="3498"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set5</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+five-dimensional array <A NAME="3500"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set6</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+six-dimensional array <A NAME="3502"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set7</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in a
+seven-dimensional array <A NAME="3504"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>set</TT></TD>
+<TD ALIGN="LEFT">Sets the indexed element in 
+an array of any dimension <A NAME="3506"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>dimen</TT></TD>
+<TD ALIGN="LEFT">Returns the dimension of the array <A NAME="3508"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>lower</TT></TD>
+<TD ALIGN="LEFT">Returns the lower bound of the specified dimension <A NAME="3510"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>upper</TT></TD>
+<TD ALIGN="LEFT">Returns the upper bound of the specified dimension <A NAME="3512"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>stride</TT></TD>
+<TD ALIGN="LEFT">Returns the stride of the specified
+dimension <A NAME="3514"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>length</TT></TD>
+<TD ALIGN="LEFT">Returns the length of the Array in the
+specified dimension <A NAME="3516"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>isColumnOrder</TT></TD>
+<TD ALIGN="LEFT">Returns true if the array is a dense
+column-major order array, false otherwise <A NAME="3518"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>isRowOrder</TT></TD>
+<TD ALIGN="LEFT">Returns true if the array is a dense
+row-major order array, false otherwise <A NAME="3520"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>copy</TT></TD>
+<TD ALIGN="LEFT">Copies the contents of source array to dest
+array <A NAME="3522"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>ensure</TT></TD>
+<TD ALIGN="LEFT">Returns an array with guaranteed ordering
+and dimension from any array. <A NAME="3524"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>first</TT></TD>
+<TD ALIGN="LEFT">Provides direct access to the element data of
+the array. <A NAME="3526"></A></TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+The functions are listed succinctly in
+Table&nbsp;<A HREF="#tbl:basics:arrayfuncs"
+ NAME="3531">5.3</A>  as well as in detail over the next
+few pages.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1983"
+  HREF="node72.html">Function: createCol</A>
+<LI><A NAME="tex2html1984"
+  HREF="node73.html">Function: createRow</A>
+<LI><A NAME="tex2html1985"
+  HREF="node74.html">Function: create1d</A>
+<LI><A NAME="tex2html1986"
+  HREF="node75.html">Function: create2dCol</A>
+<LI><A NAME="tex2html1987"
+  HREF="node76.html">Function: create2dRow</A>
+<LI><A NAME="tex2html1988"
+  HREF="node77.html">Function: slice</A>
+<LI><A NAME="tex2html1989"
+  HREF="node78.html">Function: borrow</A>
+<LI><A NAME="tex2html1990"
+  HREF="node79.html">Function: smartCopy</A>
+<LI><A NAME="tex2html1991"
+  HREF="node80.html">Function: addRef</A>
+<LI><A NAME="tex2html1992"
+  HREF="node81.html">Function: deleteRef</A>
+<LI><A NAME="tex2html1993"
+  HREF="node82.html">Function: get1</A>
+<LI><A NAME="tex2html1994"
+  HREF="node83.html">Function: get2</A>
+<LI><A NAME="tex2html1995"
+  HREF="node84.html">Function: get3</A>
+<LI><A NAME="tex2html1996"
+  HREF="node85.html">Function: get4</A>
+<LI><A NAME="tex2html1997"
+  HREF="node86.html">Function: get5-7</A>
+<LI><A NAME="tex2html1998"
+  HREF="node87.html">Function: get</A>
+<LI><A NAME="tex2html1999"
+  HREF="node88.html">Function: set1</A>
+<LI><A NAME="tex2html2000"
+  HREF="node89.html">Function: set2</A>
+<LI><A NAME="tex2html2001"
+  HREF="node90.html">Function: set3</A>
+<LI><A NAME="tex2html2002"
+  HREF="node91.html">Function: set4</A>
+<LI><A NAME="tex2html2003"
+  HREF="node92.html">Function: set5-7</A>
+<LI><A NAME="tex2html2004"
+  HREF="node93.html">Function: set</A>
+<LI><A NAME="tex2html2005"
+  HREF="node94.html">Function: dimen</A>
+<LI><A NAME="tex2html2006"
+  HREF="node95.html">Function: lower</A>
+<LI><A NAME="tex2html2007"
+  HREF="node96.html">Function: upper</A>
+<LI><A NAME="tex2html2008"
+  HREF="node97.html">Function: stride</A>
+<LI><A NAME="tex2html2009"
+  HREF="node98.html">Function: length</A>
+<LI><A NAME="tex2html2010"
+  HREF="node99.html">Function: isColumnOrder</A>
+<LI><A NAME="tex2html2011"
+  HREF="node100.html">Function: isRowOrder</A>
+<LI><A NAME="tex2html2012"
+  HREF="node101.html">Function: copy</A>
+<LI><A NAME="tex2html2013"
+  HREF="node102.html">Function: ensure</A>
+<LI><A NAME="tex2html2014"
+  HREF="node103.html">Function: first</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1981"
+  HREF="node72.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1975"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1969"
+  HREF="node70.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1977"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1979"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1982"
+  HREF="node72.html">Function: createCol</A>
+<B> Up:</B> <A NAME="tex2html1976"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1970"
+  HREF="node70.html">The Language Bindings</A>
+ &nbsp; <B>  <A NAME="tex2html1978"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1980"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

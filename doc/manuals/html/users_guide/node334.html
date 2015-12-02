@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in Fortran 90</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in Fortran 90">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node335.html">
+<LINK REL="previous" HREF="node333.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node335.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6222"
+  HREF="node335.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6216"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6210"
+  HREF="node333.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6218"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6220"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6223"
+  HREF="node335.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6217"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6211"
+  HREF="node333.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6219"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6221"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04360000000000000000"></A><A NAME="s:f90"></A>
+<BR>
+The Backdoor Initializer in Fortran 90
+</H1>
+
+<P>
+<A NAME="19555"></A><A NAME="19556"></A>
+The Fortran 90 backdoor initializer is very similar to C. Fortran 90
+also has a <TT>_wrapObj</TT>, but it is actually defined in
+the wrapper_Data_Mod.F90 file, along with the private data type
+definition.  
+
+<P>
+Here is the private data definition from wrapper_Data_Mod.F90:
+<BR>
+<PRE  CLASS="verbatim">  type wrapper_Data_priv
+    sequence
+    ! DO-NOT-DELETE splicer.begin(wrapper.Data.private_data)
+    ! Insert-Code-Here {wrapper.Data.private_data} (private data members)
+     character(len=256)     :: d_ctortest
+     character(len=256)     :: d_string
+     integer(kind=sidl_int) :: d_int
+    ! DO-NOT-DELETE splicer.end(wrapper.Data.private_data)
+  end type wrapper_Data_priv
+</PRE></td></tr></table></blockquote> 
+
+<P>
+Here is the client code from wraptest.F90.  Notice wrapper_Data_impl
+is used.  From wraptest.F90:
+<BR>
+<PRE  CLASS="verbatim">#include "wrapper_User_fAbbrev.h"
+#include "wrapper_Data_fAbbrev.h"
+#include "synch_RegOut_fAbbrev.h"
+#include "synch_ResultType_fAbbrev.h"
+
+program wraptest
+  use sidl
+  use sidl_BaseInterface
+  use wrapper_User
+  use wrapper_Data
+  use wrapper_Data_impl
+  type(sidl_BaseInterface_t) :: throwaway_exception
+  type(wrapper_Data_wrap) :: pd
+
+  type(wrapper_Data_t) :: data
+  type(wrapper_User_t) :: user
+
+  allocate(pd%d_private_data)
+  pd%d_private_data%d_int = 0
+  pd%d_private_data%d_string = 'place holder'
+  pd%d_private_data%d_ctortest = 'place holder'
+
+  call new(user, throwaway_exception)
+  call wrapObj(pd, data, throwaway_exception)
+
+  print *, pd%d_private_data%d_ctortest
+
+  call accept(user, data, throwaway_exception)
+
+  print *, pd%d_private_data%d_string, ' ', pd%d_private_data%d_int
+
+  call deleteRef(user, throwaway_exception)
+  call deleteRef(data, throwaway_exception)
+  ! Private data [should be] deallocated by the Impl dtor.
+
+  call close(tracker, throwaway_exception)
+  call deleteRef(tracker, throwaway_exception)
+end program wraptest
+</PRE></td></tr></table></blockquote>
+<P>
+Finally, the Impl code from wrapper_Data_Impl.F90: 
+<BR>
+<PRE  CLASS="verbatim">recursive subroutine wrapper_Data__ctor2_mi(self, private_data, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use wrapper_Data
+  use wrapper_Data_impl
+  implicit none
+  type(wrapper_Data_t) :: self ! in
+  type(wrapper_Data_wrap) :: private_data
+  type(sidl_BaseInterface_t) :: exception ! out
+
+! DO-NOT-DELETE splicer.begin(wrapper.Data._ctor2)
+  private_data%d_private_data%d_ctortest = 'ctor was run'
+! DO-NOT-DELETE splicer.end(wrapper.Data._ctor2)
+end subroutine wrapper_Data__ctor2_mi
+
+recursive subroutine wrapper_Data_setString_mi(self, s, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use wrapper_Data
+  use wrapper_Data_impl
+  implicit none
+  type(wrapper_Data_t) :: self ! in
+  character (len=*) :: s ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+! DO-NOT-DELETE splicer.begin(wrapper.Data.setString)
+  type(wrapper_Data_wrap) :: dp
+  call wrapper_Data__get_data_m(self, dp)
+  dp%d_private_data%d_string = s
+! DO-NOT-DELETE splicer.end(wrapper.Data.setString)
+end subroutine wrapper_Data_setString_mi
+
+recursive subroutine wrapper_Data_setInt_mi(self, i, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use wrapper_Data
+  use wrapper_Data_impl
+  implicit none
+  type(wrapper_Data_t) :: self ! in
+  integer (kind=sidl_int) :: i ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+
+! DO-NOT-DELETE splicer.begin(wrapper.Data.setInt)
+  type(wrapper_Data_wrap) :: dp
+  call wrapper_Data__get_data_m(self, dp)
+  dp%d_private_data%d_int = i
+
+! DO-NOT-DELETE splicer.end(wrapper.Data.setInt)
+end subroutine wrapper_Data_setInt_mi
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

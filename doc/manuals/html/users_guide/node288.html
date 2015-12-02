@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Interfaces</TITLE>
+<META NAME="description" CONTENT="Interfaces">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node289.html">
+<LINK REL="previous" HREF="node287.html">
+<LINK REL="up" HREF="node285.html">
+<LINK REL="next" HREF="node289.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5474"
+  HREF="node289.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5468"
+  HREF="node285.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5462"
+  HREF="node287.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5470"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5472"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5475"
+  HREF="node289.html">Classes</A>
+<B> Up:</B> <A NAME="tex2html5469"
+  HREF="node285.html">Basic Structure</A>
+<B> Previous:</B> <A NAME="tex2html5463"
+  HREF="node287.html">Packages</A>
+ &nbsp; <B>  <A NAME="tex2html5471"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5473"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03833000000000000000"></A>
+<A NAME="17378"></A>
+<BR>
+Interfaces
+</H2>
+Similarly, the XML for interface symbols contain the common elements.  In 
+addition, they retain elements and attributes associated with SIDL interfaces.  
+These include any extensions, parent interfaces it implements, and its methods.
+Method information includes its name, communication mode, short name, name 
+extension (for languages that don't support method overloading), comment, 
+return type, argument list, and exception list.
+
+<P>
+For example, the XML representation of <TT><I CLASS="slanted">sidl.BaseInterface</I></TT> is:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!DOCTYPE Symbol PUBLIC "-//CCA//sidl Symbol DTD v1.1//EN"
+  "/babel/share/repository/sidl.dtd"&gt;
+&lt;Symbol&gt;
+  &lt;SymbolName name="sidl.BaseInterface" version="0.9.12" /&gt;
+  &lt;Metadata date="20051208 10:47:28 PST"&gt;
+    &lt;MetadataEntry key="source-url"
+    value="file:/babel/runtime/sidl/sidl.sidl" /&gt;
+    &lt;MetadataEntry key="babel-version" value="0.10.51" /&gt;
+    &lt;MetadataEntry key="xml-url"
+    value="/babel/share/repository/sidl.BaseInterface-v0.9.12.xml" /&gt;
+    &lt;MetadataEntry key="source-line" value="46" /&gt;
+  &lt;/Metadata&gt;
+  &lt;Comment&gt;Every interface in 
+  &lt;code&gt;sidl&lt;/code&gt;implicitly inherits from 
+  &lt;code&gt;BaseInterface&lt;/code&gt;, and it is implemented by 
+  &lt;code&gt;BaseClass&lt;/code&gt;below.&lt;/Comment&gt;
+  &lt;Interface&gt;
+    &lt;ExtendsBlock /&gt;
+    &lt;AllParentInterfaces /&gt;
+    &lt;MethodsBlock&gt;
+      &lt;Method communication="normal" copy="false"
+      definition="abstract" extension="" shortname="addRef"&gt;
+        &lt;Comment&gt;
+          &lt;p&gt;Add one to the intrinsic reference count in the
+          underlying object. Object in 
+          &lt;code&gt;sidl&lt;/code&gt;have an intrinsic reference count.
+          Objects continue to exist as long as the reference count
+          is positive. Clients should call this method whenever
+          they create another ongoing reference to an object or
+          interface.&lt;/p&gt;
+          &lt;p&gt;This does not have a return value because there is no
+          language independent type that can refer to an interface
+          or a class.&lt;/p&gt;
+        &lt;/Comment&gt;
+        &lt;Type type="void" /&gt;
+        &lt;ArgumentList /&gt;
+        &lt;ThrowsList /&gt;
+        &lt;ImplicitThrowsList&gt;
+          &lt;SymbolName name="sidl.RuntimeException"
+          version="0.9.12" /&gt;
+        &lt;/ImplicitThrowsList&gt;
+      &lt;/Method&gt;
+      &lt;Method communication="normal" copy="false"
+      definition="abstract" extension="" shortname="deleteRef"&gt;
+        &lt;Comment&gt;Decrease by one the intrinsic reference count in
+        the underlying object, and delete the object if the
+        reference is non-positive. Objects in 
+        &lt;code&gt;sidl&lt;/code&gt;have an intrinsic reference count. Clients
+        should call this method whenever they remove a reference to
+        an object or interface.&lt;/Comment&gt;
+        &lt;Type type="void" /&gt;
+        &lt;ArgumentList /&gt;
+        &lt;ThrowsList /&gt;
+        &lt;ImplicitThrowsList&gt;
+          &lt;SymbolName name="sidl.RuntimeException"
+          version="0.9.12" /&gt;
+        &lt;/ImplicitThrowsList&gt;
+      &lt;/Method&gt;
+      &lt;Method communication="normal" copy="false"
+      definition="abstract" extension="" shortname="isSame"&gt;
+        &lt;Comment&gt;Return true if and only if 
+        &lt;code&gt;obj&lt;/code&gt;refers to the same object as this
+        object.&lt;/Comment&gt;
+        &lt;Type type="boolean" /&gt;
+        &lt;ArgumentList&gt;
+          &lt;Argument copy="false" mode="in" name="iobj"&gt;
+            &lt;Type type="symbol"&gt;
+              &lt;SymbolName name="sidl.BaseInterface"
+              version="0.9.12" /&gt;
+            &lt;/Type&gt;
+          &lt;/Argument&gt;
+        &lt;/ArgumentList&gt;
+        &lt;ThrowsList /&gt;
+        &lt;ImplicitThrowsList&gt;
+          &lt;SymbolName name="sidl.RuntimeException"
+          version="0.9.12" /&gt;
+        &lt;/ImplicitThrowsList&gt;
+      &lt;/Method&gt;
+      &lt;Method communication="normal" copy="false"
+      definition="abstract" extension="" shortname="isType"&gt;
+        &lt;Comment&gt;Return whether this object is an instance of the
+        specified type. The string name must be the 
+        &lt;code&gt;sidl&lt;/code&gt;type name. This routine will return 
+        &lt;code&gt;true&lt;/code&gt;if and only if a cast to the string type
+        name would succeed.&lt;/Comment&gt;
+        &lt;Type type="boolean" /&gt;
+        &lt;ArgumentList&gt;
+          &lt;Argument copy="false" mode="in" name="name"&gt;
+            &lt;Type type="string" /&gt;
+          &lt;/Argument&gt;
+        &lt;/ArgumentList&gt;
+        &lt;ThrowsList /&gt;
+        &lt;ImplicitThrowsList&gt;
+          &lt;SymbolName name="sidl.RuntimeException"
+          version="0.9.12" /&gt;
+        &lt;/ImplicitThrowsList&gt;
+      &lt;/Method&gt;
+      &lt;Method communication="normal" copy="false"
+      definition="abstract" extension="" shortname="getClassInfo"&gt;
+        &lt;Comment&gt;Return the meta-data about the class implementing
+        this interface.&lt;/Comment&gt;
+        &lt;Type type="symbol"&gt;
+          &lt;SymbolName name="sidl.ClassInfo" version="0.9.12" /&gt;
+        &lt;/Type&gt;
+        &lt;ArgumentList /&gt;
+        &lt;ThrowsList /&gt;
+        &lt;ImplicitThrowsList&gt;
+          &lt;SymbolName name="sidl.RuntimeException"
+          version="0.9.12" /&gt;
+        &lt;/ImplicitThrowsList&gt;
+      &lt;/Method&gt;
+    &lt;/MethodsBlock&gt;
+  &lt;/Interface&gt;
+&lt;/Symbol&gt;
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

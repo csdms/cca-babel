@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Method signatures</TITLE>
+<META NAME="description" CONTENT="Method signatures">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node250.html">
+<LINK REL="previous" HREF="node248.html">
+<LINK REL="up" HREF="node247.html">
+<LINK REL="next" HREF="node250.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4902"
+  HREF="node250.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4896"
+  HREF="node247.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4890"
+  HREF="node248.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4898"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4900"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4903"
+  HREF="node250.html">Data types</A>
+<B> Up:</B> <A NAME="tex2html4897"
+  HREF="node247.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4891"
+  HREF="node248.html">Name space</A>
+ &nbsp; <B>  <A NAME="tex2html4899"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4901"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03622000000000000000"></A><A NAME="ss:python:signatures"></A><A NAME="15616"></A>
+<A NAME="15617"></A>
+<BR>
+Method signatures
+</H2>
+
+<P>
+Despite the natural name space mapping, the goal to make language bindings
+as natural as possible led to some variation for Python method signatures.
+While the method name is used directly -- where the full name<A NAME="15618"></A>
+(i.e., the short name with the extension appended) is used for overloaded 
+methods -- there are some differences for its 
+arguments.  Specifically, arguments to the method include only the specified
+<TT><I CLASS="slanted">in</I></TT> and <TT><I CLASS="slanted">inout</I></TT> arguments, while the return 
+value<A NAME="15621"></A> of the Python method includes the SIDL 
+return value in addition to the <TT><I CLASS="slanted">inout</I></TT> and <TT><I CLASS="slanted">out</I></TT> parameters.  
+(This will, hopefully, seem natural to Python programmers.)  
+For example, the following SIDL declaration for method <TT>passeverywhere</TT>
+of class <TT>Cdouble</TT> within the <TT>Args</TT> package is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15627"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">double passeverywhere( in double d1, out double d2, inout double d3 );
+</I></PRE></td></tr></table></blockquote>
+<P>
+The corresponding calling signature -- based on Python's built-in 
+documentation capability -- is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">passeverywhere(in double d1,
+               inout double d3)
+RETURNS
+   (double _return,
+    out double d2,
+    inout double d3)
+</PRE></td></tr></table></blockquote>
+<P>
+Whenever the SIDL specification includes a return type, the corresponding
+Python signature will include an <TT>_return</TT> as the first value of
+the Python's <TT>RETURNS</TT> value<A NAME="15632"></A>.
+Starting <TT>_return</TT> with an underbar is used to indicate the argument 
+is not a parameter since Python parameter names cannot begin with an underbar.  
+More information on Python's built-in documentation capability is given in
+Subsection&nbsp;<A HREF="node263.html#ss:python:objectmanagement">11.3.4</A>.
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+As discussed in Subsection&nbsp;<A HREF="node255.html#sss:python:arrays">11.2.3</A>, methods passing raw SIDL 
+arrays (or r-arrays) do not have index arguments in Python.
+<A NAME="15637"></A><A NAME="15638"></A>
+</SPAN>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4902"
+  HREF="node250.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4896"
+  HREF="node247.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4890"
+  HREF="node248.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4898"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4900"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4903"
+  HREF="node250.html">Data types</A>
+<B> Up:</B> <A NAME="tex2html4897"
+  HREF="node247.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4891"
+  HREF="node248.html">Name space</A>
+ &nbsp; <B>  <A NAME="tex2html4899"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4901"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

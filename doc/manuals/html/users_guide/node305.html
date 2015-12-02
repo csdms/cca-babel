@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Passing Objects from a client</TITLE>
+<META NAME="description" CONTENT="Passing Objects from a client">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node304.html">
+<LINK REL="up" HREF="node302.html">
+<LINK REL="next" HREF="node306.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5795"
+  HREF="node306.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5789"
+  HREF="node302.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5785"
+  HREF="node304.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5791"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5793"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5796"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Up:</B> <A NAME="tex2html5790"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Previous:</B> <A NAME="tex2html5786"
+  HREF="node304.html">Built-in Functions</A>
+ &nbsp; <B>  <A NAME="tex2html5792"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5794"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04133000000000000000"></A><A NAME="ss:RMIclientexport"></A>
+<BR>
+Passing Objects from a client
+</H2>
+
+<P>
+If there is no BOS running locally, (that is, your process is strictly
+a client) you cannot expose your local objects to remote machines by reference.
+However, that doesn't mean you can't pass objects around.  The client
+can still pass references to remote objects on other remote servers,
+and can still pass both local and remote objects by copy.  For this
+section, we will take our examples from this SIDL:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package foo version 0.1 {
+  
+  class Bar {
+    void setBaz(in foo.Baz bz);
+    void setBazCopy(in copy foo.Baz bz);
+    //returns the registered Baz, or a new one if none exists
+    foo.Baz returnBaz();
+  }
+
+  class Baz {}
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+From the above SIDL, you can see that the following C code is perfectly legal for a client:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar fb = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);
+foo_Baz fz = foo_Bar_returnBaz(fb, &amp;_ex);
+foo_Baz_runSimulation(fz, &amp;_ex);
+</PRE></td></tr></table></blockquote>
+<P>
+It's legal because the remote call returns a reference to another
+remote object, the client never actually exports any of it's local objects.
+
+<P>
+The following chunk is also legal, because it passes a remote object
+to a different remote server.  (Passing it to the same remote server
+would be OK too.)
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar fb = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);
+foo_Baz fz = foo_Baz__createRemote("simhandle://pc2:9999", &amp;_ex);
+foo_Bar_setBaz(fb, fz, &amp;_ex);
+
+</PRE></td></tr></table></blockquote>
+<P>
+And the following is ALSO legal, because clients can pass local
+objects remotely by copy, they just can't pass local objects by
+reference.  (This allows users to drive a remote simulation on a
+cluster from a regular workstation with nothing but a simple client.)
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar fb = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);
+foo_Baz fz = foo_Baz__create(&amp;_ex);  //Local object
+foo_Bar_setBazCopy(fb, fz, &amp;_ex);    //Pass by copy
+</PRE></td></tr></table></blockquote>
+<P>
+However this final bit of code will throw an exception if run by a
+client that has no BOS:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* X ILLEGAL X WILL THROW EXCEPTION X     */ 
+
+foo_Bar fb = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);
+foo_Baz fz = foo_Baz__create(&amp;_ex); //Local object
+foo_Bar_setBaz(fb, fz, &amp;_ex);       //Pass by reference X BAD! X
+
+/* X ILLEGAL X WILL THROW EXCEPTION X     */ 
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5795"
+  HREF="node306.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5789"
+  HREF="node302.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5785"
+  HREF="node304.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5791"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5793"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5796"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Up:</B> <A NAME="tex2html5790"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Previous:</B> <A NAME="tex2html5786"
+  HREF="node304.html">Built-in Functions</A>
+ &nbsp; <B>  <A NAME="tex2html5792"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5794"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

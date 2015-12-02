@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Data types</TITLE>
+<META NAME="description" CONTENT="Data types">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node202.html">
+<LINK REL="previous" HREF="node196.html">
+<LINK REL="up" HREF="node194.html">
+<LINK REL="next" HREF="node198.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4085"
+  HREF="node198.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4079"
+  HREF="node194.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4073"
+  HREF="node196.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4081"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4083"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4086"
+  HREF="node198.html">Strings</A>
+<B> Up:</B> <A NAME="tex2html4080"
+  HREF="node194.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4074"
+  HREF="node196.html">Method signatures</A>
+ &nbsp; <B>  <A NAME="tex2html4082"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4084"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03423000000000000000"></A><A NAME="ss:f90:types"></A><A NAME="11426"></A>
+<A NAME="11427"></A>
+<BR>
+Data types
+</H2>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<A NAME="tbl:f90:types"></A>
+<DIV ALIGN="CENTER">
+<A NAME="11429"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 9.1:</STRONG>
+SIDL to Fortran 90 Type Mappings</CAPTION>
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">SIDL TYPE</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">Fortran 90 TYPE</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">int</I></TT></TD>
+<TD ALIGN="LEFT"><TT>INTEGER (kind=sidl_int)</TT>	<A NAME="11438"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">long</I></TT></TD>
+<TD ALIGN="LEFT"><TT>INTEGER (kind=sidl_long)</TT>	<A NAME="11441"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">float</I></TT></TD>
+<TD ALIGN="LEFT"><TT>REAL (kind=sidl_float)</TT>	<A NAME="11444"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">double</I></TT></TD>
+<TD ALIGN="LEFT"><TT>REAL (kind=sidl_double)</TT>	<A NAME="11447"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">bool</I></TT></TD>
+<TD ALIGN="LEFT"><TT>LOGICAL</TT>			<A NAME="11450"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">char</I></TT></TD>
+<TD ALIGN="LEFT"><TT>CHARACTER (LEN=1)</TT>		<A NAME="11453"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">string</I></TT></TD>
+<TD ALIGN="LEFT"><TT>CHARACTER (LEN=*)</TT>		<A NAME="11456"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">fcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>COMPLEX (kind=sidl_fcomplex)</TT> <A NAME="11459"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">dcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>COMPLEX (kind=sidl_dcomplex)</TT> <A NAME="11462"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">enum</I></TT></TD>
+<TD ALIGN="LEFT"><TT>INTEGER (kind=sidl_enum)</TT>	<A NAME="11465"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">opaque</I></TT></TD>
+<TD ALIGN="LEFT"><TT>INTEGER (kind=sidl_opaque)</TT> 	<A NAME="11468"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">interface</I></TT></TD>
+<TD ALIGN="LEFT"><TT><SPAN  CLASS="textit">derived type</SPAN></TT>		<A NAME="11471"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">class</I></TT></TD>
+<TD ALIGN="LEFT"><TT><SPAN  CLASS="textit">derived type</SPAN></TT>		<A NAME="11474"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">array</I></TT></TD>
+<TD ALIGN="LEFT"><TT><SPAN  CLASS="textit">derived type</SPAN></TT>		<A NAME="11477"></A></TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+The mapping for simple SIDL types to Fortran 90 is given in
+Table&nbsp;<A HREF="#tbl:f90:types">9.1</A>.  The kind parameters, given in
+the <TT>sidl</TT> F90 module, define integer
+parameters for <TT>sidl_int</TT>, <TT>sidl_long</TT>,
+<TT>sidl_float</TT>, <TT>sidl_double</TT>, 
+<TT>sidl_fcomplex</TT>, <TT>sidl_dcomplex</TT>, 
+<TT>sidl_enum</TT> and <TT>sidl_opaque</TT> to
+give sizes that match the corresponding SIDL types.
+The remainder of this subsection elaborates on mappings of strings, 
+pointers, enumerations, and arrays.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html4087"
+  HREF="node198.html">Strings</A>
+<LI><A NAME="tex2html4088"
+  HREF="node199.html">Pointers</A>
+<LI><A NAME="tex2html4089"
+  HREF="node200.html">Enumerations</A>
+<LI><A NAME="tex2html4090"
+  HREF="node201.html">Arrays</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4085"
+  HREF="node198.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4079"
+  HREF="node194.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4073"
+  HREF="node196.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4081"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4083"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4086"
+  HREF="node198.html">Strings</A>
+<B> Up:</B> <A NAME="tex2html4080"
+  HREF="node194.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4074"
+  HREF="node196.html">Method signatures</A>
+ &nbsp; <B>  <A NAME="tex2html4082"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4084"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

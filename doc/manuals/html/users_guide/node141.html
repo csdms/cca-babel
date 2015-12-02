@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception throwing</TITLE>
+<META NAME="description" CONTENT="Exception throwing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node142.html">
+<LINK REL="previous" HREF="node140.html">
+<LINK REL="up" HREF="node137.html">
+<LINK REL="next" HREF="node142.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3199"
+  HREF="node142.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3193"
+  HREF="node137.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3187"
+  HREF="node140.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3195"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3197"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3200"
+  HREF="node142.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html3194"
+  HREF="node137.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3188"
+  HREF="node140.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html3196"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3198"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03144000000000000000"></A>
+<A NAME="7113"></A><A NAME="7114"></A>
+<A NAME="7115"></A>
+<BR>
+Exception throwing
+</H2>
+
+<P>
+In addition to the helpers discussed in Subsection&nbsp;<A HREF="node134.html#ss:c:exceptions">6.3.6</A>,
+<TT>sidl_Exception.h</TT> provides the following 
+<TT>SIDL_THROW</TT><A NAME="7119"></A> macro for throwing exceptions<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">SIDL_THROW(EX_VAR,EX_CLS,MSG)
+</PRE></td></tr></table></blockquote>
+<P>
+The first argument to the macro is the exception output parameter; the
+second is the type of exception being thrown; and the third provides 
+a textual description of the exception.
+The following code snippet, which is an extension of the 
+Subsection&nbsp;<A HREF="node134.html#ss:c:exceptions">6.3.6</A> example, 
+illustrates the process of using the macro to throw an exception<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="7122"></A>
+<A NAME="7123"></A><A NAME="7124"></A>
+<A NAME="7125"></A><A NAME="7126"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">#include "sidl_Exception.h"
+/* ...numerous lines deleted... */
+int32_t
+impl_ExceptionTest_Fib_getFib(
+  ExceptionTest_Fib self, int32_t n, int32_t max_depth, int32_t max_value,
+    int32_t depth, sidl_BaseInterface* _ex)
+{
+  /* DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFib) */
+  if (n &lt; 0) {
+    SIDL_THROW(*_ex,
+               ExceptionTest_NegativeValueException,
+               "called with negative n");
+  }
+  /* ...lines deleted... */
+  EXIT:;
+    /* SIDL_THROW macro will jump here. */
+    /* Clean up code should be here. */
+    return theValue;
+  /* DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFib) */
+}
+</PRE></td></tr></table></blockquote>
+<P>
+
+<TT>EX_VAR</TT> is the exception object itself; <TT>EX_CLS</TT> is the 
+string containing the name of the desired SIDL exception type; and 
+<TT>MSG</TT> is the string containing the message to be included with 
+the exception. 
+As with the other helpers, the presence of the <TT>EXIT</TT> label is 
+assumed in the macro.  Statements following <TT>EXIT</TT> should be used
+to conduct clean up operations, such as deleting any references that 
+were to be returned to the caller.  
+
+<P>
+A good practice we recommend is
+to set all <TT><I CLASS="slanted">inout</I></TT> and <TT><I CLASS="slanted">out</I></TT> array, interface or class pointers to
+<TT>NULL</TT>.  This makes things work out better for clients who forget
+to check if an exception occurred or willfully choose to ignore it.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3199"
+  HREF="node142.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3193"
+  HREF="node137.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3187"
+  HREF="node140.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3195"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3197"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3200"
+  HREF="node142.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html3194"
+  HREF="node137.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3188"
+  HREF="node140.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html3196"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3198"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

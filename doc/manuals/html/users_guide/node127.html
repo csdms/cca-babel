@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type casting</TITLE>
+<META NAME="description" CONTENT="Type casting">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node124.html">
+<LINK REL="up" HREF="node121.html">
+<LINK REL="next" HREF="node128.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2994"
+  HREF="node128.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2988"
+  HREF="node121.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2984"
+  HREF="node126.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2990"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2992"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2995"
+  HREF="node128.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html2989"
+  HREF="node121.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html2985"
+  HREF="node126.html">Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html2991"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2993"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03124000000000000000"></A><A NAME="ss:c:casting"></A><A NAME="6875"></A><A NAME="6876"></A>
+<A NAME="6877"></A>
+<BR>
+Type casting
+</H2>
+
+<P>
+C bindings for interfaces and classes include two implicitly defined 
+methods for performing type casts.  The methods are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>_cast</TT> and
+<TT>_cast2</TT>.  
+The <TT>_cast</TT> method casts a SIDL interface or object pointer to a 
+<TT>sidl.BaseClass</TT> pointer.  The <TT>_cast2</TT> method casts a SIDL 
+interface or object pointer to a named <TT>type</TT> pointer.
+In the latter case, the client is responsible
+for casting the return value into the proper pointer type.  
+Using <TT>sidl.BaseClass</TT> as an example, signatures of the 
+two methods are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="6885"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidl_BaseClass
+sidl_BaseClass__cast(void* obj, /* out */ sidl_BaseInterface *_ex);
+
+void*
+sidl_BaseClass__cast2(void* obj, const char* type,
+                      /* out */ sidl_BaseInterface *_ex);
+</PRE></td></tr></table></blockquote>
+<P>
+Using either method results in the reference count<A NAME="6887"></A> 
+of the underlying object being increased if the cast succeeded.  Success can
+be determined by checking the return value for a non-<TT>NULL</TT> result.  That
+is, if a <TT>NULL</TT> value is returned from either method, then the cast 
+failed or <TT>obj</TT> was <TT>NULL</TT>.
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+These methods did not increment the reference count in Babel releases prior 
+to 0.11.0.
+</SPAN>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

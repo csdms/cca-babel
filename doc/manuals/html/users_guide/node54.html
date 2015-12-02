@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Packages and Versions</TITLE>
+<META NAME="description" CONTENT="Packages and Versions">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node55.html">
+<LINK REL="previous" HREF="node53.html">
+<LINK REL="up" HREF="node51.html">
+<LINK REL="next" HREF="node55.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1701"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1695"
+  HREF="node51.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1689"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1697"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1699"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1702"
+  HREF="node55.html">Re-entrant Packages</A>
+<B> Up:</B> <A NAME="tex2html1696"
+  HREF="node51.html">SIDL Files</A>
+<B> Previous:</B> <A NAME="tex2html1690"
+  HREF="node53.html">Comments and Doc-Comments</A>
+ &nbsp; <B>  <A NAME="tex2html1698"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1700"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02423000000000000000"></A><A NAME="2530"></A><A NAME="2531"></A><A NAME="2532"></A>
+<BR>
+Packages and Versions
+</H2>
+
+<P>
+SIDL has both a packaging and versioning mechanism built in.  
+Packages are essentially named scopes, serving a similar function
+as Java packages or C++ namespaces.  Versions
+are decimal separated integer values where it is assumed
+larger numbers imply more recent versions. All classes 
+and interfaces in that package get that same 
+version number.  If subpackages are specified, they can have their own version 
+number assigned.  If a package is declared without a version, it can only 
+contain other packages.  If a package declares interfaces or classes,
+a version number for that package is required.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package mypkg { 
+
+}
+</I></PRE></td></tr></table></blockquote>This SIDL file represents the minimum needed for each and every SIDL
+file.  The package statement defines a scope where all
+classes within the package must reside.  Since no version clause is included, 
+the version number defaults to 0.
+
+<P>
+Packages can be nested.<A NAME="2534"></A> This is shown in the example below.  The version 
+numbers assigned to all the types is determined by the package, or subpackage, 
+in which it resides.  In the design of the SIDL file, remember that
+some languages get very long function names from excessively nested packages
+or excessively long package names.
+<BR>
+<PRE  CLASS="verbatim">package mypkg version 1.0 { 
+
+  package thisIsAReallyLongPackageName { 
+  }
+  
+  package this version 0.6 { 
+    package is {
+      package a { 
+        package really { 
+          package deeply version 0.4 {
+            package nested {
+              package packageName version 0.1 {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+</I></PRE></td></tr></table></blockquote>
+<P>
+In SIDL you can use as much or as little of a type name as necessary 
+to uniquely identify it.  If absolute specificity is required, a leading
+dot can be used to identify the global (top) package.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 package foo {
+   2   class A {}
+   3   package foo {
+   4     class A {
+   5       foo.A bar();  //which foo.A?
+   6       .foo.A wuux(); //first foo.A.
+   7       .foo.foo.A wuxx(); //second foo.A.
+   8     }
+   9   }
+  10 }
+</PRE></I></td></tr></table></blockquote>
+<P>
+External types can be expressed in one of two ways.  The fully
+scoped<A NAME="2537"></A>
+external type can be used anywhere in the class description.  Alternatively, 
+an <TT><I CLASS="slanted">import</I></TT><A NAME="2539"></A><A NAME="2540"></A> statement can be used to put the type in the local
+package-space.  <TT><I CLASS="slanted">import</I></TT> statements can request a specific
+version of the package, if that version is not found, Babel will print
+an error.  If no version is specified, Babel will take whatever
+version it is being run on.  Babel can not be run on two versions of
+a given package at the same time, even if you only import or require
+one of them.  
+
+<P>
+Another way to restrict the package version you use is the
+<TT><I CLASS="slanted">restrict</I></TT><A NAME="2543"></A><A NAME="2544"></A> statement.
+<TT><I CLASS="slanted">restrict</I></TT> does not import the package, but if you do later
+import the package or refer to something in that package by it's fully
+scoped name, Babel will guarantee that the correct version of the
+package will be used.  Also note that all restrict statements must
+come before the first import statement.
+
+<P>
+Below is a sample SIDL file, that should help bring all of these concepts
+together.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">require pkgC version 2.0; // restrict pkgC to version 2.0, not imported
+
+import pkgA version 1.0; // restrict pkgA version 1.0. Includes class pkgA.A
+
+import pkgB;      // import pkgB regaurdless of version.  Includes class pkgB.B
+
+package mypkg version 2.0 { 
+  class foo { 
+    setA( A ); // imported from pkgA, must be pkgA.A-v1.0
+    setB( B ); // imported from pkgB, must be pkgB.B, no version restriction
+    setC( pkgC.C ); // must be pkgC.C-v2.0
+    setD( pkgD.D ); // no version restriction
+  }
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1701"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1695"
+  HREF="node51.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1689"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1697"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1699"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1702"
+  HREF="node55.html">Re-entrant Packages</A>
+<B> Up:</B> <A NAME="tex2html1696"
+  HREF="node51.html">SIDL Files</A>
+<B> Previous:</B> <A NAME="tex2html1690"
+  HREF="node53.html">Comments and Doc-Comments</A>
+ &nbsp; <B>  <A NAME="tex2html1698"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1700"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Comments and Doc-Comments</TITLE>
+<META NAME="description" CONTENT="Comments and Doc-Comments">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node54.html">
+<LINK REL="previous" HREF="node52.html">
+<LINK REL="up" HREF="node51.html">
+<LINK REL="next" HREF="node54.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1687"
+  HREF="node54.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1681"
+  HREF="node51.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1675"
+  HREF="node52.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1683"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1685"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1688"
+  HREF="node54.html">Packages and Versions</A>
+<B> Up:</B> <A NAME="tex2html1682"
+  HREF="node51.html">SIDL Files</A>
+<B> Previous:</B> <A NAME="tex2html1676"
+  HREF="node52.html">Basic Structure</A>
+ &nbsp; <B>  <A NAME="tex2html1684"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1686"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02422000000000000000"></A><A NAME="2518"></A><A NAME="2519"></A>
+<BR>
+Comments and Doc-Comments
+</H2>
+
+<P>
+SIDL has the same commenting style as C++/Java
+and even has a special documentation comment
+(so called <SPAN  CLASS="textit">doc-comment</SPAN>) similar to those
+used in Javadoc.  
+One can embed comments anywhere in their SIDL file.  
+Documentation comments should immediately precede
+the class, interface, or method with which they are associated.
+Babel replicates documentation comments in the files it generates.
+It does not replicate plain comments.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/*
+ *  1. This is a multi-line comment.
+ * 
+ */
+
+//  2. This comment fits entirely on a single line.
+
+/*  3. This comment can fill less than a line. */
+
+/** 4. This is a documentation comment. */
+
+/** 
+ *  5. Documentation comments can span
+ *     multiple lines without the beginning
+ *     space-asterisk-space combinations 
+ *     getting in the way.
+ */
+</I></PRE></td></tr></table></blockquote>
+<P>
+Consider the above SIDL file fragment.  
+
+<OL>
+<LI>This comment is a regular multi-line comment that is
+delimited by a slash-star , star-slash 
+	(``<TT>/*</TT>'', ``<TT>*/</TT>'') pair.
+</LI>
+<LI>This is a single-line comment that starts 
+	with a double slash ``<TT>//</TT>'' and continues 
+	to the end of the line.
+</LI>
+<LI>This comment is the same as # 1 except that it
+	is completely contained on a single line.  It can
+	be embedded in the middle of a line anywhere 
+	a space naturally occurs.
+</LI>
+<LI>This is a documentation comment.  In keeping with
+	Javadoc, Doc++, and other tools, it is delimited by
+	slash-star-star and star-slash 
+	(``<TT>/**</TT>'', ``<TT>*/</TT>'') combinations.
+	Documentation comments are important because their
+	contents are preserved by Babel in the corresponding
+	generated files.  Doc-comments must directly
+	precede the interface, class, or method that they
+	document.
+</LI>
+<LI>This is a multi-line variant of a doc-comment.  Note
+	that initial asterisks on a line are assumed to
+	be for human readers only and are discarded by
+	Babel when it reads in the text.  The multi-line
+	doc-comment is the preferred way of documenting
+	SIDL.
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1687"
+  HREF="node54.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1681"
+  HREF="node51.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1675"
+  HREF="node52.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1683"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1685"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1688"
+  HREF="node54.html">Packages and Versions</A>
+<B> Up:</B> <A NAME="tex2html1682"
+  HREF="node51.html">SIDL Files</A>
+<B> Previous:</B> <A NAME="tex2html1676"
+  HREF="node52.html">Basic Structure</A>
+ &nbsp; <B>  <A NAME="tex2html1684"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1686"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

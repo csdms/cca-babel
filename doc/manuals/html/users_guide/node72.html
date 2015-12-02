@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: createCol</TITLE>
+<META NAME="description" CONTENT="Function: createCol">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node73.html">
+<LINK REL="previous" HREF="node71.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node73.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2027"
+  HREF="node73.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2021"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2015"
+  HREF="node71.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2023"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2025"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2028"
+  HREF="node73.html">Function: createRow</A>
+<B> Up:</B> <A NAME="tex2html2022"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2016"
+  HREF="node71.html">The Array API</A>
+ &nbsp; <B>  <A NAME="tex2html2024"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2026"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION02448100000000000000"></A><A NAME="3533"></A>
+<BR>
+Function: createCol
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+struct sidl_double__array*
+sidl_double__array_createCol(int32_t       dimen,
+                             const int32_t lower[],
+                             const int32_t upper[]);
+//
+// C++
+static sidl::array&lt;double&gt;
+sidl::array&lt;double&gt;::createCol(int32_t       dimen,
+                               const int32_t lower[],
+                               const int32_t upper[]);
+C
+C FORTRAN 77
+       subroutine sidl_double__array_createCol_f(dimen, lower, upper, result)
+       integer*4 dimen
+       integer*4 lower(dimen), upper(dimen)
+       integer*8 result
+!
+! FORTRAN 90
+subroutine createCol(lower, upper, result)
+  integer (selected_int_kind(9)), dimension(:), intent(in) :: lower, upper
+  type (sidl_double_3d), intent(out) :: result ! type depends on dimension
+! dimension of result is inferred from the size of lower
+
+// Java
+// (isRow should be false to get a column order array) 
+  public Array(int dim, int[] lower, int[] upper, boolean isRow);
+</I></PRE></td></tr></table></blockquote>
+<P>
+This method creates a column-major, multi-dimensional array in a
+contiguous block of memory.  <TT>dimen</TT> should be strictly greater
+than zero, and <TT>lower</TT> and <TT>upper</TT>  should have <TT>dimen</TT>
+elements. <TT>lower[i]</TT> must be less than or equal to
+<TT>upper[i]-1</TT> for <TT>i <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.png"
+ ALT="$\geq$"></SPAN> 0</TT> and <TT>i <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN> dimen</TT>.  If
+this function fails for some reason, it returns
+<TT>NULL</TT>. <TT>lower[i]</TT> specifies the smallest valid index for
+dimension <TT>i</TT>, and <TT>upper[i]</TT> specifies the largest.  Note
+this definition is somewhat un-C like where the upper bound is often
+one past the end.  In SIDL, the size of dimension <TT>i</TT> is <TT>1
++ upper[i] - lower[i]</TT>.
+
+<P>
+The function makes copies of the information provided by <TT>dimen</TT>,
+<TT>lower</TT>, and <TT>upper</TT>, so the caller is not obliged to
+maintain those values after the function call.
+
+<P>
+For Fortran, the new array is returned in the last parameter,
+<TT>result</TT>. A zero value in <TT>result</TT> indicates that the
+operation failed. For Fortran 90, you can use the function
+<TT>not_null</TT> to verify that <TT>result</TT> is a valid array.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2027"
+  HREF="node73.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2021"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2015"
+  HREF="node71.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2023"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2025"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2028"
+  HREF="node73.html">Function: createRow</A>
+<B> Up:</B> <A NAME="tex2html2022"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2016"
+  HREF="node71.html">The Array API</A>
+ &nbsp; <B>  <A NAME="tex2html2024"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2026"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

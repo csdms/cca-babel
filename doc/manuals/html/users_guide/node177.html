@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type casting</TITLE>
+<META NAME="description" CONTENT="Type casting">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node172.html">
+<LINK REL="up" HREF="node169.html">
+<LINK REL="next" HREF="node178.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3767"
+  HREF="node178.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3761"
+  HREF="node169.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3757"
+  HREF="node176.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3763"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3765"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3768"
+  HREF="node178.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html3762"
+  HREF="node169.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3758"
+  HREF="node176.html">Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html3764"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3766"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03324000000000000000"></A><A NAME="ss:f77:casting"></A><A NAME="9932"></A><A NAME="9933"></A>
+<A NAME="9934"></A><A NAME="9935"></A>
+<BR>
+Type casting
+</H2>
+
+<P>
+Babel automatically generates two methods for casting between
+interfaces and classes<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>_cast()</TT> and <TT>_cast2()</TT>.
+The <TT>_cast()</TT> method, which tries to convert its opaque argument to 
+the type of the class indicated by the method name, is static.  
+Similarly, the non-static <TT>_cast2()</TT> method attempts to convert an 
+object pointer to the named type -- specified as a string.
+For example, the following code snippet creates an instance of 
+<TT>sidl.BaseClass</TT> then casts it to <TT>sidl.BaseInterface</TT> using
+each of the two methods<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9942"></A><A NAME="9943"></A>
+<A NAME="9944"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">      integer*8 object, interface, except
+      call sidl_BaseClass__create_f(object, except)
+      call sidl_BaseInterface__cast_f(object, interface, except)
+c     the following call to _cast2 is equivalent to the previous _cast call
+      call sidl_BaseClass__cast2_f(object, 'sidl.BaseInterface',
+     $     interface, except)
+</PRE></td></tr></table></blockquote>
+<P>
+In either case, a zero <TT>except</TT> means the cast was successful
+and the returned reference (i.e., <TT>interface</TT>)
+should be non-zero.  Since Babel 0.11.0, both methods increment the 
+reference count when they are able to successfully
+cast the object.  The caller then owns the returned reference.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

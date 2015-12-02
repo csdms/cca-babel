@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SCL Files for Dynamic Loading</TITLE>
+<META NAME="description" CONTENT="SCL Files for Dynamic Loading">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node327.html">
+<LINK REL="previous" HREF="node325.html">
+<LINK REL="up" HREF="node315.html">
+<LINK REL="next" HREF="node327.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6103"
+  HREF="node327.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6097"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6091"
+  HREF="node325.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6099"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6101"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6104"
+  HREF="node327.html">Deployment of Babel-Enabled Libraries</A>
+<B> Up:</B> <A NAME="tex2html6098"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6092"
+  HREF="node325.html">Language Bindings for the</A>
+ &nbsp; <B>  <A NAME="tex2html6100"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6102"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04260000000000000000"></A>
+<A NAME="18762"></A>
+<BR>
+SCL Files for Dynamic Loading
+</H1>
+
+<P>
+If you generate a dynamic-linked library containing implementations of
+SIDL classes, you must also generate a SIDL Class List file (SCL
+file). An SCL file contains metadata about zero or more dynamic-linked
+libraries; for each dynamic-linked library, the SCL file has the list
+of SIDL classes implemented in that library. The
+<TT>sidl.Loader.findLibrary</TT> method searches SCL files when trying
+to find the implementation (or some other aspect) of a SIDL class.
+
+<P>
+The SCL file is an XML file with three kinds of elements. The top
+level element is <TT>scl</TT> which contains zero or more <TT>library</TT>
+elements. The <TT>library</TT> element has several attributes, and it
+contains zero or more <TT>class</TT> elements. The <TT>library</TT>
+element has three required attributes, <TT>uri</TT>, <TT>scope</TT> and
+<TT>resolution</TT>, and two optional attributes, <TT>md5</TT> and
+<TT>sha1</TT>. The <TT>uri</TT> is a local filename including path or a
+network <TT>url</TT> indicating where the library is stored. The
+<TT>scope</TT> attribute allows developers to suggest whether the
+library should be loaded in a <TT>local</TT> or the <TT>global</TT>
+namespace. The developer can suggest <TT>lazy</TT> or <TT>now</TT> symbol
+resolution using the <TT>scope</TT> attribute. The <TT>md5</TT> and
+<TT>sha1</TT> are optional message digests to confirm that the library
+has not been modified or replaced. The <TT>class</TT> element has two
+required elements, <TT>name</TT> and <TT>desc</TT>. The <TT>name</TT> field
+is the name of the class, and <TT>desc</TT> indicates what kind of
+information is held in the library. Each class contained in the
+dynamic-linked library should be listed in the SCL file. For now, the
+only <TT>desc</TT> values with standardized meanings of <TT>ior/impl</TT>,
+<TT>java</TT> and <TT>python/impl</TT>. <TT>ior/impl</TT> indicates the
+dynamic-linked library contains the IOR object and implementation for
+the class, and <TT>java</TT> indicates that the library has the Java JNI
+wrapper object code. <TT>python/impl</TT> has the Python skeletons and
+implementation libraries.
+
+<P>
+Here is an the SCL file for the SIDL runtime library installed in
+<TT>/usr/local</TT>.
+<BR>
+<PRE  CLASS="verbatim">&lt;?xml version="1.0" ?&gt; 
+&lt;scl&gt;
+  &lt;library uri="/usr/local/lib/libsidl.la" scope="global" resolution="now" &gt; 
+    &lt;class name="SIDL.BaseClass" desc="ior/impl" /&gt;
+    &lt;class name="SIDL.ClassInfoI" desc="ior/impl" /&gt;
+    &lt;class name="SIDL.DLL" desc="ior/impl" /&gt;
+    &lt;class name="SIDL.Loader" desc="ior/impl" /&gt;
+    &lt;class name="SIDL.Boolean" desc="java" /&gt;
+    &lt;class name="SIDL.Character" desc="java" /&gt;
+    &lt;class name="SIDL.DoubleComplex" desc="java" /&gt;
+    &lt;class name="SIDL.Double" desc="java" /&gt;
+    &lt;class name="SIDL.FloatComplex" desc="java" /&gt;
+    &lt;class name="SIDL.Float" desc="java" /&gt;
+    &lt;class name="SIDL.Integer" desc="java" /&gt;
+    &lt;class name="SIDL.Long" desc="java" /&gt;
+    &lt;class name="SIDL.Opaque" desc="java" /&gt;
+    &lt;class name="SIDL.SIDLException" desc="ior/impl" /&gt;
+    &lt;class name="SIDL.String" desc="java" /&gt;
+  &lt;/library&gt;
+&lt;/scl&gt;
+</PRE></td></tr></table></blockquote>It's worth noting that the <TT>uri</TT> can be a libtool metadata file 
+(<TT>.la</TT>) when the library is located on the local file system or a
+dynamic-linked library file (<TT>.so</TT> or another  machine dependent
+suffix). You cannot have a libtool <TT>.la</TT> when the library is
+remote (e.g., <TT>ftp:</TT> or <TT>http:</TT>) because libtool expects the
+files references in the <TT>.la</TT> file to be local and in particular
+directories.
+
+<P>
+The GNUmakefile generated with the <code>--</code><TT>makefile</TT> Babel
+option contains rules to automatically generate .scl files for each of
+the supported Babel languages.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6103"
+  HREF="node327.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6097"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6091"
+  HREF="node325.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6099"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6101"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6104"
+  HREF="node327.html">Deployment of Babel-Enabled Libraries</A>
+<B> Up:</B> <A NAME="tex2html6098"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6092"
+  HREF="node325.html">Language Bindings for the</A>
+ &nbsp; <B>  <A NAME="tex2html6100"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6102"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

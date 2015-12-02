@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Layout of Generated Files</TITLE>
+<META NAME="description" CONTENT="Layout of Generated Files">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node317.html">
+<LINK REL="previous" HREF="node315.html">
+<LINK REL="up" HREF="node315.html">
+<LINK REL="next" HREF="node317.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5962"
+  HREF="node317.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5956"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5950"
+  HREF="node315.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5958"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5960"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5963"
+  HREF="node317.html">Grouping compiled assets into</A>
+<B> Up:</B> <A NAME="tex2html5957"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html5951"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+ &nbsp; <B>  <A NAME="tex2html5959"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5961"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04210000000000000000"></A><A NAME="s:filelayout"></A><A NAME="18639"></A>
+<BR>
+Layout of Generated Files
+</H1>
+Babel generates a lot of files. Many of these files you never have to 
+look at in an editor, but they must all be compiled and properly linked
+into an application (see Section&nbsp;<A HREF="node317.html#s:libgrouping">16.2</A>).  
+In this section we discuss a host of flags that can affect where
+files get generated.
+
+<UL>
+<LI><TT><B><code>--</code>output-directory<code>=</code></B></TT><I CLASS="sans"><I CLASS="slanted">path</I></I>
+<BR>
+This sets the root directory of where your files will be generated.
+The path can be absolute, or relative to the current working directory.
+
+<P>
+</LI>
+<LI><TT><B><code>--</code>generate-subdirs</B></TT>
+<BR>
+This option forces files to be laid out in a directory hierarchy 
+following the package hierarchy in the SIDL file.  This arrangement
+is required for the Java and Python languages, so those generators
+force this option on and allow no means to turn it off.
+For C, C++, FORTRAN 77, and Fortran 90, the default is that all files be 
+generated in the single output directory with no package-named
+subdirectories.
+
+<P>
+</LI>
+<LI><TT><B><code>--</code>language-subdir</B></TT>
+<BR>
+This option was contributed by a user.  This option appends a 
+language-specific subdirectory (e.g. c, python, f77) to the end
+of the path.
+
+<P>
+</LI>
+<LI><TT><B><code>--</code>hide-glue</B></TT>
+<BR>
+This option was contributed by a user.  The intent here is to separate
+the Impl files (which must be modified) from all other files.
+If this flag is set, then wherever an Impl file gets generated, 
+all the corresponding Skels, Stubs, IORs, etc get generated in
+a subdirectory named <code>glue</code>.
+</LI>
+</UL>
+
+<P>
+Arbitrary combinations of the above flags are allowed.  Regardless
+of the order they appear in the commandline, they are applied to the
+resulting path in the order they are presented above.  For example
+if a SIDL file <TT>pkg.sidl</TT> defines a <TT><I CLASS="slanted">Cls</I></TT> class in the <TT><I CLASS="slanted">pkg</I></TT> package, 
+and the user runs Babel as follows:
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -lugo there -sc</B></TT>
+<BR>
+</TT></BLOCKQUOTE>Then the majority of the sources will be generated in the <TT>there/pkg/c/glue/</TT> directory
+(except the Impl files which will occur one directory up in <TT>there/pkg/c/</TT>).
+Note the use of equivalent short-form commands in this example.
+If readers wish to review long and short forms of command line arguments, 
+see Table&nbsp;<A HREF="node39.html#tbl:basics_commandline_args">3.1</A> on page&nbsp;<A HREF="node39.html#tbl:basics_commandline_args"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>. 
+
+<P>
+Note that many of these options were contributed by users and are not
+employed in Babel's own build.  Instead, we tend to put a SIDL file in
+a directory and then generate client-side or server-side bindings in in  
+either <TT>runXXX/</TT> or <TT>libXXX/</TT> subdirectories, respectively (where <TT>XXX</TT> 
+is a language name).
+We don't use the <TT><B><code>--</code>generate-subdirs</B></TT> or <TT><B><code>--</code>hide-glue</B></TT>
+flags because they place source files that belong in the same library in different
+directories.  Automake, which Babel uses as part of its build system, works much more
+reliably when all the sources that go into a library appear in the same directory
+as the library to be.  The <TT><B><code>--</code>language-subdir</B></TT> has a similar effect
+to what we do manually, but doesn't capture if it was client-side or server-side.
+In our tests and demos, we tend to build these separately because we want to exercise
+different drivers with different implementations.
+
+<P>
+The GNUmakefile generated by the <code>--</code><TT>makefile</TT> command line
+option does not attempt to address all the possible combination of
+flags affecting the layout of generated files. It assumes that you
+generate files in the default locations.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5962"
+  HREF="node317.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5956"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5950"
+  HREF="node315.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5958"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5960"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5963"
+  HREF="node317.html">Grouping compiled assets into</A>
+<B> Up:</B> <A NAME="tex2html5957"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html5951"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+ &nbsp; <B>  <A NAME="tex2html5959"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5961"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

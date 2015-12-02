@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in Java</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in Java">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node337.html">
+<LINK REL="previous" HREF="node335.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node337.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6250"
+  HREF="node337.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6244"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6238"
+  HREF="node335.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6246"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6248"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6251"
+  HREF="node337.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6245"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6239"
+  HREF="node335.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6247"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6249"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04380000000000000000"></A><A NAME="s:Java"></A><A NAME="19571"></A>
+<BR>
+The Backdoor Initializer in Java
+</H1>
+
+<P>
+In Object Oriented languages there is no <TT>_wrapObj</TT> method
+exposed to the user.  Instead, the same functionality is achieved
+simply by calling ``new'' on the Impl class.  Interestingly, this
+means the constructor functionality is NOT placed in a Babel
+<TT>ctor</TT> method, but is, instead, actually in the default object constructor.
+
+<P>
+Here is an excerpt from the class definition for wrapper.Data_Impl:
+<BR>
+<PRE  CLASS="verbatim">  public String d_string;
+  public int d_int;
+  public String d_ctorTest;
+
+  public Data_Impl(){
+    d_ior = _wrap(this);
+    // DO-NOT-DELETE splicer.begin(wrapper.Data._wrap)
+    d_ctorTest = "ctor was run";
+    // DO-NOT-DELETE splicer.end(wrapper.Data._wrap)
+  }
+
+  public void setString_Impl (
+    /*in*/ java.lang.String s ) 
+    throws sidl.RuntimeException.Wrapper
+  {
+    // DO-NOT-DELETE splicer.begin(wrapper.Data.setString)
+    d_string = s;
+    return ;
+    // DO-NOT-DELETE splicer.end(wrapper.Data.setString)
+  }
+
+  public void setInt_Impl (
+    /*in*/ int i ) 
+    throws sidl.RuntimeException.Wrapper
+  {
+    // DO-NOT-DELETE splicer.begin(wrapper.Data.setInt)
+    d_int = i;
+    return ;
+    // DO-NOT-DELETE splicer.end(wrapper.Data.setInt)
+  }
+</PRE></td></tr></table></blockquote> 
+
+<P>
+Here is the client code from WrapTest.java:  
+<BR>
+<PRE  CLASS="verbatim">public static void main(String args[]) {
+  wrapper.Data_Impl d_data = new wrapper.Data_Impl(); 
+  wrapper.User d_user = new wrapper.User();
+  System.out.println(d_data.d_ctorTest);
+  d_user.accept(d_data);
+  System.out.println(d_data.d_string, d_data.d_int);
+}
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

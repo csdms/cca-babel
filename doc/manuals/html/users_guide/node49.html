@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SIDL Basics</TITLE>
+<META NAME="description" CONTENT="SIDL Basics">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node41.html">
+<LINK REL="up" HREF="node22.html">
+<LINK REL="next" HREF="node50.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1558"
+  HREF="node50.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1552"
+  HREF="node22.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1548"
+  HREF="node48.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1554"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1556"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1559"
+  HREF="node50.html">Introduction</A>
+<B> Up:</B> <A NAME="tex2html1553"
+  HREF="node22.html">Foundations</A>
+<B> Previous:</B> <A NAME="tex2html1549"
+  HREF="node48.html">Final Remarks</A>
+ &nbsp; <B>  <A NAME="tex2html1555"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1557"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION02400000000000000000"></A><A NAME="c:basics"></A>
+<BR>
+SIDL Basics
+</H1>
+
+<P>
+
+<BR>
+<BR>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1560"
+  HREF="node50.html">Introduction</A>
+<LI><A NAME="tex2html1561"
+  HREF="node51.html">SIDL Files</A>
+<UL>
+<LI><A NAME="tex2html1562"
+  HREF="node52.html">Basic Structure</A>
+<LI><A NAME="tex2html1563"
+  HREF="node53.html">Comments and Doc-Comments</A>
+<LI><A NAME="tex2html1564"
+  HREF="node54.html">Packages and Versions</A>
+<LI><A NAME="tex2html1565"
+  HREF="node55.html">Re-entrant Packages</A>
+<LI><A NAME="tex2html1566"
+  HREF="node56.html">The From Clause</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1567"
+  HREF="node57.html">Fundamental Types</A>
+<UL>
+<LI><A NAME="tex2html1568"
+  HREF="node58.html">Numeric Types</A>
+<LI><A NAME="tex2html1569"
+  HREF="node59.html">Strings</A>
+<LI><A NAME="tex2html1570"
+  HREF="node60.html">Opaque</A>
+<LI><A NAME="tex2html1571"
+  HREF="node61.html">Enumerations</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1572"
+  HREF="node62.html">Arrays</A>
+<UL>
+<LI><A NAME="tex2html1573"
+  HREF="node63.html">SIDL Arrays</A>
+<UL>
+<LI><A NAME="tex2html1574"
+  HREF="node64.html">Generic Arrays</A>
+</UL>
+<LI><A NAME="tex2html1575"
+  HREF="node65.html">R-arrays</A>
+<LI><A NAME="tex2html1576"
+  HREF="node66.html">SIDL Language Features</A>
+<LI><A NAME="tex2html1577"
+  HREF="node67.html">Independent and borrowed arrays</A>
+<LI><A NAME="tex2html1578"
+  HREF="node68.html">The Life of an Array</A>
+<LI><A NAME="tex2html1579"
+  HREF="node69.html">The <TT>NULL</TT> Array</A>
+<LI><A NAME="tex2html1580"
+  HREF="node70.html">The Language Bindings</A>
+<LI><A NAME="tex2html1581"
+  HREF="node71.html">The Array API</A>
+<UL>
+<LI><A NAME="tex2html1582"
+  HREF="node72.html">Function: createCol</A>
+<LI><A NAME="tex2html1583"
+  HREF="node73.html">Function: createRow</A>
+<LI><A NAME="tex2html1584"
+  HREF="node74.html">Function: create1d</A>
+<LI><A NAME="tex2html1585"
+  HREF="node75.html">Function: create2dCol</A>
+<LI><A NAME="tex2html1586"
+  HREF="node76.html">Function: create2dRow</A>
+<LI><A NAME="tex2html1587"
+  HREF="node77.html">Function: slice</A>
+<LI><A NAME="tex2html1588"
+  HREF="node78.html">Function: borrow</A>
+<LI><A NAME="tex2html1589"
+  HREF="node79.html">Function: smartCopy</A>
+<LI><A NAME="tex2html1590"
+  HREF="node80.html">Function: addRef</A>
+<LI><A NAME="tex2html1591"
+  HREF="node81.html">Function: deleteRef</A>
+<LI><A NAME="tex2html1592"
+  HREF="node82.html">Function: get1</A>
+<LI><A NAME="tex2html1593"
+  HREF="node83.html">Function: get2</A>
+<LI><A NAME="tex2html1594"
+  HREF="node84.html">Function: get3</A>
+<LI><A NAME="tex2html1595"
+  HREF="node85.html">Function: get4</A>
+<LI><A NAME="tex2html1596"
+  HREF="node86.html">Function: get5-7</A>
+<LI><A NAME="tex2html1597"
+  HREF="node87.html">Function: get</A>
+<LI><A NAME="tex2html1598"
+  HREF="node88.html">Function: set1</A>
+<LI><A NAME="tex2html1599"
+  HREF="node89.html">Function: set2</A>
+<LI><A NAME="tex2html1600"
+  HREF="node90.html">Function: set3</A>
+<LI><A NAME="tex2html1601"
+  HREF="node91.html">Function: set4</A>
+<LI><A NAME="tex2html1602"
+  HREF="node92.html">Function: set5-7</A>
+<LI><A NAME="tex2html1603"
+  HREF="node93.html">Function: set</A>
+<LI><A NAME="tex2html1604"
+  HREF="node94.html">Function: dimen</A>
+<LI><A NAME="tex2html1605"
+  HREF="node95.html">Function: lower</A>
+<LI><A NAME="tex2html1606"
+  HREF="node96.html">Function: upper</A>
+<LI><A NAME="tex2html1607"
+  HREF="node97.html">Function: stride</A>
+<LI><A NAME="tex2html1608"
+  HREF="node98.html">Function: length</A>
+<LI><A NAME="tex2html1609"
+  HREF="node99.html">Function: isColumnOrder</A>
+<LI><A NAME="tex2html1610"
+  HREF="node100.html">Function: isRowOrder</A>
+<LI><A NAME="tex2html1611"
+  HREF="node101.html">Function: copy</A>
+<LI><A NAME="tex2html1612"
+  HREF="node102.html">Function: ensure</A>
+<LI><A NAME="tex2html1613"
+  HREF="node103.html">Function: first</A>
+</UL>
+<LI><A NAME="tex2html1614"
+  HREF="node104.html">The C Macro API</A>
+<LI><A NAME="tex2html1615"
+  HREF="node105.html">The C Data Structure</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1616"
+  HREF="node106.html">Interface Contracts</A>
+<UL>
+<LI><A NAME="tex2html1617"
+  HREF="node107.html">Contract Clauses</A>
+<LI><A NAME="tex2html1618"
+  HREF="node108.html">Contract Enforcement</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1619"
+  HREF="node109.html">SIDL Runtime</A>
+<UL>
+<LI><A NAME="tex2html1620"
+  HREF="node110.html">Inheritance</A>
+<LI><A NAME="tex2html1621"
+  HREF="node111.html">Interfaces</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1622"
+  HREF="node112.html">Objects</A>
+<UL>
+<LI><A NAME="tex2html1623"
+  HREF="node113.html">Babel's Object Model</A>
+<LI><A NAME="tex2html1624"
+  HREF="node114.html">Methods on Objects</A>
+<LI><A NAME="tex2html1625"
+  HREF="node115.html">Parameter Passing</A>
+<LI><A NAME="tex2html1626"
+  HREF="node116.html">Method Overloading</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1627"
+  HREF="node117.html">XML Repositories</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

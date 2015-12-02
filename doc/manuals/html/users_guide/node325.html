@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Language Bindings for the sidl Package</TITLE>
+<META NAME="description" CONTENT="Language Bindings for the sidl Package">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node326.html">
+<LINK REL="previous" HREF="node324.html">
+<LINK REL="up" HREF="node315.html">
+<LINK REL="next" HREF="node326.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6089"
+  HREF="node326.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6083"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6077"
+  HREF="node324.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6085"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6087"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6090"
+  HREF="node326.html">SCL Files for Dynamic</A>
+<B> Up:</B> <A NAME="tex2html6084"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6078"
+  HREF="node324.html">SIDL Library Issues</A>
+ &nbsp; <B>  <A NAME="tex2html6086"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6088"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04250000000000000000">
+Language Bindings for the <TT>sidl</TT> Package</A>
+</H1>
+
+<P>
+The implementation and C stubs for the <TT>sidl</TT> package are stored
+in <TT>libsidl.so</TT> and <TT>libsidl.a</TT>, shared and static libraries
+that are installed when you install babel. You can determine the
+directory where these libraries are stored by running
+<TT>babel-config -libdir</TT>. Normally, running <TT>babel-config
+  -libdir</TT> will yield something like <TT>/usr/lib</TT> or
+<TT>/usr/local/lib</TT>; however, your system administrator may have
+chosen a different directory by specifying a <TT>-prefix</TT> when they
+configured Babel (see Section&nbsp;<A HREF="node25.html#s:configure">2.1.1</A>). The IOR header files
+and C stub header files are installed in the directory shown by
+<TT>babel-config -includedir</TT>.
+
+<P>
+Babel also provides precompiled stubs for the <TT>sidl</TT> package for
+the C++, F77, F90, Java and UC++ language bindings. These libraries are
+also installed in <TT>babel-config -libdir</TT>, and they are named
+<TT>libsidlstubs_cxx.so</TT>, <TT>libsidlstubs_ucxx.so</TT>,
+Codelibsidlstubs_f77.so, and <TT>libsidlstubs_f90.so</TT>. 
+Similarly named static archives and libtool <TT>.la</TT> files are also
+inalled in <TT>babel-config -libdirst</TT>. The header files for these
+languages are installed in subdirectories of <TT>babel-config
+  -includedir</TT> named <TT>Cxx</TT>, <TT>F77</TT>, <TT>F90</TT>, and
+<TT>UCxx</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6089"
+  HREF="node326.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6083"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6077"
+  HREF="node324.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6085"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6087"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6090"
+  HREF="node326.html">SCL Files for Dynamic</A>
+<B> Up:</B> <A NAME="tex2html6084"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6078"
+  HREF="node324.html">SIDL Library Issues</A>
+ &nbsp; <B>  <A NAME="tex2html6086"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6088"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>R-arrays</TITLE>
+<META NAME="description" CONTENT="R-arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node66.html">
+<LINK REL="previous" HREF="node63.html">
+<LINK REL="up" HREF="node62.html">
+<LINK REL="next" HREF="node66.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1897"
+  HREF="node66.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1891"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1885"
+  HREF="node64.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1893"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1895"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1898"
+  HREF="node66.html">SIDL Language Features</A>
+<B> Up:</B> <A NAME="tex2html1892"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1886"
+  HREF="node64.html">Generic Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html1894"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1896"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02442000000000000000"></A><A NAME="ss:r-arrays"></A><A NAME="3314"></A><A NAME="3315"></A><A NAME="3316"></A>
+<BR>
+R-arrays
+</H2>
+
+<P>
+Since SIDL was designed to serve the high performance computing
+community, both SIDL object developers and clients may require 
+direct access to the underlying array data structure for optimization
+purposes, such as instruction pipelining or cache performance.  
+Hence, support for raw SIDL arrays was introduced for low level
+access to numeric arrays. At present, they are limited use in C,
+C++, FORTRAN 77, and Fortran 90.
+
+<P>
+Unlike normal SIDL arrays, the use of r-arrays are more restricted.
+More specifically, they have the following constraints<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+
+<OL>
+<LI>Only the <TT>in</TT> and <TT>inout</TT> parameter modes are
+  available for r-arrays. R-arrays cannot be used as return values or as 
+  <TT>out</TT> parameters.
+</LI>
+<LI>R-arrays must be contiguous in memory, and multi-dimensional
+  arrays must be in column-major order (i.e., Fortran order).
+</LI>
+<LI><TT>NULL</TT> is not an allowable value for an r-array parameter.
+</LI>
+<LI>The semantics for <TT>inout</TT> r-array parameters are
+  different. The implementation is not allowed to deallocate the array
+  and return a new r-array. <TT>inout</TT> means that the array data is
+  transferred from caller to callee at the start of a method
+  invocation and from callee to caller at the end of the a method
+  invocation.
+</LI>
+<LI>The implementation of a method taking an r-array parameter
+  cannot change the shape of the array.
+</LI>
+<LI>The lower index is always 0, and the upper index is <SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$n-1$"></SPAN> where
+  <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$n$"></SPAN> is the length in a particular dimension. This is contrary to the
+  normal convention for Fortran arrays.
+</LI>
+<LI>It can only be used for arrays of SIDL <TT>int</TT>, <TT>long</TT>,
+  <TT>float</TT>, <TT>double</TT>, <TT>fcomplex</TT>, and <TT>dcomplex</TT> types.
+</LI>
+</OL>
+
+<P>
+<BR>
+<IMG
+ WIDTH="478" HEIGHT="119" ALIGN="BOTTOM" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{rationale}
+The way r-arrays are passed to the server-side code, particula...
+...e languages characters are treated as 16-bit Unicode characters.
+\end{rationale}">
+<BR>
+
+<P>
+The advantages of r-arrays include:
+
+<UL>
+<LI>Arrays appear more ``natural'' in C, C++, FORTRAN 77, Fortran 90 and
+  future low level languages.
+</LI>
+<LI>Developers need less or no code to tranlate between their array
+  data structure and SIDL's array data structure.
+</LI>
+<LI>SIDL generated APIs can have signatures very similar if not
+  identical to well known legacy APIs.
+</LI>
+<LI>Less performance overhead because r-arrays can avoid a call to
+  <TT>malloc</TT> and <TT>free</TT>.
+</LI>
+</UL>
+
+<P>
+When you declare an r-array, you also declare the index variables that
+will hold the size of the array in each dimension. For example, here
+is an method to solve one of the fundamental problems of linear
+algebra, <SPAN CLASS="MATH"><IMG
+ WIDTH="52" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$A x = b$"></SPAN>: 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">    void solve(in    rarray&lt;double,2&gt; A(m,n),
+               inout rarray&lt;double&gt;   x(n),
+               in    rarray&lt;double&gt;   b(m),
+               in    int              m,
+               in    int              n);
+</I></PRE></td></tr></table></blockquote>
+<P>
+In this example, <TT>A</TT> is a 2-D array of doubles with <TT>m</TT> rows
+and <TT>n</TT> columns. <TT>x</TT> is a 1-D array of doubles of length
+<TT>n</TT>, and <TT>b</TT> is a 1-D array of doubles of length
+<TT>m</TT>. Note that by explicitly declaring the index variables, SIDL
+takes avoid using extra array size parameters by taking advantage of
+the fact that the sizes of <TT>A</TT>, <TT>x</TT> and <TT>b</TT> are all
+inter-related. The explicit declaration also allows the developer to
+control where the index parameters appear in the argument list. In
+many cases, the argument types and order can match existing APIs.
+
+<P>
+The mapping for the solve method will be shown for C, C++, FORTRAN 77
+and Fortran 90 in the following chapters.  In languages that do not
+support low level access such as Python and Java, r-arrays are treated
+just like normal SIDL arrays, and the redundant index arguments are
+dropped from the argument list. The indexing information is available
+from the SIDL array data structure.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1897"
+  HREF="node66.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1891"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1885"
+  HREF="node64.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1893"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1895"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1898"
+  HREF="node66.html">SIDL Language Features</A>
+<B> Up:</B> <A NAME="tex2html1892"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html1886"
+  HREF="node64.html">Generic Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html1894"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1896"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

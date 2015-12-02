@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Generated versus Original SIDL files</TITLE>
+<META NAME="description" CONTENT="Generated versus Original SIDL files">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node280.html">
+<LINK REL="previous" HREF="node278.html">
+<LINK REL="up" HREF="node276.html">
+<LINK REL="next" HREF="node280.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5338"
+  HREF="node280.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5332"
+  HREF="node276.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5326"
+  HREF="node278.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5334"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5336"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5339"
+  HREF="node280.html">XML File Comparison</A>
+<B> Up:</B> <A NAME="tex2html5333"
+  HREF="node276.html">SIDL Backend</A>
+<B> Previous:</B> <A NAME="tex2html5327"
+  HREF="node278.html">Purpose</A>
+ &nbsp; <B>  <A NAME="tex2html5335"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5337"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION03730000000000000000"></A>
+<A NAME="17141"></A>
+<BR>
+Generated versus Original SIDL files
+</H1>
+Generated SIDL files may differ from their original SIDL files in several 
+respects in terms of content as well as layout.  These differences are 
+summarized below.
+
+<P>
+<DL>
+<DT><STRONG>Packages.</STRONG></DT>
+<DD>The code generation is limited to one high-level package
+per generated file.  In fact, the name of the generated file is currently 
+defined to be the concatenation of the name of the highest-level package and 
+<TT>.sidl</TT>. 
+
+<P>
+</DD>
+<DT><STRONG>Versioning.</STRONG></DT>
+<DD>The generation of requires statements is inferred from the 
+symbols that actually appear in the associated interface descriptions.  The 
+intent is to provide a requires statement for only the highest level package 
+needed of a given version.  Consequently, requires and imports statements that 
+were not necessary for resolving symbols will not appear.  Also, fully 
+qualified names will be shortened in the generated files due to the automatic 
+generation of the associated requires statement(s).  Finally, since an import 
+and require statement can be used in a SIDL file and no distinction is made in 
+the XML, only a require statement will appear in the generated file.
+
+<P>
+</DD>
+<DT><STRONG>Implements.</STRONG></DT>
+<DD>Since there is no distinction between <TT><I CLASS="slanted">implements-all</I></TT>
+and <TT><I CLASS="slanted">implements</I></TT> in the XML version of the interfaces, the generated code 
+outputs <TT><I CLASS="slanted">implements</I></TT> along with the inherited methods.
+
+<P>
+</DD>
+<DT><STRONG>Comments.</STRONG></DT>
+<DD>Babel preserves only document, or doc, comments so any 
+comments that do not conform will not appear in the generated file
+<A NAME="tex2html46"
+  HREF="footnode.html#foot17177"><SUP><SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
+
+<P>
+</DD>
+<DT><STRONG>Whitespace.</STRONG></DT>
+<DD>Obviously there may be whitespace differences in the 
+generated file.  These include indentation, blank spaces and lines, and brace 
+placement.
+
+<P>
+</DD>
+</DL>
+
+<P>
+As an example, suppose we have a package in the file <TT>foo.sidl</TT>.  The 
+original file's contents are:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package foo version 1.0 {
+
+  class A {}
+
+  package bar version 2.0 {
+    class B {}
+  }
+
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+The resulting contents of the generated SIDL file are:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package foo version 1.0 {
+
+  class A {
+  }
+
+  package bar version 2.0 {
+
+    class B {
+    }
+
+  }
+
+
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+Notice the differences in white space.  To illustrate more features, further 
+suppose we have a package in the file <TT>fooTest.sidl</TT>.  The original file's 
+contents are:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">// An ignored comment
+require foo version 1.0;
+require foo.bar version 2.0;
+
+/**
+ * Test of doc comment with XML special characters &lt; &amp; &gt;.
+ */
+package fooTest version 0.1 {
+
+  /**
+   * Another doc comment for an empty class.
+   */
+  class A extends foo.bar.B {}
+
+  class B extends foo.A {}
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+The resulting contents of the generated SIDL file are:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">require foo version 1.0;
+require foo.bar version 2.0;
+
+/**
+ * Test of doc comment with XML special characters &lt; &amp; &gt;.
+ */
+package fooTest version 0.1 {
+
+  /**
+   * Another doc comment for an empty class.
+   */
+  class A extends foo.bar.B {
+  }
+
+  class B extends foo.A {
+  }
+
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+Here we see the exclusion of non-document comments and the retention of 
+document comments.  Refer to Section&nbsp;<A HREF="node51.html#s:basics_sidl">5.2</A> and 
+Appendix&nbsp;<A HREF="node368.html#c:xml">C</A> for more information about document comments.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5338"
+  HREF="node280.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5332"
+  HREF="node276.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5326"
+  HREF="node278.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5334"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5336"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5339"
+  HREF="node280.html">XML File Comparison</A>
+<B> Up:</B> <A NAME="tex2html5333"
+  HREF="node276.html">SIDL Backend</A>
+<B> Previous:</B> <A NAME="tex2html5327"
+  HREF="node278.html">Purpose</A>
+ &nbsp; <B>  <A NAME="tex2html5335"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5337"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

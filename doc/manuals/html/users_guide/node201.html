@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Arrays</TITLE>
+<META NAME="description" CONTENT="Arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node200.html">
+<LINK REL="up" HREF="node197.html">
+<LINK REL="next" HREF="node202.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4143"
+  HREF="node202.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4137"
+  HREF="node197.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4133"
+  HREF="node200.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4139"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4141"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4144"
+  HREF="node202.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html4138"
+  HREF="node197.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4134"
+  HREF="node200.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html4140"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4142"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03423400000000000000"></A><A NAME="sss:f90:arrays"></A><A NAME="11562"></A><A NAME="11563"></A>
+<A NAME="11564"></A><A NAME="11565"></A>
+<BR>
+Arrays
+</H3>
+
+<P>
+As discussed in Section&nbsp;<A HREF="node62.html#s:arrays">5.4</A>, SIDL supports both normal and raw
+arrays (i.e., r-arrays).  Normal SIDL arrays can be used by any supported
+language; whereas, r-arrays are restricted to numeric types and use in
+languages such as C, C++, and Fortran.  This subsection starts with a 
+discussion normal and generic arrays before proceeding with an example
+of the interfaces for r-arrays.  
+
+<P>
+The normal SIDL array API is available in a module for creating, 
+destroying, and accessing array elements and meta-data for normal arrays.  
+More information on the API can be found in 
+Subsection&nbsp;<A HREF="node71.html#ss:basics:array:api">5.4</A>.
+For <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.SIDLException</I></TT>, the array module -- called
+<TT>sidl_SIDLException_array</TT> -- is defined in
+<TT>sidl_SIDLException_array.F90</TT>.
+The derived type for a SIDL array is named after the class,
+interface, or basic type that it holds and the dimension of the
+array.  For <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.SIDLException</I></TT>, the array derived types are
+named <TT>sidl_SIDLException_1d</TT>, 
+<TT>sidl_SIDLException_2d</TT>,
+<TT>sidl_SIDLException_3d</TT>, <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img24.png"
+ ALT="$\ldots$"></SPAN> up to
+<TT>sidl_SIDLException_7d</TT>.  For basic types, they 
+are treated as <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.dcomplex</I></TT>, <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.double</I></TT>, 
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.fcomplex</I></TT>, etc.  Each of these derived types has a 
+64-bit integer to hold an opaque pointer.
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+Normal Fortran 90 arrays or normal SIDL arrays can be used when
+calling a Fortran 90 method, but they cannot be mixed.
+</SPAN>
+
+<P>
+Derived types for SIDL types <TT><I CLASS="slanted">dcomplex</I></TT>, <TT><I CLASS="slanted">double</I></TT>, <TT><I CLASS="slanted">fcomplex</I></TT>, 
+<TT><I CLASS="slanted">float</I></TT>, <TT><I CLASS="slanted">int</I></TT>, and <TT><I CLASS="slanted">long</I></TT> have pointers to arrays of the 
+appropriate type and dimension that facilitate direct access to array elements. 
+For example, the derived type for 2d and 3d arrays of <TT><I CLASS="slanted">double</I></TT>s is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11605"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl
+  type sidl_double_2d
+    sequence
+    integer (kind=sidl_arrayptr) :: d_array
+    real (kind=sidl_double), pointer, &amp;
+      dimension(:,:) :: d_data
+  end type sidl_double_2d
+
+  type sidl_double_3d
+    sequence
+    integer (kind=sidl_arrayptr) :: d_array
+    real (kind=sidl_double), pointer, &amp;
+      dimension(:,:,:) :: d_data
+  end type sidl_double_3d
+</PRE></td></tr></table></blockquote>
+<P>
+For the other types, the array API must be used to access elements.
+In this case, the array can be accessed with the F90 array pointer 
+<TT>d_data</TT> just like any other F90 array.  However, 
+the F90 built-in methods <TT>allocate</TT><A NAME="11610"></A> or 
+<TT>deallocate</TT><A NAME="11612"></A> on <TT>d_data</TT> <EM>must not</EM> 
+be used.  Instead, SIDL functions, <TT>createCol</TT><A NAME="11617"></A>, 
+<TT>createRow</TT><A NAME="11619"></A>, <TT>create1d</TT><A NAME="11621"></A>, 
+<TT>create2dRow</TT><A NAME="11623"></A>, or 
+<TT>create2dCol</TT><A NAME="11625"></A>, must be used to create a
+new array.  These SIDL routines initialize <TT>d_data</TT> to refer to
+the data allocated in <TT>d_array</TT>.  
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<TT>create1d</TT>,
+<TT>create2dRow</TT>, and <TT>create2dCol</TT> create arrays whose lower
+index is <EM>0</EM> not 1.  To create arrays with a lower index of 1, 
+<TT>createCol</TT> or <TT>createRow</TT> must be used.
+</SPAN>
+
+<P>
+Software packages like LINPACK or BLAS can be called, but the stride 
+should be checked to make sure the array is suitably packed.  Using
+<TT>stride(i)</TT><A NAME="11638"></A> will provide the distance between elements in 
+dimension <TT>i</TT>. 
+A value of 1 means elements are packed densely.
+Negative stride values are possible and, when an array is sliced, the
+resulting array might not even have one densely packed dimension.
+
+<P>
+As discussed in Section&nbsp;<A HREF="node64.html#sss:basics:genericarrays">5.4</A>, the type of a generic 
+array<A NAME="11641"></A><A NAME="11642"></A> is not specified.
+As a result, Fortran 90 represents generic arrays as the derived type
+<TT>sidl__array</TT> as defined in the 
+<TT>sidl_array_type</TT> module.
+(Note the use of a two underscore separator.)  The following subroutines,
+defined in the <TT>sidl_array_array</TT> module, apply to 
+generic arrays<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<TT>addRef</TT><A NAME="11652"></A>, 
+<TT>deleteRef</TT><A NAME="11654"></A>, 
+<TT>dimen</TT>, <TT>type</TT>,
+<TT>isColumnOrder</TT><A NAME="11658"></A>, 
+<TT>isRowOrder</TT><A NAME="11660"></A>,
+<TT>is_null</TT><A NAME="11663"></A>, 
+<TT>no_null</TT><A NAME="11666"></A>, 
+<TT>set_null</TT><A NAME="11669"></A>, 
+<TT>lower</TT><A NAME="11671"></A>, 
+<TT>upper</TT><A NAME="11673"></A>, 
+<TT>length</TT><A NAME="11675"></A>, 
+<TT>stride</TT><A NAME="11677"></A>, and 
+<TT>smartCopy</TT><A NAME="11679"></A>.  
+
+<P>
+Finally, SIDL r-arrays<A NAME="11680"></A><A NAME="11681"></A> are passed 
+to and from methods as normal Fortran 90 arrays.  
+Index variables do not need to be included because the
+values are determined from the Fortran 90 array extents in each
+dimension.  For example,
+the client-side interface for <TT>solve</TT> -- introduced in
+Section&nbsp;<A HREF="node65.html#ss:r-arrays">5.4</A> -- behaves as if it is a Fortran 90 function
+with the following overloaded interface<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11684"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  private :: solve_1s, solve_2s
+  interface solve
+    module procedure solve_1s, solve_2s
+  end interface
+
+  recursive subroutine solve_1s(self, A, x, exception)
+    implicit none
+    ! in num.Linsol self
+    type(num_Linsol_t) , intent(in) :: self
+    ! in array&lt;double,2,column-major&gt; A
+    type(sidl_double_2d) , intent(in) :: A
+    ! inout array&lt;double,column-major&gt; x
+    type(sidl_double_1d) , intent(inout) :: x
+    ! out sidl.BaseInterface exception
+    type(sidl_BaseInterface_t) , intent(out) :: exception
+  end subroutine solve_1s
+
+  recursive subroutine solve_2s(self, A, x, exception)
+    implicit none
+    ! in num.Linsol self
+    type(num_Linsol_t) , intent(in) :: self
+    ! in rarray&lt;double,2&gt; A(m,n)
+    real (kind=sidl_double) , intent(in), dimension(:, :) :: A
+    ! inout rarray&lt;double&gt; x(n)
+    real (kind=sidl_double) , intent(inout), dimension(:) :: x
+    ! out sidl.BaseInterface exception
+    type(sidl_BaseInterface_t) , intent(out) :: exception
+    ! in int m
+    integer (kind=sidl_int) :: m
+    ! in int n
+    integer (kind=sidl_int) :: n
+  end subroutine solve_2s
+</PRE></td></tr></table></blockquote>
+<P>
+The server-side interface, shown below, is similar.  
+<A NAME="11686"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">recursive subroutine num_Linsol_solve_mi(self, A, x, m, n, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use num_Linsol
+  use sidl_double_array
+  use num_Linsol_impl
+  ! DO-NOT-DELETE splicer.begin(num.Linsol.solve.use)
+  ! Insert-Code-Here {num.Linsol.solve.use} (use statements)
+  ! DO-NOT-DELETE splicer.end(num.Linsol.solve.use)
+  implicit none
+  type(num_Linsol_t) :: self ! in
+  integer (kind=sidl_int) :: m ! in
+  integer (kind=sidl_int) :: n ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+  real (kind=sidl_double), dimension(0:m-1, 0:n-1) :: A ! in
+  real (kind=sidl_double), dimension(0:n-1) :: x ! inout
+
+! DO-NOT-DELETE splicer.begin(num.Linsol.solve)
+! Insert-Code-Here {num.Linsol.solve} (solve method)
+! DO-NOT-DELETE splicer.end(num.Linsol.solve)
+end subroutine num_Linsol_solve_mi
+</PRE></td></tr></table></blockquote>
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+The lower
+index of each dimension of every incoming array is <SPAN  CLASS="textbf">always</SPAN> zero.
+</SPAN>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4143"
+  HREF="node202.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4137"
+  HREF="node197.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4133"
+  HREF="node200.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4139"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4141"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4144"
+  HREF="node202.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html4138"
+  HREF="node197.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4134"
+  HREF="node200.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html4140"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4142"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

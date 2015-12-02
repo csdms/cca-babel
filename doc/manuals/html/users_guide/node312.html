@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Nonblocking SIDL</TITLE>
+<META NAME="description" CONTENT="Nonblocking SIDL">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node313.html">
+<LINK REL="previous" HREF="node311.html">
+<LINK REL="up" HREF="node310.html">
+<LINK REL="next" HREF="node313.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5896"
+  HREF="node313.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5890"
+  HREF="node310.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5884"
+  HREF="node311.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5892"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5894"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5897"
+  HREF="node313.html">Tickets</A>
+<B> Up:</B> <A NAME="tex2html5891"
+  HREF="node310.html">Non-Blocking Babel RMI</A>
+<B> Previous:</B> <A NAME="tex2html5885"
+  HREF="node311.html">Protocols</A>
+ &nbsp; <B>  <A NAME="tex2html5893"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5895"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04152000000000000000"></A><A NAME="ss:RMInonblockSIDL"></A>
+<BR>
+Nonblocking SIDL
+</H2>
+
+<P>
+The SIDL declaring calls to be nonblocking and/or oneway:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package foo version 0.2 {
+  class Bar {
+    nonblocking double runSimulation(in double x, inout y, out z);
+    oneway void initSimulation(in string name, in int flags);
+  }
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+Notice that the nonblocking call may take any arguments, but only in
+arguments are allowed for the oneway call.
+
+<P>
+NOTE: As of Babel 0.11.0, calling a non-blocking function on a local
+object causes a segfault.  It works for remote objects, but not for
+local objects.  Be careful.  (Oneway calls are OK though)
+<A NAME="17745"></A>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

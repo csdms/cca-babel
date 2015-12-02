@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception throwing</TITLE>
+<META NAME="description" CONTENT="Exception throwing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node244.html">
+<LINK REL="previous" HREF="node242.html">
+<LINK REL="up" HREF="node239.html">
+<LINK REL="next" HREF="node244.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4780"
+  HREF="node244.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4774"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4768"
+  HREF="node242.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4776"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4778"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4781"
+  HREF="node244.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html4775"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4769"
+  HREF="node242.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html4777"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4779"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03544000000000000000"></A><A NAME="ss:Java:exceptionthrowing"></A><A NAME="14090"></A><A NAME="14091"></A>
+<BR>
+Exception throwing
+</H2>
+
+<P>
+Recall Subsection&nbsp;<A HREF="node225.html#sss:java:exceptions">10.2.3</A> discussed issues associated
+with SIDL support for exception interfaces versus Java's requirement
+that all exceptions be classes.  Below is an extension of the example
+in Subsection&nbsp;<A HREF="node236.html#ss:Java:exceptioncatching">10.3.7</A> 
+involving <TT>getFibi</TT>, which could throw one of the following two
+interface exceptions<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>NegativeValueException</TT> and 
+<TT>TooDeepException</TT>.
+<A NAME="14097"></A>
+<A NAME="14098"></A><A NAME="14099"></A>
+<A NAME="14100"></A><A NAME="14101"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public int getFibi_Impl ( /*in*/ int n) 
+throws NegativeValueException.Wrapper, TooDeepException.Wrapper {
+  // DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFibi)
+  if (n &lt; 0) {
+    FibException fex = new FibException();
+    NegativeValueException.Wrapper neg = (NegativeValueException.Wrapper) 
+      NegativeValueException.Wrapper._cast(fex);
+    neg.setNote("n negative");
+    throw neg; 
+  }
+  
+  //  .... Do Fibonacci stuff ....
+  // DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFibi)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Notice that the interface exceptions and their <TT>Wrapper</TT>s cannot
+be instantiated directly.  Instead, a <TT>FibException</TT> object is 
+created then cast to the appropriate exception interface type.  As
+in Subsection&nbsp;<A HREF="node236.html#ss:Java:exceptioncatching">10.3.7</A>, the wrapper class's
+full name<A NAME="14106"></A> is required during the cast operation.
+Finally, the example illustrates the use of <TT>setNote</TT> to add
+the message to the exception being thrown -- which is necessary
+since the note cannot be passed to the exception's constructor.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

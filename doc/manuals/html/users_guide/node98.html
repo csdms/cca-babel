@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: length</TITLE>
+<META NAME="description" CONTENT="Function: length">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node99.html">
+<LINK REL="previous" HREF="node97.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node99.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2391"
+  HREF="node99.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2385"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2379"
+  HREF="node97.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2387"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2389"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2392"
+  HREF="node99.html">Function: isColumnOrder</A>
+<B> Up:</B> <A NAME="tex2html2386"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2380"
+  HREF="node97.html">Function: stride</A>
+ &nbsp; <B>  <A NAME="tex2html2388"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2390"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024482700000000000000"></A><A NAME="3762"></A>
+<BR>
+Function: length
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+int32_t
+sidl_double__array_length(const struct sidl_double__array *array, int32_t ind);
+
+// C++ Default dimension is 1.
+int32_t
+sidl::array&lt;int32_t&gt;::length(int32_t ind = 0) const;
+
+C FORTRAN 77
+       subroutine sidl_double__array_length_f(array, ind, result)
+       integer*8 array
+       integer*4 ind, result
+
+! FORTRAN 90
+integer (selected_int_kind(9)) function length(array, ind)
+  type(sidl_double_1d), intent(in) :: array ! type depends on dimension
+  integer (selected_int_kind(9)) :: ind
+
+// Java
+  public native int _length(int dim);
+
+// For one dimensional Java arrays. Array1:
+  public int lenth();
+</PRE></td></tr></table></blockquote>
+<P>
+This method returns the length for a particular dimension.  It is
+equivalent to the statement <TT>upper(dim) - lower(dim) + 1</TT>.
+
+<P>
+There is also a shortcut for one-dimensional arrays available in C++ 
+and Java.  In C++, if <TT>length</TT> is called with no arguments, it
+defaults to the first dimension.  In Java <TT>Array1</TT>
+one-dimensional Java arrays have a length function that takes no arguments.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

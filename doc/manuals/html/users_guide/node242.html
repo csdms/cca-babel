@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Private data</TITLE>
+<META NAME="description" CONTENT="Private data">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node243.html">
+<LINK REL="previous" HREF="node241.html">
+<LINK REL="up" HREF="node239.html">
+<LINK REL="next" HREF="node243.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4766"
+  HREF="node243.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4760"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4754"
+  HREF="node241.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4762"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4764"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4767"
+  HREF="node243.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html4761"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4755"
+  HREF="node241.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html4763"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4765"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03543000000000000000"></A>
+<A NAME="14082"></A>
+<A NAME="14083"></A>
+<BR>
+Private data
+</H2>
+
+<P>
+Any variables declared in the implementation source file will, by virtue
+of Babel's encapsulation, be private.  The data can be global to the class --
+as in static variables declared within the <TT>_includes</TT> splicer block
+at the top of the class's <TT>_Impl.java</TT> file -- or ``local'' to an
+instance.
+In the former case, special initialization procedures can be added to
+the built-in <TT>_load()</TT> method, which is guaranteed to be called
+exactly once per class -- <SPAN  CLASS="textit">before</SPAN> any user-defined methods
+can even be invoked.  The latter case relies on the class-specific
+name space automatically generated in the implementation's header
+file.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

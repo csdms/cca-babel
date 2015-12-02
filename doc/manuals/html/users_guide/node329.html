@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction to the Backdoor Initializer</TITLE>
+<META NAME="description" CONTENT="Introduction to the Backdoor Initializer">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node330.html">
+<LINK REL="previous" HREF="node328.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node330.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6152"
+  HREF="node330.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6146"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6140"
+  HREF="node328.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6148"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6150"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6153"
+  HREF="node330.html">Motivation</A>
+<B> Up:</B> <A NAME="tex2html6147"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6141"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+ &nbsp; <B>  <A NAME="tex2html6149"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6151"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04310000000000000000"></A><A NAME="s:intro"></A>
+<BR>
+Introduction to the Backdoor Initializer
+</H1>
+
+<P>
+Internally, every Babel object holds an implementation language
+specific pointer to the object's private state data.  If the object is
+implemented in C, the pointer points to a struct named <TT>struct
+package_Class__data</TT>.  In Java, the private data pointer points to a
+Java object of the implementation type, <TT>Class_Impl</TT>, which calls
+are made on, and which actually holds the object state.  The type of
+the private data is entirely implementation language dependent.  The
+data is usually created or set by the Babel objects user-implemented constructor.
+
+<P>
+With the Backdoor Initializer, Babel allows a Babel user to set
+this private data pointer at construction with pre-initialized state.
+Of course, this is very dangerous.  This can only be done if the
+client language creating the Babel object is the same as the language
+the object is implemented in, and if the pre-initialized state is of
+the correct type.  If either of these constraints is unsatisfied, the
+behavior of the backdoor initializer in undefined.
+
+<P>
+<A NAME="19518"></A>
+Object construction is a very language specific problem, and therefore
+this Babel feature is exposed differently in each language.  However,
+in every language, there is some way provided for the class implementor
+to determine in the constructor code whether the object is being
+constructed normally, or if the user provided pre-initialized state.
+In most languages there is a second constructor provided<A NAME="19519"></A>, only in
+Python is an argument used to determine if the user provided
+pre-initialized state or not. Most class implementors will not need to do anything
+with the new constructor.  In the case of Backdoor Initialization,
+usually the right thing to do in a constructor is to do nothing, since
+the object state was preinitialized by the client.  The constructor
+only needs to be used if the state of the object cannot fully be
+represented by its private data.  For example, an object that opens a
+TCP/IP connection during construction would almost certainly need that
+code in the backdoor constructor as well.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6152"
+  HREF="node330.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6146"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6140"
+  HREF="node328.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6148"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6150"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6153"
+  HREF="node330.html">Motivation</A>
+<B> Up:</B> <A NAME="tex2html6147"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6141"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+ &nbsp; <B>  <A NAME="tex2html6149"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6151"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

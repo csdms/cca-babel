@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Beyond Babel's Scope</TITLE>
+<META NAME="description" CONTENT="Beyond Babel's Scope">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node20.html">
+<LINK REL="previous" HREF="node18.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node20.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1023"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1017"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1011"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1019"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1021"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1024"
+  HREF="node20.html">Summary</A>
+<B> Up:</B> <A NAME="tex2html1018"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html1012"
+  HREF="node18.html">Benefits to Customers</A>
+ &nbsp; <B>  <A NAME="tex2html1020"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1022"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION01140000000000000000">
+Beyond Babel's Scope</A>
+</H1>
+
+<P>
+The language interoperability problem is a large one, 
+and though the Babel tools address much of it, there is
+still a lot that is beyond the scope of our tool.
+Babel is at its heart a code generator and a runtime
+library.  Consequently, the following features are currently
+limitations of the Babel tool kit:
+
+<P>
+<DL>
+<DD><A NAME="602"></A>
+</DD>
+<DT><STRONG>Reverse engineering</STRONG></DT>
+<DD>is not supported.  That is, 
+there is no support for inspecting or modifying compiled
+code.  In addition, scanning existing software to 
+generate SIDL wrappers is not supported.
+There are other groups who are pursuing a C++ 
+to SIDL converter.  Since SIDL contains different information
+than what is in a C++ header file, however, such a 
+converter cannot be fully automated without additional help.
+<P>
+</DD>
+<DT><STRONG>Library compatibility</STRONG></DT>
+<DD><A NAME="603"></A> is limited.
+Since Python and Java dynamically
+load libraries into their virtual machines, using these
+languages requires the ability to build shared libraries.  
+In general, building shared libraries (particularly from C++)
+is difficult and error prone.  This is compounded by the
+fact that compiler vendors have no standard way of doing
+this, and many tools that help building shared libraries don't
+support C++.  One can build a legitimate
+shared library that still won't work because there are
+unresolved symbols, or the library was loaded in the
+wrong mode.  
+
+<P>
+</DD>
+<DT><STRONG>Compiler compatibility</STRONG></DT>
+<DD><A NAME="604"></A> is limited.
+Since the C++ standard does not specify a binary interface and uses a lot of
+hashing in their symbol tables, there have been no attempts to get libraries 
+from dissimilar C++ compilers to work together.  Similarly, although we support
+FORTRAN 77 and Fortran 90, all libraries of Fortran code must be compiled
+with the same compiler...again because of the lack of a
+standard binary interface.
+
+<P>
+</DD>
+</DL>
+
+<P>
+Despite the aforementioned limitations, Babel does facilitate the development
+of language interoperable software.  However, issues of robust packaging, 
+building, and deployment of language interoperable software still loom 
+on the horizon.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1023"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1017"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1011"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1019"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1021"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1024"
+  HREF="node20.html">Summary</A>
+<B> Up:</B> <A NAME="tex2html1018"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html1012"
+  HREF="node18.html">Benefits to Customers</A>
+ &nbsp; <B>  <A NAME="tex2html1020"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1022"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

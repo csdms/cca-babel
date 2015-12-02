@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Publishing Babel Objects</TITLE>
+<META NAME="description" CONTENT="Publishing Babel Objects">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node309.html">
+<LINK REL="previous" HREF="node307.html">
+<LINK REL="up" HREF="node306.html">
+<LINK REL="next" HREF="node309.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5840"
+  HREF="node309.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5834"
+  HREF="node306.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5828"
+  HREF="node307.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5836"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5838"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5841"
+  HREF="node309.html">De-publishing Babel Objects</A>
+<B> Up:</B> <A NAME="tex2html5835"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Previous:</B> <A NAME="tex2html5829"
+  HREF="node307.html">Starting up a Babel</A>
+ &nbsp; <B>  <A NAME="tex2html5837"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5839"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04142000000000000000"></A><A NAME="ss:RMIpublishobj"></A>
+<BR>
+Publishing Babel Objects
+</H2>
+
+<P>
+Once you have a BOS up and running, you are free to export your local
+object to remote servers.  (And, depending on your BOS, remote clients
+may be able to create and access objects on your BOS.)  Exporting an
+object basically means that remote Babel processes can access the
+object.  In implementation, this means that the object is accessible
+through the <TT><I CLASS="slanted">sidl.rmi.InstanceRegistry</I></TT><A NAME="17699"></A>.  The
+<TT><I CLASS="slanted">InstanceRegistry</I></TT> maps objectIDs to objects, and vice-versa.
+This is what allows a remote client to get a handle to your object
+with nothing more than a URL.
+
+<P>
+There are 3 ways to for an object to end up in the
+<TT><I CLASS="slanted">InstanceRegistry</I></TT>. The first, and easiest, is simply to pass a
+local object by-reference as an argument in a remote call.  The
+last example in <A HREF="node305.html#ss:RMIclientexport">15.3.3</A> works if a BOS is running.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* THIS WORKS IF A BOS IS RUNNING   */
+foo_Bar fb = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);
+foo_Baz fz = foo_Baz__create(&amp;_ex); //Local object
+foo_Bar_setBaz(fb, fz, &amp;_ex);       //BOS is running, OK!
+
+</PRE></td></tr></table></blockquote>
+<P>
+Another possibility is simply to call <TT>_getURL()</TT><A NAME="17705"></A> on the local
+object when a BOS is running.  This will add the object to the
+<TT><I CLASS="slanted">InstanceRegistry</I></TT>, so theoretically a remote client could access
+it.  Although realistically the remote client would have to get the
+URL somehow.
+
+<P>
+The third possibility is to add it to the <TT><I CLASS="slanted">InstanceRegistry</I></TT> your
+self.  The <TT><I CLASS="slanted">InstanceRegistry</I></TT> class:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">class InstanceRegistry { 
+  static string registerInstance( in sidl.BaseClass instance );
+  static string registerInstance[ByString]( in sidl.BaseClass instance, 
+                                            in string instanceID);
+  static sidl.BaseClass getInstance[ByString]( in string instanceID );
+  static string getInstance[ByClass]( in sidl.BaseClass instance );
+  static sidl.BaseClass removeInstance[ByString]( in string instanceID );
+  static string removeInstance[ByClass]( in sidl.BaseClass instance );
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+calling <TT><I CLASS="slanted">registerInstance</I></TT> by itself results in the same thing as
+calling <TT>_getURL</TT> on the object, it puts the object in the
+registry, and returns a unique objectID.  However, by calling
+<TT><I CLASS="slanted">registerInstance[ByString]</I></TT>, the user can supply their own
+objectID.  This is useful for WebServices and bootstrapping.  It is
+possible to explicitly publish and object with a special name.  In
+fact, the InstanceRegistry allows aliasing, the same object can be in
+the registry multiple times under the same name.
+
+<P>
+However, there is one issue with using
+<TT><I CLASS="slanted">registerInstance[ByString]</I></TT>.<A NAME="17714"></A>
+What is there is already an object
+in the registry with that name?  There are two possible cases, if the
+object under that name is the same object you are trying to register,
+the call is idempotent, it does nothing.  However, if a different object in the
+registry already has that name, the <TT><I CLASS="slanted">InstanceRegistry</I></TT> registers
+the new object under a similar, but unique name.  Usually a
+combination of the instanceID passed in by the user and a unique
+integer.  This is usually the correct thing to do, but if the user
+really wants the object under the original name, they must call
+<TT>removeInstance[ByString]</TT> on the object that currently has that
+name, and re-register the new object.
+
+<P>
+NOTE:  The <TT><I CLASS="slanted">InstanceRegistry</I></TT> does not
+addRef<A NAME="17718"></A>  
+objects when they are inserted into it.  You must not destroy an object you wish to be
+accessible remotely.  This means that if you create an object, insert
+it into the instanceRegistry, and then deleteRef it, it will be
+destroyed.  You must keep a reference to it until you wish to remove
+it from the InstanceRegistry.  (The InstanceRegistry does, however,
+addRef an objects that are gotten from it.  If you call
+<TT><I CLASS="slanted">getInstance[ByString]</I></TT>, you will get a reference to that object
+and are free to deleteRef it.)
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5840"
+  HREF="node309.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5834"
+  HREF="node306.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5828"
+  HREF="node307.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5836"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5838"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5841"
+  HREF="node309.html">De-publishing Babel Objects</A>
+<B> Up:</B> <A NAME="tex2html5835"
+  HREF="node306.html">Babel Object Servers</A>
+<B> Previous:</B> <A NAME="tex2html5829"
+  HREF="node307.html">Starting up a Babel</A>
+ &nbsp; <B>  <A NAME="tex2html5837"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5839"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

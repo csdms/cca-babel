@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tracking Down Problems</TITLE>
+<META NAME="description" CONTENT="Tracking Down Problems">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node322.html">
+<LINK REL="up" HREF="node321.html">
+<LINK REL="next" HREF="node324.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6061"
+  HREF="node324.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6055"
+  HREF="node321.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6051"
+  HREF="node322.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6057"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6059"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6062"
+  HREF="node324.html">SIDL Library Issues</A>
+<B> Up:</B> <A NAME="tex2html6056"
+  HREF="node321.html">Dynamic vs. Static Linking</A>
+<B> Previous:</B> <A NAME="tex2html6052"
+  HREF="node322.html">Linkers and Position Independent</A>
+ &nbsp; <B>  <A NAME="tex2html6058"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6060"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04232000000000000000"></A>
+<A NAME="18703"></A><A NAME="18704"></A>
+<BR>
+Tracking Down Problems
+</H2>
+
+<P>
+When tracking down problems with Babel libraries, to UNIX tools <TT><B>nm</B></TT> and
+<TT><B>ldd</B></TT> are your friends.  <TT><B>nm</B></TT> will print the list of linker symbols
+in a file, including details such as whether the symbol is defined or not.
+<TT><B>ldd</B></TT> lists dynamic dependencies of a shared libraries or executables, indicating
+where it will look for these symbols when loaded.
+
+<P>
+Recall the Fortran hello world example in section&nbsp;<A HREF="node318.html#ss:compilebootcamp">16.2.1</A>.  Even though
+we may think this is all done with static linking, using these tools we find out the truth.
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>ldd a.out</B></TT>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;libg2c.so.0 =&gt; /usr/local/gcc/3.2/lib/libg2c.so.0 (0x400180000)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;libm.so.6 =&gt; /lib/i686/libm.so.6 (0x4004a000)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;libgcc_s.so.1 =&gt; //usr/local/gcc/3.2/lib/libgcc_s.so.1 (0x4006d000)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;libc.so.6 =&gt; /lib/i686/libc.so.6 (0x40076000)
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/lib/ld-linux.so.2 =&gt; /lib/ld-linux.so.2 (0x40000000)
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+Here, we clearly see that five libraries are shared libraries that will be loaded
+after the executable is invoked, but before we get to the main program.
+Some of these libraries make sense: <TT>libg2c</TT> is a Fortran to C support library, 
+<TT>libc</TT> is the C standard library, but why is <TT>libm</TT> listed... its a
+library of transcendental functions (e.g. sin(), cos()) why would it be included?
+The answer becomes obvious when using ldd on <TT>libg2c</TT>.  The Fortran support
+library has dependencies on the math library, so our Fortran executable inherits 
+that dependency too.
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>nm a.out | grep ' U '</B></TT>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U __cxa_atexit@@GLIBC_2.1.3
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U __libc_start_main@@GLIBC_2.0
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U do_lio
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U e_wsle
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U exit@@GLIBC_2.0
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U f_exit
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U f_init
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U f_setarg
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U f_setsig
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U s_stop
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;U s_wsle
+</TT></BLOCKQUOTE>
+<P>
+<TT><B>nm</B></TT> (and grep) shows us 11 symbols that are were left undefined in our
+final hello world application.  A little more nm|greping about will help us find that 
+symbols starting with <TT>f_</TT> are defined in libg2c.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6061"
+  HREF="node324.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6055"
+  HREF="node321.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6051"
+  HREF="node322.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6057"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6059"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6062"
+  HREF="node324.html">SIDL Library Issues</A>
+<B> Up:</B> <A NAME="tex2html6056"
+  HREF="node321.html">Dynamic vs. Static Linking</A>
+<B> Previous:</B> <A NAME="tex2html6052"
+  HREF="node322.html">Linkers and Position Independent</A>
+ &nbsp; <B>  <A NAME="tex2html6058"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6060"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

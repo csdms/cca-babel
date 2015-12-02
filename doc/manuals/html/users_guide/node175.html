@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Enumerations</TITLE>
+<META NAME="description" CONTENT="Enumerations">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node176.html">
+<LINK REL="previous" HREF="node174.html">
+<LINK REL="up" HREF="node172.html">
+<LINK REL="next" HREF="node176.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3743"
+  HREF="node176.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3737"
+  HREF="node172.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3731"
+  HREF="node174.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3739"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3741"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3744"
+  HREF="node176.html">Arrays</A>
+<B> Up:</B> <A NAME="tex2html3738"
+  HREF="node172.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3732"
+  HREF="node174.html">Pointers</A>
+ &nbsp; <B>  <A NAME="tex2html3740"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3742"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03323300000000000000"></A><A NAME="sss:f77:enum"></A><A NAME="9853"></A><A NAME="9854"></A>
+<A NAME="9855"></A><A NAME="9856"></A>
+<BR>
+Enumerations
+</H3>
+
+<P>
+SIDL enumerations map to integer values.  For compilers that support some
+form of inclusion, constants are defined in an inclusion file.  
+Specifically, Babel will
+generate FORTRAN 77 include files in the style of DEC FORTRAN (Compaq
+FORTRAN? (now HP FORTRAN???))  <TT>%INCLUDE</TT>.  These files are named
+by taking the fully qualified name<A NAME="9858"></A> of the <TT><I CLASS="slanted">enum</I></TT>, 
+changing the periods to underscores, and appending <TT>.inc</TT>.  
+
+<P>
+Given the specification of a <TT><I CLASS="slanted">car</I></TT> enumeration type from 
+Section&nbsp;<A HREF="node61.html#ssec:basics:fundamental:enums">5.3</A>, the corresponding 
+include file is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9863"></A><A NAME="9864"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">
+C       File:          enums_car.inc
+C       Symbol:        enums.car-v1.0
+C       Symbol Type:   enumeration
+C       Babel Version: 0.5.0
+C       Description:   Automatically generated; changes will be lost
+C      
+C       babel-version = 0.5.0
+C       source-line   = 25
+C      
+        integer porsche
+        parameter (porsche = 911)
+        integer ford
+        parameter (ford = 150)
+        integer mercedes
+	parameter (mercedes = 550)
+</PRE></td></tr></table></blockquote>
+<P>
+The following snippet illustrates the inclusion of the file and an assignment of
+the <TT>mercedes</TT> constant<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        integer*4 myCar
+
+C       include the enumeration constants file
+        include 'enums_car.inc'
+
+        myCar = mercedes
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

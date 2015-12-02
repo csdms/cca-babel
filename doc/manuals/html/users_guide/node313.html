@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tickets</TITLE>
+<META NAME="description" CONTENT="Tickets">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node314.html">
+<LINK REL="previous" HREF="node312.html">
+<LINK REL="up" HREF="node310.html">
+<LINK REL="next" HREF="node314.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5910"
+  HREF="node314.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5904"
+  HREF="node310.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5898"
+  HREF="node312.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5906"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5908"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5911"
+  HREF="node314.html">Non-blocking Usage</A>
+<B> Up:</B> <A NAME="tex2html5905"
+  HREF="node310.html">Non-Blocking Babel RMI</A>
+<B> Previous:</B> <A NAME="tex2html5899"
+  HREF="node312.html">Nonblocking SIDL</A>
+ &nbsp; <B>  <A NAME="tex2html5907"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5909"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04153000000000000000"></A><A NAME="ss:RMInonblockTickets"></A>
+<BR>
+Tickets
+</H2>
+
+<P>
+As mentioned previously, non-blocking RMI uses the class
+<TT><I CLASS="slanted">sidl.rmi.Ticket</I></TT> to handle the return values of non-blocking
+methods.  There are actually two interfaces implemented
+by the Protocol that are used. <TT><I CLASS="slanted">sidl.rmi.Ticket</I></TT> and
+<TT><I CLASS="slanted">sidl.rmi.TicketBook</I></TT><A NAME="17751"></A><A NAME="17752"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">interface Ticket { 
+  void block();
+  bool test();
+  TicketBook createEmptyTicketBook();
+  Response getResponse();  //For internal Babel use
+}
+
+interface TicketBook extends Ticket { 
+  void insertWithID( in Ticket t, in int id );
+  int insert( in Ticket t );
+  int removeReady( out Ticket t );
+  bool isEmpty();
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+<TT><I CLASS="slanted">sidl.rmi.TicketBook</I></TT> is, obviously, a collection of
+<TT><I CLASS="slanted">Tickets.</I></TT>  A Ticket represents the out arguments of a single
+non-blocking call.  The user may <TT>test()</TT> if the call has
+returned yet, or <TT>block()</TT> until it does.  The user can also get
+an empty <TT><I CLASS="slanted">TicketBook.</I></TT>  
+
+<P>
+The  <TT><I CLASS="slanted">TicketBook</I></TT> is a little more complex.  It extends
+<TT><I CLASS="slanted">Ticket</I></TT> as well as creating some of it's own functions.  It is
+mostly just to allow a user to make a large amount of nonblocking
+calls and work while they return.  This is a common design paradigm
+in highly parallel scientific computing. In the case of
+<TT><I CLASS="slanted">TicketBook</I></TT>, it is assumed the user will input a bunch of
+Tickets with IDs.  Then he can either <TT>block()</TT> on all of them
+(waitall), <TT>test()</TT> to see if any have returned, or block on
+<TT>removeReady</TT> (waitany). <TT>removeReady</TT> will return the id
+that the <TT><I CLASS="slanted">Ticket</I></TT> was inserted with so that the user may identify
+it.  Perhaps with a case statement.
+
+<P>
+One odd thing about <TT><I CLASS="slanted">TicketBook</I></TT> is that you can insert multiple
+tickets with the same name.  <TT><I CLASS="slanted">TicketBook</I></TT> will not warn you or
+throw an exception if you double up on the same name.  If two
+different Tickets are put in the TicketBook with the same name, there
+is guarantee about what order they will come out in, even if you remove
+by name.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5910"
+  HREF="node314.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5904"
+  HREF="node310.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5898"
+  HREF="node312.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5906"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5908"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5911"
+  HREF="node314.html">Non-blocking Usage</A>
+<B> Up:</B> <A NAME="tex2html5905"
+  HREF="node310.html">Non-Blocking Babel RMI</A>
+<B> Previous:</B> <A NAME="tex2html5899"
+  HREF="node312.html">Nonblocking SIDL</A>
+ &nbsp; <B>  <A NAME="tex2html5907"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5909"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

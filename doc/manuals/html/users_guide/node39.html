@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Long and Short Forms</TITLE>
+<META NAME="description" CONTENT="Long and Short Forms">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node40.html">
+<LINK REL="previous" HREF="node38.html">
+<LINK REL="up" HREF="node37.html">
+<LINK REL="next" HREF="node40.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1416"
+  HREF="node40.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1410"
+  HREF="node37.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1404"
+  HREF="node38.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1412"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1414"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1417"
+  HREF="node40.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html1411"
+  HREF="node37.html">Command Line Options</A>
+<B> Previous:</B> <A NAME="tex2html1405"
+  HREF="node38.html">Using Babel</A>
+ &nbsp; <B>  <A NAME="tex2html1413"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1415"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02222000000000000000">
+Long and Short Forms</A>
+</H2>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<A NAME="tbl:basics_commandline_args"></A>
+<DIV ALIGN="CENTER">
+<A NAME="1190"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 3.1:</STRONG>
+Command Line Arguments.</CAPTION>
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">SHORT FORM</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">LONG FORM</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">NOTES</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT">-h</TD>
+<TD ALIGN="LEFT"><code>--</code>help</TD>
+<TD ALIGN="LEFT">Print options to stdout.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-v</TD>
+<TD ALIGN="LEFT"><code>--</code>version</TD>
+<TD ALIGN="LEFT">Print version of Babel.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-t<I CLASS="sans"><I CLASS="slanted">form</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>text=<I CLASS="sans"><I CLASS="slanted">form</I></I></TD>
+<TD ALIGN="LEFT">Generate text.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-c<I CLASS="sans"><I CLASS="slanted">lang</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>client=<I CLASS="sans"><I CLASS="slanted">lang</I></I></TD>
+<TD ALIGN="LEFT">Generate client classes.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-s<I CLASS="sans"><I CLASS="slanted">lang</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>server=<I CLASS="sans"><I CLASS="slanted">lang</I></I></TD>
+<TD ALIGN="LEFT">Generate server and client classes.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-p</TD>
+<TD ALIGN="LEFT"><code>--</code>parse-check</TD>
+<TD ALIGN="LEFT">Only check parsing of the SIDL file.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>cca-mode</TD>
+<TD ALIGN="LEFT">New splicer blocks get CCA-required content.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-i</TD>
+<TD ALIGN="LEFT"><code>--</code>generate-hooks</TD>
+<TD ALIGN="LEFT">Generate pre-/post-method hooks.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>generate-sidl-stdlib</TD>
+<TD ALIGN="LEFT">Regenerate the Babel runtime library.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-o<I CLASS="sans"><I CLASS="slanted">dir</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>output-directory=<I CLASS="sans"><I CLASS="slanted">dir</I></I></TD>
+<TD ALIGN="LEFT">Root directory to contain generated files.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-g</TD>
+<TD ALIGN="LEFT"><code>--</code>generate-subdirs</TD>
+<TD ALIGN="LEFT">Generate sources in directory tree matching</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">SIDL packaging.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>generate-subdirs-off</TD>
+<TD ALIGN="LEFT">Turn off generate-subdirs.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-m</TD>
+<TD ALIGN="LEFT"><code>--</code>make-prefix=<I CLASS="sans"><I CLASS="slanted">prefix</I></I></TD>
+<TD ALIGN="LEFT">Prepend <I CLASS="sans"><I CLASS="slanted">prefix</I></I> to  names for babel.make.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>makefile</TD>
+<TD ALIGN="LEFT">Generate a simple GNU Makefile.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>multi</TD>
+<TD ALIGN="LEFT">Generate multiple targets in a single run.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-R<I CLASS="sans"><I CLASS="slanted">path</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>repository-path=<I CLASS="sans"><I CLASS="slanted">path</I></I></TD>
+<TD ALIGN="LEFT">Use specified XML repository(ies) to resolve</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">symbols.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-e<I CLASS="sans"><I CLASS="slanted">regex</I></I></TD>
+<TD ALIGN="LEFT"><code>--</code>exclude=<I CLASS="sans"><I CLASS="slanted">regex</I></I></TD>
+<TD ALIGN="LEFT">Do not generate output for matching symbol(s).</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>no-default-repository</TD>
+<TD ALIGN="LEFT">Do not use the default repository to resolve</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">symbols.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>suppress-contracts</TD>
+<TD ALIGN="LEFT">Don't generate contract checks in IOR files.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>suppress-ior</TD>
+<TD ALIGN="LEFT">Don't generate IOR files.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>suppress-stubs</TD>
+<TD ALIGN="LEFT">Don't generate client-side stub files.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>suppress-timestamp</TD>
+<TD ALIGN="LEFT">Suppress time-related metadata generation.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>comment-local-only</TD>
+<TD ALIGN="LEFT">Reduce doc comments in C stub
+header.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-E</TD>
+<TD ALIGN="LEFT"><code>--</code>exclude-external</TD>
+<TD ALIGN="LEFT">Do not generate code for
+dependencies.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>include-referenced</TD>
+<TD ALIGN="LEFT">Generate code for dependencies.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-u</TD>
+<TD ALIGN="LEFT"><code>--</code>hide-glue</TD>
+<TD ALIGN="LEFT">Put glue code in a subdirectory.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>hide-glue-off</TD>
+<TD ALIGN="LEFT">Turn off hide-glue.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-l</TD>
+<TD ALIGN="LEFT"><code>--</code>language-subdir</TD>
+<TD ALIGN="LEFT">Put code in a language dependent directory.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><code>--</code>language-subdir-off</TD>
+<TD ALIGN="LEFT">Turn off language-subdir.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-x</TD>
+<TD ALIGN="LEFT"><code>--</code>cxx-ior-exception</TD>
+<TD ALIGN="LEFT">Include Null IOR checks in C++ Stubs.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">-V</TD>
+<TD ALIGN="LEFT"><code>--</code>vpath</TD>
+<TD ALIGN="LEFT">Set the impl (splicer block) root directory.</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+So far, we've shown described the long forms of command line
+arguments, starting with two hyphens ``<TT><B><code>--</code></B></TT>''.
+There are also short forms for many of the more frequently<A NAME="1216"></A> 
+used commands.  See Table&nbsp;<A HREF="#tbl:basics_commandline_args">3.1</A>
+for details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1416"
+  HREF="node40.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1410"
+  HREF="node37.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1404"
+  HREF="node38.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1412"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1414"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1417"
+  HREF="node40.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html1411"
+  HREF="node37.html">Command Line Options</A>
+<B> Previous:</B> <A NAME="tex2html1405"
+  HREF="node38.html">Using Babel</A>
+ &nbsp; <B>  <A NAME="tex2html1413"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1415"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

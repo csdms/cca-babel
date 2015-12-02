@@ -1,0 +1,1146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Babel
+Users' Guide</TITLE>
+<META NAME="description" CONTENT="Babel
+Users' Guide">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html60"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html54"
+  HREF="../../index.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html56"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html58"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html61"
+  HREF="node1.html">Preface</A>
+<B> Up:</B> <A NAME="tex2html55"
+  HREF="../../index.html">Babel Web Docs</A>
+ &nbsp; <B>  <A NAME="tex2html57"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html59"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<IMG
+ WIDTH="556" HEIGHT="451" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\begin{center}\vbox{\input{common/titlepage.tex}
+}\end{center}">
+&nbsp;&nbsp;
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+
+<P>
+<DIV ALIGN="CENTER">
+<BIG CLASS="XLARGE"><SPAN  CLASS="textbf">Disclaimer</SPAN></BIG>
+<BR>
+<BR>
+<BR>
+</DIV>
+
+<P>
+This work was performed under the auspices of the U.S. 
+Department of Energy by University of California Lawrence 
+Livermore National Laboratory under contract No. W-7405-Eng-48.
+<BR>
+<BR>
+<BR>
+<P>
+This document was prepared as an account of work sponsored by an 
+agency of the United States Government. Neither the United States
+ Government nor the University of California nor any of their 
+employees, makes any warranty, express or implied, or assumes 
+any legal liability or responsibility for the accuracy, completeness, 
+or usefulness of any information, apparatus, product, or process 
+disclosed, or represents that its use would not infringe privately 
+owned rights. Reference herein to any specific commercial product, 
+process, or service by trade name, trademark, manufacturer, or 
+otherwise, does not necessarily constitute or imply its endorsement, 
+recommendation, or favoring by the United States Government or the 
+University of California. The views and opinions of authors 
+expressed herein do not necessarily state or reflect those of the 
+United States Government or the University of California, and shall 
+not be used for advertising or product endorsement purposes.
+
+<P>
+<BR>
+<BR>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<BIG CLASS="XLARGE"><SPAN  CLASS="textbf">Release Information</SPAN></BIG>
+<BR>
+<BR>
+<BR></DIV>
+<P>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Babel Users' Guide (this document)</TD>
+<TD ALIGN="RIGHT">UCRL-SM-230026</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Babel Source Code (associated software)</TD>
+<TD ALIGN="RIGHT">UCRL-CODE-2002-054</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><A NAME="tex2html62"
+  HREF="node1.html">Preface</A>
+<UL>
+<LI><A NAME="tex2html63"
+  HREF="node2.html">Babel in a Nutshell</A>
+<LI><A NAME="tex2html64"
+  HREF="node3.html">Scope of this Manual</A>
+<LI><A NAME="tex2html65"
+  HREF="node4.html">Getting the Software</A>
+<LI><A NAME="tex2html66"
+  HREF="node5.html">Conventions</A>
+<LI><A NAME="tex2html67"
+  HREF="node6.html">We Appreciate Your Feedback</A>
+<LI><A NAME="tex2html68"
+  HREF="node7.html">Acknowledgments</A>
+<LI><A NAME="tex2html69"
+  HREF="node13.html">Software Notices</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html70"
+  HREF="node14.html">Contents</A>
+<UL>
+<LI><A NAME="tex2html71"
+  HREF="node15.html">Introduction</A>
+<UL>
+<LI><A NAME="tex2html72"
+  HREF="node16.html">Babel Facilitates Language Interoperability</A>
+<LI><A NAME="tex2html73"
+  HREF="node17.html">Scientific Interface Definition Language (SIDL)</A>
+<LI><A NAME="tex2html74"
+  HREF="node18.html">Benefits to Customers</A>
+<LI><A NAME="tex2html75"
+  HREF="node19.html">Beyond Babel's Scope</A>
+<LI><A NAME="tex2html76"
+  HREF="node20.html">Summary</A>
+<LI><A NAME="tex2html77"
+  HREF="node21.html">Organization</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html78"
+  HREF="node22.html">Foundations</A>
+<UL>
+<LI><A NAME="tex2html79"
+  HREF="node23.html">Installation</A>
+<UL>
+<LI><A NAME="tex2html80"
+  HREF="node24.html">Simple Installation</A>
+<UL>
+<LI><A NAME="tex2html81"
+  HREF="node25.html">Configure</A>
+<LI><A NAME="tex2html82"
+  HREF="node26.html">Make</A>
+<LI><A NAME="tex2html83"
+  HREF="node27.html">Make Check (Optional)</A>
+<LI><A NAME="tex2html84"
+  HREF="node28.html">Make Install</A>
+<LI><A NAME="tex2html85"
+  HREF="node29.html">Make Installcheck (Optional)</A>
+</UL>
+<LI><A NAME="tex2html86"
+  HREF="node30.html">External Software
+Requirements</A>
+<UL>
+<LI><A NAME="tex2html87"
+  HREF="node31.html">Required &amp; Included</A>
+<LI><A NAME="tex2html88"
+  HREF="node32.html">Required but Separate</A>
+<LI><A NAME="tex2html89"
+  HREF="node33.html">Recommended</A>
+<LI><A NAME="tex2html90"
+  HREF="node34.html">Optional</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html91"
+  HREF="node35.html">Basic Babel Code Generation</A>
+<UL>
+<LI><A NAME="tex2html92"
+  HREF="node36.html">Babel is a Compiler</A>
+<LI><A NAME="tex2html93"
+  HREF="node37.html">Command Line Options</A>
+<UL>
+<LI><A NAME="tex2html94"
+  HREF="node38.html">Using Babel</A>
+<LI><A NAME="tex2html95"
+  HREF="node39.html">Long and Short Forms</A>
+<LI><A NAME="tex2html96"
+  HREF="node40.html">Examples</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html97"
+  HREF="node41.html">Hello World Tutorial</A>
+<UL>
+<LI><A NAME="tex2html98"
+  HREF="node42.html">Introduction</A>
+<LI><A NAME="tex2html99"
+  HREF="node43.html">Minimal Makefiles</A>
+<UL>
+<LI><A NAME="tex2html100"
+  HREF="node44.html">Writing the C++ Implementation</A>
+<LI><A NAME="tex2html101"
+  HREF="node45.html">Writing the Fortran&nbsp;90 Implementation</A>
+<LI><A NAME="tex2html102"
+  HREF="node46.html">Writing the C Client</A>
+</UL>
+<LI><A NAME="tex2html103"
+  HREF="node47.html">Portable Makefiles: using <TT>babel-config</TT></A>
+<LI><A NAME="tex2html104"
+  HREF="node48.html">Final Remarks</A>
+</UL>
+<LI><A NAME="tex2html105"
+  HREF="node49.html">SIDL Basics</A>
+<UL>
+<LI><A NAME="tex2html106"
+  HREF="node50.html">Introduction</A>
+<LI><A NAME="tex2html107"
+  HREF="node51.html">SIDL Files</A>
+<UL>
+<LI><A NAME="tex2html108"
+  HREF="node52.html">Basic Structure</A>
+<LI><A NAME="tex2html109"
+  HREF="node53.html">Comments and Doc-Comments</A>
+<LI><A NAME="tex2html110"
+  HREF="node54.html">Packages and Versions</A>
+<LI><A NAME="tex2html111"
+  HREF="node55.html">Re-entrant Packages</A>
+<LI><A NAME="tex2html112"
+  HREF="node56.html">The From Clause</A>
+</UL>
+<LI><A NAME="tex2html113"
+  HREF="node57.html">Fundamental Types</A>
+<UL>
+<LI><A NAME="tex2html114"
+  HREF="node58.html">Numeric Types</A>
+<LI><A NAME="tex2html115"
+  HREF="node59.html">Strings</A>
+<LI><A NAME="tex2html116"
+  HREF="node60.html">Opaque</A>
+<LI><A NAME="tex2html117"
+  HREF="node61.html">Enumerations</A>
+</UL>
+<LI><A NAME="tex2html118"
+  HREF="node62.html">Arrays</A>
+<UL>
+<LI><A NAME="tex2html119"
+  HREF="node63.html">SIDL Arrays</A>
+<LI><A NAME="tex2html120"
+  HREF="node65.html">R-arrays</A>
+<LI><A NAME="tex2html121"
+  HREF="node66.html">SIDL Language Features</A>
+<LI><A NAME="tex2html122"
+  HREF="node67.html">Independent and borrowed arrays</A>
+<LI><A NAME="tex2html123"
+  HREF="node68.html">The Life of an Array</A>
+<LI><A NAME="tex2html124"
+  HREF="node69.html">The <TT>NULL</TT> Array</A>
+<LI><A NAME="tex2html125"
+  HREF="node70.html">The Language Bindings</A>
+<LI><A NAME="tex2html126"
+  HREF="node71.html">The Array API</A>
+<LI><A NAME="tex2html127"
+  HREF="node104.html">The C Macro API</A>
+<LI><A NAME="tex2html128"
+  HREF="node105.html">The C Data Structure</A>
+</UL>
+<LI><A NAME="tex2html129"
+  HREF="node106.html">Interface Contracts</A>
+<UL>
+<LI><A NAME="tex2html130"
+  HREF="node107.html">Contract Clauses</A>
+<LI><A NAME="tex2html131"
+  HREF="node108.html">Contract Enforcement</A>
+</UL>
+<LI><A NAME="tex2html132"
+  HREF="node109.html">SIDL Runtime</A>
+<UL>
+<LI><A NAME="tex2html133"
+  HREF="node110.html">Inheritance</A>
+<LI><A NAME="tex2html134"
+  HREF="node111.html">Interfaces</A>
+</UL>
+<LI><A NAME="tex2html135"
+  HREF="node112.html">Objects</A>
+<UL>
+<LI><A NAME="tex2html136"
+  HREF="node113.html">Babel's Object Model</A>
+<LI><A NAME="tex2html137"
+  HREF="node114.html">Methods on Objects</A>
+<LI><A NAME="tex2html138"
+  HREF="node115.html">Parameter Passing</A>
+<LI><A NAME="tex2html139"
+  HREF="node116.html">Method Overloading</A>
+</UL>
+<LI><A NAME="tex2html140"
+  HREF="node117.html">XML Repositories</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html141"
+  HREF="node118.html">Supported Language Bindings</A>
+<UL>
+<LI><A NAME="tex2html142"
+  HREF="node119.html">C Bindings</A>
+<UL>
+<LI><A NAME="tex2html143"
+  HREF="node120.html">Introduction</A>
+<LI><A NAME="tex2html144"
+  HREF="node121.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html145"
+  HREF="node122.html">Name space</A>
+<LI><A NAME="tex2html146"
+  HREF="node123.html">Method signatures</A>
+<LI><A NAME="tex2html147"
+  HREF="node124.html">Data types</A>
+<LI><A NAME="tex2html148"
+  HREF="node127.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html149"
+  HREF="node128.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html150"
+  HREF="node129.html">Bindings generation</A>
+<LI><A NAME="tex2html151"
+  HREF="node130.html">Header files</A>
+<LI><A NAME="tex2html152"
+  HREF="node131.html">Object management</A>
+<LI><A NAME="tex2html153"
+  HREF="node132.html">Static methods</A>
+<LI><A NAME="tex2html154"
+  HREF="node133.html">Overloaded methods</A>
+<LI><A NAME="tex2html155"
+  HREF="node134.html">Exception catching</A>
+<LI><A NAME="tex2html156"
+  HREF="node135.html">Hooks execution</A>
+<LI><A NAME="tex2html157"
+  HREF="node136.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html158"
+  HREF="node137.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html159"
+  HREF="node138.html">Bindings generation</A>
+<LI><A NAME="tex2html160"
+  HREF="node139.html">Bindings implementation</A>
+<LI><A NAME="tex2html161"
+  HREF="node140.html">Private data</A>
+<LI><A NAME="tex2html162"
+  HREF="node141.html">Exception throwing</A>
+<LI><A NAME="tex2html163"
+  HREF="node142.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html164"
+  HREF="node143.html">C++ Bindings</A>
+<UL>
+<LI><A NAME="tex2html165"
+  HREF="node144.html">Introduction</A>
+<LI><A NAME="tex2html166"
+  HREF="node145.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html167"
+  HREF="node146.html">Name space</A>
+<LI><A NAME="tex2html168"
+  HREF="node147.html">Method signatures</A>
+<LI><A NAME="tex2html169"
+  HREF="node148.html">Data types</A>
+<LI><A NAME="tex2html170"
+  HREF="node151.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html171"
+  HREF="node152.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html172"
+  HREF="node153.html">Bindings generation</A>
+<LI><A NAME="tex2html173"
+  HREF="node154.html">Header files</A>
+<LI><A NAME="tex2html174"
+  HREF="node155.html">Object management</A>
+<LI><A NAME="tex2html175"
+  HREF="node156.html">Static methods</A>
+<LI><A NAME="tex2html176"
+  HREF="node157.html">Overloaded methods</A>
+<LI><A NAME="tex2html177"
+  HREF="node158.html">Exception catching</A>
+<LI><A NAME="tex2html178"
+  HREF="node159.html">Hooks execution</A>
+<LI><A NAME="tex2html179"
+  HREF="node160.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html180"
+  HREF="node161.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html181"
+  HREF="node162.html">Bindings generation</A>
+<LI><A NAME="tex2html182"
+  HREF="node163.html">Bindings implementation</A>
+<LI><A NAME="tex2html183"
+  HREF="node164.html">Private data</A>
+<LI><A NAME="tex2html184"
+  HREF="node165.html">Exception throwing</A>
+<LI><A NAME="tex2html185"
+  HREF="node166.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html186"
+  HREF="node167.html">FORTRAN 77 Bindings</A>
+<UL>
+<LI><A NAME="tex2html187"
+  HREF="node168.html">Introduction</A>
+<LI><A NAME="tex2html188"
+  HREF="node169.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html189"
+  HREF="node170.html">Name space</A>
+<LI><A NAME="tex2html190"
+  HREF="node171.html">Method signatures</A>
+<LI><A NAME="tex2html191"
+  HREF="node172.html">Data types</A>
+<LI><A NAME="tex2html192"
+  HREF="node177.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html193"
+  HREF="node178.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html194"
+  HREF="node179.html">Bindings generation</A>
+<LI><A NAME="tex2html195"
+  HREF="node180.html">Object management</A>
+<LI><A NAME="tex2html196"
+  HREF="node181.html">Static methods</A>
+<LI><A NAME="tex2html197"
+  HREF="node182.html">Overloaded methods</A>
+<LI><A NAME="tex2html198"
+  HREF="node183.html">Exception catching</A>
+<LI><A NAME="tex2html199"
+  HREF="node184.html">Hooks execution</A>
+<LI><A NAME="tex2html200"
+  HREF="node185.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html201"
+  HREF="node186.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html202"
+  HREF="node187.html">Bindings generation</A>
+<LI><A NAME="tex2html203"
+  HREF="node188.html">Bindings implementation</A>
+<LI><A NAME="tex2html204"
+  HREF="node189.html">Private data</A>
+<LI><A NAME="tex2html205"
+  HREF="node190.html">Exception throwing</A>
+<LI><A NAME="tex2html206"
+  HREF="node191.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html207"
+  HREF="node192.html">Fortran 90 Bindings</A>
+<UL>
+<LI><A NAME="tex2html208"
+  HREF="node193.html">Introduction</A>
+<LI><A NAME="tex2html209"
+  HREF="node194.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html210"
+  HREF="node195.html">Name space</A>
+<LI><A NAME="tex2html211"
+  HREF="node196.html">Method signatures</A>
+<LI><A NAME="tex2html212"
+  HREF="node197.html">Data types</A>
+<LI><A NAME="tex2html213"
+  HREF="node202.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html214"
+  HREF="node203.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html215"
+  HREF="node204.html">Bindings generation</A>
+<LI><A NAME="tex2html216"
+  HREF="node205.html">Object management</A>
+<LI><A NAME="tex2html217"
+  HREF="node206.html">Static methods</A>
+<LI><A NAME="tex2html218"
+  HREF="node207.html">Overloaded methods</A>
+<LI><A NAME="tex2html219"
+  HREF="node208.html">Exception catching</A>
+<LI><A NAME="tex2html220"
+  HREF="node209.html">Hooks execution</A>
+<LI><A NAME="tex2html221"
+  HREF="node210.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html222"
+  HREF="node211.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html223"
+  HREF="node212.html">Bindings generation</A>
+<LI><A NAME="tex2html224"
+  HREF="node213.html">Bindings implementation</A>
+<LI><A NAME="tex2html225"
+  HREF="node214.html">Private data</A>
+<LI><A NAME="tex2html226"
+  HREF="node215.html">Exception throwing</A>
+<LI><A NAME="tex2html227"
+  HREF="node216.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html228"
+  HREF="node217.html">Java Bindings</A>
+<UL>
+<LI><A NAME="tex2html229"
+  HREF="node218.html">Introduction</A>
+<LI><A NAME="tex2html230"
+  HREF="node219.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html231"
+  HREF="node220.html">Name space</A>
+<LI><A NAME="tex2html232"
+  HREF="node221.html">Method signatures</A>
+<LI><A NAME="tex2html233"
+  HREF="node223.html">Data types</A>
+<LI><A NAME="tex2html234"
+  HREF="node228.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html235"
+  HREF="node229.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html236"
+  HREF="node230.html">Bindings generation</A>
+<LI><A NAME="tex2html237"
+  HREF="node231.html">Environment variables</A>
+<LI><A NAME="tex2html238"
+  HREF="node232.html">Imports</A>
+<LI><A NAME="tex2html239"
+  HREF="node233.html">Object management</A>
+<LI><A NAME="tex2html240"
+  HREF="node234.html">Static methods</A>
+<LI><A NAME="tex2html241"
+  HREF="node235.html">Overloaded methods</A>
+<LI><A NAME="tex2html242"
+  HREF="node236.html">Exception catching</A>
+<LI><A NAME="tex2html243"
+  HREF="node237.html">Hooks execution</A>
+<LI><A NAME="tex2html244"
+  HREF="node238.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html245"
+  HREF="node239.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html246"
+  HREF="node240.html">Bindings generation</A>
+<LI><A NAME="tex2html247"
+  HREF="node241.html">Bindings implementation</A>
+<LI><A NAME="tex2html248"
+  HREF="node242.html">Private data</A>
+<LI><A NAME="tex2html249"
+  HREF="node243.html">Exception throwing</A>
+<LI><A NAME="tex2html250"
+  HREF="node244.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html251"
+  HREF="node245.html">Python Bindings</A>
+<UL>
+<LI><A NAME="tex2html252"
+  HREF="node246.html">Introduction</A>
+<LI><A NAME="tex2html253"
+  HREF="node247.html">Basics</A>
+<UL>
+<LI><A NAME="tex2html254"
+  HREF="node248.html">Name space</A>
+<LI><A NAME="tex2html255"
+  HREF="node249.html">Method signatures</A>
+<LI><A NAME="tex2html256"
+  HREF="node250.html">Data types</A>
+<LI><A NAME="tex2html257"
+  HREF="node257.html">Type casting</A>
+</UL>
+<LI><A NAME="tex2html258"
+  HREF="node258.html">Client-side</A>
+<UL>
+<LI><A NAME="tex2html259"
+  HREF="node259.html">Bindings generation</A>
+<LI><A NAME="tex2html260"
+  HREF="node260.html">Environment variables</A>
+<LI><A NAME="tex2html261"
+  HREF="node261.html">Imports</A>
+<LI><A NAME="tex2html262"
+  HREF="node263.html">Object management</A>
+<LI><A NAME="tex2html263"
+  HREF="node264.html">Static methods</A>
+<LI><A NAME="tex2html264"
+  HREF="node265.html">Overloaded methods</A>
+<LI><A NAME="tex2html265"
+  HREF="node266.html">Exception catching</A>
+<LI><A NAME="tex2html266"
+  HREF="node267.html">Hooks execution</A>
+<LI><A NAME="tex2html267"
+  HREF="node268.html">Contract enforcement</A>
+</UL>
+<LI><A NAME="tex2html268"
+  HREF="node269.html">Implementation-side</A>
+<UL>
+<LI><A NAME="tex2html269"
+  HREF="node270.html">Bindings generation</A>
+<LI><A NAME="tex2html270"
+  HREF="node271.html">Bindings implementation</A>
+<LI><A NAME="tex2html271"
+  HREF="node272.html">Python Extension Modules</A>
+<LI><A NAME="tex2html272"
+  HREF="node273.html">Private data</A>
+<LI><A NAME="tex2html273"
+  HREF="node274.html">Exception throwing</A>
+<LI><A NAME="tex2html274"
+  HREF="node275.html">Hooks implementation</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html275"
+  HREF="node276.html">SIDL Backend</A>
+<UL>
+<LI><A NAME="tex2html276"
+  HREF="node277.html">Introduction</A>
+<LI><A NAME="tex2html277"
+  HREF="node278.html">Purpose</A>
+<LI><A NAME="tex2html278"
+  HREF="node279.html">Generated versus Original SIDL files</A>
+<LI><A NAME="tex2html279"
+  HREF="node280.html">XML File Comparison</A>
+<LI><A NAME="tex2html280"
+  HREF="node281.html">Babel Command Line Options</A>
+</UL>
+<LI><A NAME="tex2html281"
+  HREF="node282.html">XML Backend</A>
+<UL>
+<LI><A NAME="tex2html282"
+  HREF="node283.html">Introduction</A>
+<LI><A NAME="tex2html283"
+  HREF="node284.html">Purpose</A>
+<LI><A NAME="tex2html284"
+  HREF="node285.html">Basic Structure</A>
+<UL>
+<LI><A NAME="tex2html285"
+  HREF="node286.html">Common Elements</A>
+<LI><A NAME="tex2html286"
+  HREF="node287.html">Packages</A>
+<LI><A NAME="tex2html287"
+  HREF="node288.html">Interfaces</A>
+<LI><A NAME="tex2html288"
+  HREF="node289.html">Classes</A>
+</UL>
+<LI><A NAME="tex2html289"
+  HREF="node290.html">Command Line Options</A>
+</UL>
+<LI><A NAME="tex2html290"
+  HREF="node291.html">HTML Interface Documentation</A>
+<UL>
+<LI><A NAME="tex2html291"
+  HREF="node292.html">Introduction</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html292"
+  HREF="node293.html">Advanced Topics</A>
+<UL>
+<LI><A NAME="tex2html293"
+  HREF="node294.html">Remote Method Invocation</A>
+<UL>
+<LI><A NAME="tex2html294"
+  HREF="node295.html">What is RMI?</A>
+<LI><A NAME="tex2html295"
+  HREF="node296.html">Babel RMI Concepts</A>
+<UL>
+<LI><A NAME="tex2html296"
+  HREF="node297.html">RMI Protocols</A>
+<LI><A NAME="tex2html297"
+  HREF="node298.html">Babel Object Server</A>
+<LI><A NAME="tex2html298"
+  HREF="node299.html">Object Creation and Connection</A>
+<LI><A NAME="tex2html299"
+  HREF="node300.html">RMI Arguments</A>
+<LI><A NAME="tex2html300"
+  HREF="node301.html">Casting Remote Objects</A>
+</UL>
+<LI><A NAME="tex2html301"
+  HREF="node302.html">Babel RMI Usage</A>
+<UL>
+<LI><A NAME="tex2html302"
+  HREF="node303.html">Adding Protocols</A>
+<LI><A NAME="tex2html303"
+  HREF="node304.html">Built-in Functions</A>
+<LI><A NAME="tex2html304"
+  HREF="node305.html">Passing Objects from a client</A>
+</UL>
+<LI><A NAME="tex2html305"
+  HREF="node306.html">Babel Object Servers</A>
+<UL>
+<LI><A NAME="tex2html306"
+  HREF="node307.html">Starting up a Babel Object Server</A>
+<LI><A NAME="tex2html307"
+  HREF="node308.html">Publishing Babel Objects</A>
+<LI><A NAME="tex2html308"
+  HREF="node309.html">De-publishing Babel Objects</A>
+</UL>
+<LI><A NAME="tex2html309"
+  HREF="node310.html">Non-Blocking Babel RMI</A>
+<UL>
+<LI><A NAME="tex2html310"
+  HREF="node311.html">Protocols</A>
+<LI><A NAME="tex2html311"
+  HREF="node312.html">Nonblocking SIDL</A>
+<LI><A NAME="tex2html312"
+  HREF="node313.html">Tickets</A>
+<LI><A NAME="tex2html313"
+  HREF="node314.html">Non-blocking Usage</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html314"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<UL>
+<LI><A NAME="tex2html315"
+  HREF="node316.html">Layout of Generated Files</A>
+<LI><A NAME="tex2html316"
+  HREF="node317.html">Grouping compiled assets into Libraries</A>
+<UL>
+<LI><A NAME="tex2html317"
+  HREF="node318.html">Basics of Compilation and Linkage</A>
+<LI><A NAME="tex2html318"
+  HREF="node319.html">Circular Dependencies and Single-Pass Linkers</A>
+<LI><A NAME="tex2html319"
+  HREF="node320.html">IOR as single point of access</A>
+</UL>
+<LI><A NAME="tex2html320"
+  HREF="node321.html">Dynamic vs. Static Linking</A>
+<UL>
+<LI><A NAME="tex2html321"
+  HREF="node322.html">Linkers and Position Independent Code (PIC)</A>
+<LI><A NAME="tex2html322"
+  HREF="node323.html">Tracking Down Problems</A>
+</UL>
+<LI><A NAME="tex2html323"
+  HREF="node324.html">SIDL Library Issues</A>
+<LI><A NAME="tex2html324"
+  HREF="node325.html">Language Bindings for the <TT>sidl</TT> Package</A>
+<LI><A NAME="tex2html325"
+  HREF="node326.html">SCL Files for Dynamic Loading</A>
+<LI><A NAME="tex2html326"
+  HREF="node327.html">Deployment of Babel-Enabled Libraries</A>
+</UL>
+<LI><A NAME="tex2html327"
+  HREF="node328.html">Creating Objects with Pre-Initialized State</A>
+<UL>
+<LI><A NAME="tex2html328"
+  HREF="node329.html">Introduction to the Backdoor Initializer</A>
+<LI><A NAME="tex2html329"
+  HREF="node330.html">Motivation</A>
+<LI><A NAME="tex2html330"
+  HREF="node331.html">Example</A>
+<LI><A NAME="tex2html331"
+  HREF="node332.html">The Backdoor Initializer in C</A>
+<LI><A NAME="tex2html332"
+  HREF="node333.html">The Backdoor Initializer in FORTRAN 77</A>
+<LI><A NAME="tex2html333"
+  HREF="node334.html">The Backdoor Initializer in Fortran 90</A>
+<LI><A NAME="tex2html334"
+  HREF="node335.html">The Backdoor Initializer in C++</A>
+<LI><A NAME="tex2html335"
+  HREF="node336.html">The Backdoor Initializer in Java</A>
+<LI><A NAME="tex2html336"
+  HREF="node337.html">The Backdoor Initializer in Python</A>
+</UL>
+<LI><A NAME="tex2html337"
+  HREF="node338.html">Interface Contracts</A>
+<UL>
+<LI><A NAME="tex2html338"
+  HREF="node339.html">Introduction</A>
+<LI><A NAME="tex2html339"
+  HREF="node340.html">Specifications</A>
+<UL>
+<LI><A NAME="tex2html340"
+  HREF="node341.html">Format</A>
+<LI><A NAME="tex2html341"
+  HREF="node342.html">Built-in Functions</A>
+</UL>
+<LI><A NAME="tex2html342"
+  HREF="node343.html">Enforcement</A>
+<UL>
+<LI><A NAME="tex2html343"
+  HREF="node344.html">Enforcement Options</A>
+<LI><A NAME="tex2html344"
+  HREF="node345.html">Enforcement Policy</A>
+</UL>
+<LI><A NAME="tex2html345"
+  HREF="node346.html">Summary</A>
+</UL>
+<LI><A NAME="tex2html346"
+  HREF="node347.html">Troubleshooting</A>
+<UL>
+<LI><A NAME="tex2html347"
+  HREF="node348.html">Introduction</A>
+<LI><A NAME="tex2html348"
+  HREF="node349.html">Common Errors</A>
+<UL>
+<LI><A NAME="tex2html349"
+  HREF="node350.html">SIDL Parsing Errors</A>
+<LI><A NAME="tex2html350"
+  HREF="node351.html">XML Parsing Errors</A>
+<LI><A NAME="tex2html351"
+  HREF="node352.html">Compilation Errors</A>
+</UL>
+<LI><A NAME="tex2html352"
+  HREF="node353.html">Common Warnings</A>
+<UL>
+<LI><A NAME="tex2html353"
+  HREF="node354.html">SIDL Parsing Warnings</A>
+<LI><A NAME="tex2html354"
+  HREF="node355.html">XML Parsing Warnings</A>
+<LI><A NAME="tex2html355"
+  HREF="node356.html">Compilation Warnings</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html356"
+  HREF="node357.html">Lessons Learned</A>
+<UL>
+<LI><A NAME="tex2html357"
+  HREF="node358.html">Introduction</A>
+<LI><A NAME="tex2html358"
+  HREF="node359.html">Compilation Consistency is Key</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html359"
+  HREF="node360.html">Appendices</A>
+<UL>
+<LI><A NAME="tex2html360"
+  HREF="node361.html">Reserved Words</A>
+<UL>
+<LI><A NAME="tex2html361"
+  HREF="node362.html">Introduction</A>
+<LI><A NAME="tex2html362"
+  HREF="node363.html">Reserved Words</A>
+<LI><A NAME="tex2html363"
+  HREF="node364.html">Suggested Things To Avoid</A>
+</UL>
+<LI><A NAME="tex2html364"
+  HREF="node365.html">SIDL Grammar</A>
+<UL>
+<LI><A NAME="tex2html365"
+  HREF="node366.html">Introduction</A>
+<LI><A NAME="tex2html366"
+  HREF="node367.html">Backus-Naur Form</A>
+</UL>
+<LI><A NAME="tex2html367"
+  HREF="node368.html">Extensible Markup Language (XML)</A>
+<UL>
+<LI><A NAME="tex2html368"
+  HREF="node369.html">Introduction</A>
+<LI><A NAME="tex2html369"
+  HREF="node370.html">SIDL Document Type Declaration (DTD)</A>
+</UL>
+<LI><A NAME="tex2html370"
+  HREF="node371.html">Glossary</A>
+<UL>
+<LI><A NAME="tex2html371"
+  HREF="node372.html">abstract</A>
+<LI><A NAME="tex2html372"
+  HREF="node373.html">array</A>
+<LI><A NAME="tex2html373"
+  HREF="node374.html">BLAS</A>
+<LI><A NAME="tex2html374"
+  HREF="node375.html">Babel Object Server</A>
+<LI><A NAME="tex2html375"
+  HREF="node376.html">BNF</A>
+<LI><A NAME="tex2html376"
+  HREF="node377.html">bool</A>
+<LI><A NAME="tex2html377"
+  HREF="node378.html">borrowed arrays</A>
+<LI><A NAME="tex2html378"
+  HREF="node379.html">CCA</A>
+<LI><A NAME="tex2html379"
+  HREF="node380.html">char</A>
+<LI><A NAME="tex2html380"
+  HREF="node381.html">class</A>
+<LI><A NAME="tex2html381"
+  HREF="node382.html">concrete class</A>
+<LI><A NAME="tex2html382"
+  HREF="node383.html">COM</A>
+<LI><A NAME="tex2html383"
+  HREF="node384.html">component</A>
+<LI><A NAME="tex2html384"
+  HREF="node385.html">component architecture</A>
+<LI><A NAME="tex2html385"
+  HREF="node386.html">copy</A>
+<LI><A NAME="tex2html386"
+  HREF="node387.html">CORBA</A>
+<LI><A NAME="tex2html387"
+  HREF="node388.html">dcomplex</A>
+<LI><A NAME="tex2html388"
+  HREF="node389.html">dense</A>
+<LI><A NAME="tex2html389"
+  HREF="node390.html">developer</A>
+<LI><A NAME="tex2html390"
+  HREF="node391.html">DLL</A>
+<LI><A NAME="tex2html391"
+  HREF="node392.html">double</A>
+<LI><A NAME="tex2html392"
+  HREF="node393.html">DTD</A>
+<LI><A NAME="tex2html393"
+  HREF="node394.html">dynamic linking</A>
+<LI><A NAME="tex2html394"
+  HREF="node395.html">enum</A>
+<LI><A NAME="tex2html395"
+  HREF="node396.html">enumeration</A>
+<LI><A NAME="tex2html396"
+  HREF="node397.html">exception</A>
+<LI><A NAME="tex2html397"
+  HREF="node398.html">extends</A>
+<LI><A NAME="tex2html398"
+  HREF="node399.html">external stubs</A>
+<LI><A NAME="tex2html399"
+  HREF="node400.html">external types</A>
+<LI><A NAME="tex2html400"
+  HREF="node401.html">fcomplex</A>
+<LI><A NAME="tex2html401"
+  HREF="node402.html">final</A>
+<LI><A NAME="tex2html402"
+  HREF="node403.html">float</A>
+<LI><A NAME="tex2html403"
+  HREF="node404.html">full name</A>
+<LI><A NAME="tex2html404"
+  HREF="node405.html">fundamental types</A>
+<LI><A NAME="tex2html405"
+  HREF="node406.html">glue</A>
+<LI><A NAME="tex2html406"
+  HREF="node407.html">HTML</A>
+<LI><A NAME="tex2html407"
+  HREF="node408.html">implementation</A>
+<LI><A NAME="tex2html408"
+  HREF="node409.html">implements</A>
+<LI><A NAME="tex2html409"
+  HREF="node410.html">implements-all</A>
+<LI><A NAME="tex2html410"
+  HREF="node411.html">import</A>
+<LI><A NAME="tex2html411"
+  HREF="node412.html">in</A>
+<LI><A NAME="tex2html412"
+  HREF="node413.html">independent arrays</A>
+<LI><A NAME="tex2html413"
+  HREF="node414.html">inheritance</A>
+<LI><A NAME="tex2html414"
+  HREF="node415.html">inout</A>
+<LI><A NAME="tex2html415"
+  HREF="node416.html">instance method</A>
+<LI><A NAME="tex2html416"
+  HREF="node417.html">int</A>
+<LI><A NAME="tex2html417"
+  HREF="node418.html">int32_t and int64_t</A>
+<LI><A NAME="tex2html418"
+  HREF="node419.html">interface</A>
+<LI><A NAME="tex2html419"
+  HREF="node420.html">interprocess</A>
+<LI><A NAME="tex2html420"
+  HREF="node421.html">IOR</A>
+<LI><A NAME="tex2html421"
+  HREF="node422.html">JNI</A>
+<LI><A NAME="tex2html422"
+  HREF="node423.html">language interoperability</A>
+<LI><A NAME="tex2html423"
+  HREF="node424.html">local</A>
+<LI><A NAME="tex2html424"
+  HREF="node425.html">long</A>
+<LI><A NAME="tex2html425"
+  HREF="node426.html">method</A>
+<LI><A NAME="tex2html426"
+  HREF="node427.html">namespace</A>
+<LI><A NAME="tex2html427"
+  HREF="node428.html">nonblocking</A>
+<LI><A NAME="tex2html428"
+  HREF="node429.html">non-strided</A>
+<LI><A NAME="tex2html429"
+  HREF="node430.html">Object model</A>
+<LI><A NAME="tex2html430"
+  HREF="node431.html">OMG</A>
+<LI><A NAME="tex2html431"
+  HREF="node432.html">oneway</A>
+<LI><A NAME="tex2html432"
+  HREF="node433.html">opaque</A>
+<LI><A NAME="tex2html433"
+  HREF="node434.html">out</A>
+<LI><A NAME="tex2html434"
+  HREF="node435.html">package</A>
+<LI><A NAME="tex2html435"
+  HREF="node436.html">pass-by-copy</A>
+<LI><A NAME="tex2html436"
+  HREF="node437.html">pass-by-reference</A>
+<LI><A NAME="tex2html437"
+  HREF="node438.html">pass-by-value</A>
+<LI><A NAME="tex2html438"
+  HREF="node439.html">PIC</A>
+<LI><A NAME="tex2html439"
+  HREF="node440.html">preprocessing</A>
+<LI><A NAME="tex2html440"
+  HREF="node441.html">private data</A>
+<LI><A NAME="tex2html441"
+  HREF="node442.html">process</A>
+<LI><A NAME="tex2html442"
+  HREF="node443.html">protocol</A>
+<LI><A NAME="tex2html443"
+  HREF="node444.html">reference counting</A>
+<LI><A NAME="tex2html444"
+  HREF="node445.html">Remote Method Invocation</A>
+<LI><A NAME="tex2html445"
+  HREF="node446.html">reverse engineering</A>
+<LI><A NAME="tex2html446"
+  HREF="node447.html">RMI</A>
+<LI><A NAME="tex2html447"
+  HREF="node448.html">RPC</A>
+<LI><A NAME="tex2html448"
+  HREF="node449.html">serialization</A>
+<LI><A NAME="tex2html449"
+  HREF="node450.html">shared library</A>
+<LI><A NAME="tex2html450"
+  HREF="node451.html">short name</A>
+<LI><A NAME="tex2html451"
+  HREF="node452.html">SIDL</A>
+<LI><A NAME="tex2html452"
+  HREF="node453.html">single process</A>
+<LI><A NAME="tex2html453"
+  HREF="node454.html">skeleton</A>
+<LI><A NAME="tex2html454"
+  HREF="node455.html">SO</A>
+<LI><A NAME="tex2html455"
+  HREF="node456.html">SPMD</A>
+<LI><A NAME="tex2html456"
+  HREF="node457.html">state (of an object)</A>
+<LI><A NAME="tex2html457"
+  HREF="node458.html">static</A>
+<LI><A NAME="tex2html458"
+  HREF="node459.html">static linking</A>
+<LI><A NAME="tex2html459"
+  HREF="node460.html">string</A>
+<LI><A NAME="tex2html460"
+  HREF="node461.html">stub</A>
+<LI><A NAME="tex2html461"
+  HREF="node462.html">SWIG</A>
+<LI><A NAME="tex2html462"
+  HREF="node463.html">tarball</A>
+<LI><A NAME="tex2html463"
+  HREF="node464.html">throws</A>
+<LI><A NAME="tex2html464"
+  HREF="node465.html">type</A>
+<LI><A NAME="tex2html465"
+  HREF="node466.html">URL</A>
+<LI><A NAME="tex2html466"
+  HREF="node467.html">user</A>
+<LI><A NAME="tex2html467"
+  HREF="node468.html">version</A>
+<LI><A NAME="tex2html468"
+  HREF="node469.html">virtual</A>
+<LI><A NAME="tex2html469"
+  HREF="node470.html">VM</A>
+<LI><A NAME="tex2html470"
+  HREF="node471.html">void</A>
+<LI><A NAME="tex2html471"
+  HREF="node472.html">VPATH</A>
+<LI><A NAME="tex2html472"
+  HREF="node473.html">XML</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html473"
+  HREF="node474.html">Bibliography</A>
+<LI><A NAME="tex2html474"
+  HREF="node475.html">Index</A>
+<LI><A NAME="tex2html475"
+  HREF="node476.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html60"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html54"
+  HREF="../../index.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev_g.png"> 
+<A NAME="tex2html56"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html58"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html61"
+  HREF="node1.html">Preface</A>
+<B> Up:</B> <A NAME="tex2html55"
+  HREF="../../index.html">Babel Web Docs</A>
+ &nbsp; <B>  <A NAME="tex2html57"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html59"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

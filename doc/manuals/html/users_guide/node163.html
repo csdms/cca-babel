@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings implementation</TITLE>
+<META NAME="description" CONTENT="Bindings implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node164.html">
+<LINK REL="previous" HREF="node162.html">
+<LINK REL="up" HREF="node161.html">
+<LINK REL="next" HREF="node164.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3541"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3535"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3529"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3537"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3539"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3542"
+  HREF="node164.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html3536"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3530"
+  HREF="node162.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3538"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3540"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03242000000000000000"></A><A NAME="ss:cxx:implfill"></A><A NAME="8681"></A>
+<BR>
+Bindings implementation
+</H2>
+
+<P>
+Implementation details must be added to the ``Impl'' files generated in
+Subsection&nbsp;<A HREF="node162.html#ss:cxx:implgen">7.4.1</A>.  Changes to these files must be made between
+code splicer pairs to ensure their retention in subsequent invocations of
+Babel.  Below is an example of a code splicer pair in C++. 
+The actual implementation needs to replace the ``// Insert code here...'' line.
+<A NAME="8683"></A><A NAME="8684"></A>
+<A NAME="8685"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void MyPackage::MyClass_impl::myMethod_impl() {
+    // DO-NOT-DELETE splicer.begin(MyPackage.MyClass.myMethod)
+    // Insert code here...
+    // DO-NOT-DELETE splicer.end(MyPackage.MyClass.myMethod)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+It is important to understand where and why splicer blocks occur. 
+Splicer blocks appear at the beginning and end of each ``Impl'' header and 
+source file to allow
+developers to add <TT>#include</TT>'s and other miscellaneous items,
+respectively.
+In the headers, there is a splicer block that allows a user to make the ``Impl''
+class inherit from some other class.  From SIDL's point of view this is
+private inheritance -- meaning that it is useful for inheriting implementation
+details -- since they cannot be automatically exposed to the SIDL method 
+dispatch mechanism.  There is a splicer block inside the class definition for 
+developers to add any desired data members.  
+In the source files, splicer blocks appear in each method implementation. 
+Examples of filling in these splicer blocks are provided in the subsections
+to follow.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3541"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3535"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3529"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3537"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3539"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3542"
+  HREF="node164.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html3536"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3530"
+  HREF="node162.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3538"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3540"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

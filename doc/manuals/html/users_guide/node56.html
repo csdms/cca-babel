@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The From Clause</TITLE>
+<META NAME="description" CONTENT="The From Clause">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node55.html">
+<LINK REL="up" HREF="node51.html">
+<LINK REL="next" HREF="node57.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1727"
+  HREF="node57.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1721"
+  HREF="node51.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1717"
+  HREF="node55.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1723"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1725"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1728"
+  HREF="node57.html">Fundamental Types</A>
+<B> Up:</B> <A NAME="tex2html1722"
+  HREF="node51.html">SIDL Files</A>
+<B> Previous:</B> <A NAME="tex2html1718"
+  HREF="node55.html">Re-entrant Packages</A>
+ &nbsp; <B>  <A NAME="tex2html1724"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1726"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02425000000000000000"></A><A NAME="2557"></A>
+<BR>
+The From Clause
+</H2>
+
+<P>
+The from clause is a special SIDL statement that allows an implementor
+of multiple interfaces to add or rename the extensions of conflicting
+methods from interfaces.  However, only method extensions
+can be changed, and the methods must have different signatures.  For
+example, one can change the name of conflicting methods from two interfaces:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">interface A {
+  void set(in int i);
+}
+interface B{
+  void set(in float i);
+}
+class C implements A, B {
+  void set[Int](in int i) from A.set;
+  void set[Float](in float i) from B.set;
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+Or change the name of an interface method that conflicts with your
+inherited class methods:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">interface A {
+  void set(in int i);
+}
+class B {
+  void set(in float i);
+}
+class C extends B implements A  {
+  void set[Int](in int i) from A.set;
+  void set(in float i); //Cannot use the from clause on class methods
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+But it doesn't work for methods that have the same signature:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* X THIS WILL NOT COMPILE X */
+
+interface A {
+  void set(in int i);
+}
+interface B{
+  void set(in int i);
+}
+class C implements A, B {
+  void set[A](in int i) from A.set; //ERROR
+  void set[B](in int i) from B.set; //signature conflict
+}
+
+/* X THIS WILL NOT COMPILE X */
+</I></PRE></td></tr></table></blockquote>
+<P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

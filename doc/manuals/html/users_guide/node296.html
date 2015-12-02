@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Babel RMI Concepts</TITLE>
+<META NAME="description" CONTENT="Babel RMI Concepts">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node302.html">
+<LINK REL="previous" HREF="node295.html">
+<LINK REL="up" HREF="node294.html">
+<LINK REL="next" HREF="node297.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5665"
+  HREF="node297.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5659"
+  HREF="node294.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5653"
+  HREF="node295.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5661"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5663"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5666"
+  HREF="node297.html">RMI Protocols</A>
+<B> Up:</B> <A NAME="tex2html5660"
+  HREF="node294.html">Remote Method Invocation</A>
+<B> Previous:</B> <A NAME="tex2html5654"
+  HREF="node295.html">What is RMI?</A>
+ &nbsp; <B>  <A NAME="tex2html5662"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5664"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04120000000000000000"></A><A NAME="s:RMIconcepts"></A>
+<BR>
+Babel RMI Concepts
+</H1>
+
+<P>
+For normal function calls, arguments are passed by initializing
+registers and pushing things onto the system stack. In RMI, function
+arguments and return values are passed by a network protocal. From a
+programmers point of view, the only difference between normal and
+network function calls is that network function calls have more
+failure modes. Anything that can disturb a network connection, such as
+a router going offline, can cause a RMI call to fail.
+
+<P>
+Conceptually, the RMI view of the world can be thought of as 1 or more
+Babel Object Servers (BOSs) <A NAME="17559"></A><A NAME="17560"></A>
+that a client can connect to in order to create
+or use objects on those servers.  Of course, any server can also
+connect as a client to any other server, and any client can become a
+server simply by starting up a BOS of it's own.
+
+<P>
+This makes Babel RMI very flexible, and accepting of whatever
+client-server relationships the application writers choose to use.
+Web Services <A NAME="17561"></A> users of Babel tend to use traditional client-server
+models, while scientific distributed systems<A NAME="17562"></A> 
+users tend toward
+peer-to-peer usage.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html5667"
+  HREF="node297.html">RMI Protocols</A>
+<LI><A NAME="tex2html5668"
+  HREF="node298.html">Babel Object Server</A>
+<LI><A NAME="tex2html5669"
+  HREF="node299.html">Object Creation and Connection</A>
+<LI><A NAME="tex2html5670"
+  HREF="node300.html">RMI Arguments</A>
+<LI><A NAME="tex2html5671"
+  HREF="node301.html">Casting Remote Objects</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5665"
+  HREF="node297.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5659"
+  HREF="node294.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5653"
+  HREF="node295.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5661"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5663"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5666"
+  HREF="node297.html">RMI Protocols</A>
+<B> Up:</B> <A NAME="tex2html5660"
+  HREF="node294.html">Remote Method Invocation</A>
+<B> Previous:</B> <A NAME="tex2html5654"
+  HREF="node295.html">What is RMI?</A>
+ &nbsp; <B>  <A NAME="tex2html5662"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5664"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

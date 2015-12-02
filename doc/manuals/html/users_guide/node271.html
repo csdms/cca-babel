@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings implementation</TITLE>
+<META NAME="description" CONTENT="Bindings implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node272.html">
+<LINK REL="previous" HREF="node270.html">
+<LINK REL="up" HREF="node269.html">
+<LINK REL="next" HREF="node272.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5223"
+  HREF="node272.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5217"
+  HREF="node269.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5211"
+  HREF="node270.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5219"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5221"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5224"
+  HREF="node272.html">Python Extension Modules</A>
+<B> Up:</B> <A NAME="tex2html5218"
+  HREF="node269.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html5212"
+  HREF="node270.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html5220"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5222"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03642000000000000000"></A><A NAME="ss:python:impldetails"></A><A NAME="15919"></A>
+<BR>
+Bindings implementation
+</H2>
+
+<P>
+Implementation details must be added to the ``Impl'' files generated in
+Subsection&nbsp;<A HREF="node270.html#ss:python:implgen">11.4.1</A>.  Changes to these files must be made between
+code splicer pairs to ensure their retention in subsequent invocations of
+Babel.  In fact,
+Babel generates everything except the code that appears between splicer
+blocks (i.e., <TT>splicer.begin</TT> and <TT>splicer.end</TT> comments).  
+That is, it creates a class definition and empty methods in files whose 
+names end in <TT>_Impl.py</TT>.  Code placed within matching splicer pairs
+will be preserved in subsequent executions of Babel while changes outside 
+them will be lost.
+
+<P>
+Using the example from Subsection&nbsp;<A HREF="node249.html#ss:python:signatures">11.2.2</A>, the 
+splicer blocks and implementation details for <TT>passeverywhere</TT> 
+are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="15926"></A>
+<A NAME="15927"></A><A NAME="15928"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  def passeverywhere(self, d1, d3):
+    #
+    # SIDL EXPECTED INCOMING TYPES
+    # ============================
+    # double d1
+    # double d3
+    #
+
+    #
+    # SIDL EXPECTED RETURN VALUE(s)
+    # =============================
+    # (_return, d2, d3)
+    # double _return
+    # double d2
+    # double d3
+    #
+
+    # DO-NOT-DELETE splicer.begin(passeverywhere)
+    if (d1 == 3.14):
+      retval = 3.14
+    else:
+      retval = 0
+    return (retval, 3.14, -d3)
+    # DO-NOT-DELETE splicer.end(passeverywhere)
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

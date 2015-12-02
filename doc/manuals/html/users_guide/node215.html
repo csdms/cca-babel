@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception throwing</TITLE>
+<META NAME="description" CONTENT="Exception throwing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node216.html">
+<LINK REL="previous" HREF="node214.html">
+<LINK REL="up" HREF="node211.html">
+<LINK REL="next" HREF="node216.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4345"
+  HREF="node216.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4339"
+  HREF="node211.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4333"
+  HREF="node214.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4341"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4343"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4346"
+  HREF="node216.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html4340"
+  HREF="node211.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4334"
+  HREF="node214.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html4342"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4344"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03444000000000000000"></A><A NAME="ss:f90:exceptionthrowing"></A><A NAME="11914"></A>
+<A NAME="11915"></A>
+<BR>
+Exception throwing
+</H2>
+
+<P>
+Below is an example of an implementation subroutine that throws an
+exception.  The returned exception object pointer must be <TT>cast</TT>
+into the exception <TT>out</TT> parameter.  This example also utilizes
+two methods, inherited from <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.BaseException</I></TT> and implemented 
+in 
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.SIDLException</I></TT>, that aid client-side debugging.  The first,
+<TT>setNote</TT>, allows the developer to provide a useful error message.
+The second, <TT>add</TT>, provides a multi-language traceback capability --
+assuming each layer of the call stack invokes <TT>add</TT> before it propagates
+the exception.
+<A NAME="11925"></A>
+<A NAME="11926"></A><A NAME="11927"></A>
+<A NAME="11928"></A><A NAME="11929"></A>
+<A NAME="11930"></A><A NAME="11931"></A>
+<A NAME="11932"></A><A NAME="11933"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">recursive subroutine ExceptionTest_Fib_getFib_mi(self, n, max_depth, &amp;
+  max_value, depth, retval, exception)
+  use sidl
+  use sidl_BaseInterface
+  use ExceptionTest_Fib
+  use ExceptionTest_NegativeValueException
+  use ExceptionTest_FibException
+  use ExceptionTest_Fib_impl
+  ! DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFib.use)
+  use ExceptionTest_TooBigException
+  use ExceptionTest_TooDeepException
+  ! DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFib.use)
+  implicit none
+  type(ExceptionTest_Fib_t) :: self
+  integer (kind=sidl_int) :: n, max_depth, max_value
+  integer (kind=sidl_int) :: retval, depth
+  type(sidl_BaseInterface_t) :: exception
+  type(sidl_BaseInterface_t) :: except2
+! DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFib)
+  type(ExceptionTest_NegativeValueException_t) :: negexc
+! ...lines deleted...
+  character (len=*) myfilename 
+  parameter(myfilename='ExceptionTest_Fib_Impl.f')
+  retval = 0
+  if (n .lt. 0) then
+     call new(negexc, except2)
+     if (not_null(negexc)) then
+        call setNote(negexc, &amp;
+             'called with negative n', except2)
+        call add(negexc, myfilename, 57, &amp;
+                 'ExceptionTest_Fib_getFib_impl', except2)
+        call cast(negexc, exception, except2)
+	call deleteRef(negexc, except2)
+        return
+     endif
+  else
+! ...numerous lines deleted....
+! DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFib)
+end subroutine ExceptionTest_Fib_getFib_mi
+</PRE></td></tr></table></blockquote>
+<P>
+When an exception is thrown, the implementation should
+<TT>deleteRef</TT> any references it was planning to return to its
+caller.  In general, when throwing an exception, it is
+good practice to call <TT>set_null</TT> on all <TT>out</TT> and
+<TT>inout</TT> array, class, and interface arguments before returning.
+This makes things work out better for
+clients who forget to check if an exception occurred or willfully
+choose to ignore it.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exceptions</TITLE>
+<META NAME="description" CONTENT="Exceptions">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node226.html">
+<LINK REL="previous" HREF="node224.html">
+<LINK REL="up" HREF="node223.html">
+<LINK REL="next" HREF="node226.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4522"
+  HREF="node226.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4516"
+  HREF="node223.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4510"
+  HREF="node224.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4518"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4520"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4523"
+  HREF="node226.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html4517"
+  HREF="node223.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4511"
+  HREF="node224.html">Interfaces and Abstract Classes</A>
+ &nbsp; <B>  <A NAME="tex2html4519"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4521"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03523200000000000000"></A><A NAME="sss:java:exceptions"></A><A NAME="13730"></A><A NAME="13731"></A>
+<A NAME="13732"></A><A NAME="13733"></A>
+<BR>
+Exceptions
+</H3>
+
+<P>
+Although SIDL exceptions may be specified as interfaces while Java
+exceptions are always classes, SIDL exceptions are basically caught 
+and thrown in the native Java manner.  A critical difference,
+as mentioned in the discussion on interface data types, is that 
+a SIDL exception interface's wrapper object must be thrown.
+While similar from a developer standpoint in that SIDL exceptions 
+are mapped to Java exceptions, the converse is not true.  That is, 
+there is no mapping of all Java exceptions to SIDL exceptions.
+
+<P>
+If an exception is defined in SIDL, Babel will generate
+code for it.  The only difference between native Java and SIDL
+exceptions is that the SIDL exception constructor cannot take a <TT>String</TT>
+argument.  Instead, the message must be set with the inherited <TT>setNote</TT> 
+method and retrieved with <TT>getNote</TT>.  This
+is important because SIDL exceptions inherit from the Java <TT>Exception</TT>
+class.  The Java compiler <SPAN  CLASS="textit">will not</SPAN> give an error if 
+<TT>getMessage</TT><A NAME="13740"></A> is called; however, the 
+message returned will not be from SIDL.  
+
+<P>
+<A NAME="13741"></A><A NAME="13742"></A>
+Another problem is that regular Java exceptions cannot be passed through
+the SIDL middleware.  Since it is not possible to throw normal, non-SIDL
+exceptions from a SIDL function implemented in Java, the Java compiler will 
+throw an error if an attempt to do so is made.  There are some exceptions.
+For example, Java runtime exceptions such as
+<TT>ArrayIndexOutOfBoundsException</TT> 
+can be thrown.  In this case, an
+error message and stack trace are printed to <TT>stderr</TT>.  In addition, 
+the method returns <TT>0</TT>; values of any <TT><I CLASS="slanted">out</I></TT> or <TT><I CLASS="slanted">inout</I></TT> arguments 
+are set to <TT>NULL</TT>; and the program proceeds.   
+
+<P>
+For more information on catching and throwing exceptions, including 
+examples, refer to Subsections&nbsp;<A HREF="node236.html#ss:Java:exceptioncatching">10.3.7</A> 
+and&nbsp;<A HREF="node243.html#ss:Java:exceptionthrowing">10.4.4</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4522"
+  HREF="node226.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4516"
+  HREF="node223.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4510"
+  HREF="node224.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4518"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4520"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4523"
+  HREF="node226.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html4517"
+  HREF="node223.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4511"
+  HREF="node224.html">Interfaces and Abstract Classes</A>
+ &nbsp; <B>  <A NAME="tex2html4519"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4521"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

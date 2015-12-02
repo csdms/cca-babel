@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings implementation</TITLE>
+<META NAME="description" CONTENT="Bindings implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node242.html">
+<LINK REL="previous" HREF="node240.html">
+<LINK REL="up" HREF="node239.html">
+<LINK REL="next" HREF="node242.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4752"
+  HREF="node242.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4746"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4740"
+  HREF="node240.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4748"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4750"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4753"
+  HREF="node242.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html4747"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4741"
+  HREF="node240.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4749"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4751"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03542000000000000000"></A><A NAME="ss:java:implfill"></A><A NAME="14067"></A>
+<BR>
+Bindings implementation
+</H2>
+
+<P>
+Implementation details must be added to the ``Impl'' files generated in
+Subsection&nbsp;<A HREF="node240.html#ss:java:implgen">10.4.1</A>.  Changes to these files must be made between
+code splicer pairs to ensure their retention in subsequent invocations of
+Babel.  Code splicing is a technique for preserving hand-edited 
+code between multiple invocations of Babel.  This allows a developer to refine 
+the implementation without losing previous implementation details.  Hence,
+code between splicer pairs will be retained by subsequent invocations of Babel;
+whereas, code outside splicer pairs will not.
+
+<P>
+<A NAME="14069"></A>
+Another interesting fact of the implementation-side is that it inherits from
+the client-side Java class.  This allows calls to local methods
+directly.  Take this recursive Fibonacci function implementation, for example<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="14070"></A>
+<A NAME="14071"></A><A NAME="14072"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">class Fib_Impl extends Fib {
+  public int getFib_Impl(int x) {
+    // DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFib) 
+    if(x &gt;= 2) {
+      return getFib(x-1) + getFib(x-2);
+    } else {
+      return 1;
+    }
+    // DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFib)
+  }
+}
+</PRE></td></tr></table></blockquote>
+<P>
+The client-side class name is <TT>Fib</TT> and, therefore, the
+implementation-side class is <TT>Fib_Impl</TT>.  The same relation holds for
+the <TT>getFib</TT> method.  Note that <TT>getFib</TT>, the client-side method, 
+can be called directly.  A call like this
+goes through Babel glue code, as it should.  That is, calls 
+directly to <TT>_Impl</TT> methods should <SPAN  CLASS="textit">never</SPAN> be made since they
+break the object model for the current class and will not work on different 
+objects.  The reason for this situation is that, by making local calls, within 
+<TT>fib_Impl</TT> for example, any inheritance information stored in the
+middleware is lost.  It also means implementation-side object inheritance
+from non-SIDL Java classes is impossible.  In fact, since no splicer blocks are
+available for inheritance, implementing interfaces on the 
+implementation-side is also not supported since having the
+implementation-side inherit from non-SIDL classes is probably not a good idea.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4752"
+  HREF="node242.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4746"
+  HREF="node239.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4740"
+  HREF="node240.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4748"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4750"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4753"
+  HREF="node242.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html4747"
+  HREF="node239.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4741"
+  HREF="node240.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4749"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4751"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

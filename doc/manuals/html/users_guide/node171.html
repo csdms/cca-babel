@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Method signatures</TITLE>
+<META NAME="description" CONTENT="Method signatures">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node172.html">
+<LINK REL="previous" HREF="node170.html">
+<LINK REL="up" HREF="node169.html">
+<LINK REL="next" HREF="node172.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3683"
+  HREF="node172.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3677"
+  HREF="node169.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3671"
+  HREF="node170.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3679"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3681"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3684"
+  HREF="node172.html">Data types</A>
+<B> Up:</B> <A NAME="tex2html3678"
+  HREF="node169.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3672"
+  HREF="node170.html">Name space</A>
+ &nbsp; <B>  <A NAME="tex2html3680"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3682"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03322000000000000000"></A><A NAME="ss:f77:signatures"></A><A NAME="9747"></A>
+<A NAME="9748"></A>
+<BR>
+Method signatures
+</H2>
+
+<P>
+All SIDL methods are implemented as FORTRAN 77
+subroutines<A NAME="9749"></A> regardless 
+of whether they have return values.
+The name of a subroutine used to call a SIDL method is a
+concatenation of the package, class (or interface), and method
+name, where each part is separated by an underscore.  If the
+method is specified as overloaded (i.e., has a name extension), the
+extension is appended to the name part.  An additional string is appended 
+to further
+distinguish between client-side methods (to be invoked) and the
+implementation-side, where the former end in ``_f'' while the latter
+end in ``_fi''.
+
+<P>
+As for arguments,
+the object (or interface) pointer is automatically inserted as the first
+parameter in the signature of non-static methods.  This parameter
+operates like an <TT><I CLASS="slanted">in</I></TT> parameter.  
+When a method has a return value, a variable to hold the return value should 
+be passed as an argument following the formally declared arguments.
+This extra argument behaves like an <TT><I CLASS="slanted">out</I></TT> parameter.
+With the addition of remote method invocation (RMI) support, all methods 
+now implicitly throw exceptions.<A NAME="9752"></A>
+Hence, an extra <TT><I CLASS="slanted">out</I></TT> parameter for the exception is automatically added 
+at the end of the signature.
+<A NAME="9754"></A><A NAME="9755"></A>
+
+<P>
+The following SIDL method -- taken from regression tests -- is an
+example of a method that can throw multiple exception types<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="9756"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int getFib(in int n, in int max_depth, in int max_value, in int depth)
+    throws NegativeValueException, FibException;
+</I></PRE></td></tr></table></blockquote>
+<P>
+The corresponding FORTRAN 77 API is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine ExceptionTest_Fib_getFib_f(self, n, max_depth,
+     &amp;     max_value, depth, retval, exception)
+        implicit none
+C        in ExceptionTest.Fib self
+        integer*8 self
+C        in int n
+        integer*4 n
+C        in int max_depth
+        integer*4 max_depth
+C        in int max_value
+        integer*4 max_value
+C        in int depth
+        integer*4 depth
+C        out int retval
+        integer*4 retval
+C        out sidl.BaseInterface exception
+        integer*8 exception
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+Note the addition of the object (i.e., <TT>self</TT>), 
+return (i.e., <TT>retval</TT>), and exception (i.e., <TT>exception</TT>) 
+parameters.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3683"
+  HREF="node172.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3677"
+  HREF="node169.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3671"
+  HREF="node170.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3679"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3681"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3684"
+  HREF="node172.html">Data types</A>
+<B> Up:</B> <A NAME="tex2html3678"
+  HREF="node169.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3672"
+  HREF="node170.html">Name space</A>
+ &nbsp; <B>  <A NAME="tex2html3680"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3682"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

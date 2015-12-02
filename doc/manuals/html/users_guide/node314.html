@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Non-blocking Usage</TITLE>
+<META NAME="description" CONTENT="Non-blocking Usage">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node313.html">
+<LINK REL="up" HREF="node310.html">
+<LINK REL="next" HREF="node315.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5922"
+  HREF="node315.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5916"
+  HREF="node310.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5912"
+  HREF="node313.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5918"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5920"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5923"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Up:</B> <A NAME="tex2html5917"
+  HREF="node310.html">Non-Blocking Babel RMI</A>
+<B> Previous:</B> <A NAME="tex2html5913"
+  HREF="node313.html">Tickets</A>
+ &nbsp; <B>  <A NAME="tex2html5919"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5921"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04154000000000000000"></A><A NAME="ss:RMInonblockUsage"></A>
+<BR>
+Non-blocking Usage
+</H2>
+
+<P>
+The examples in this section will be written in C using the SIDL file
+given in Section&nbsp;<A HREF="node312.html#ss:RMInonblockSIDL">15.5.2</A>.
+
+<P>
+Calling a oneway Babel RMI function is syntactically exactly like calling a normal
+Babel function.  The difference is just the danger of not being able
+to receive any exceptions beyond the initial communication.  Example:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar b1 = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);SIDL_CHECK(_ex);
+
+foo_Bar_initSimulation(b1, "Test Simulation 1", 0, &amp;_ex); SIDL_CHECK(_ex);
+</PRE></td></tr></table></blockquote>
+<P>
+Non-blocking calls are a bit more complex, requiring <TT><I CLASS="slanted">Tickets</I></TT>
+in order to get the return values.  Here's an example program, now
+using a non-blocking call.  Notice that the inout argument y is passed
+as an in argument in the send (as a value), and an out argument in the
+recv (as a pointer).
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar b1 = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);SIDL_CHECK(_ex);
+sidl_rmi_Ticket t = NULL;
+double x, y, z;
+
+foo_Bar_initSimulation(b1, "Test Simulation 1", 0, &amp;_ex); SIDL_CHECK(_ex);
+t = foo_Bar_runSimulation_send(b1, x, y, &amp;_ex); SIDL_CHECK(_ex);
+/* ... Work ... */
+foo_Bar_runSimulation_recv(b, t, &amp;y, &amp;z, &amp;_ex); SIDL_CHECK(_ex); //blocks on return
+sidl_rmi_Ticket_deleteRef(t , &amp;_ex); SIDL_CHECK(_ex);
+</PRE></td></tr></table></blockquote>
+<P>
+Now, next is an example of a more complex program, that utilizes the
+power of <TT><I CLASS="slanted">TicketBooks</I></TT> to make multiple remote calls, work, and
+deal with the responses when they return.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo_Bar b1 = foo_Bar__createRemote("simhandle://pc1:9999", &amp;_ex);SIDL_CHECK(_ex);
+foo_Bar b2 = foo_Bar__createRemote("simhandle://pc2:9999", &amp;_ex);SIDL_CHECK(_ex);
+foo_Bar b3 = foo_Bar__createRemote("simhandle://pc3:9999", &amp;_ex);SIDL_CHECK(_ex);
+
+sidl_rmi_Ticket t = NULL;
+sidl_rmi_TicketBook tb = NULL;
+double x, y, z;
+int id1, id2, id3, tmpid;
+
+foo_Bar_initSimulation(b1, "Test Simulation 1", 0, &amp;_ex); SIDL_CHECK(_ex);
+foo_Bar_initSimulation(b2, "Test Simulation 2", 0, &amp;_ex); SIDL_CHECK(_ex);
+foo_Bar_initSimulation(b3, "Test Simulation 3", 0, &amp;_ex); SIDL_CHECK(_ex);
+
+t = foo_Bar_runSimulation_send(b1, x, y, &amp;_ex); SIDL_CHECK(_ex);
+tb = sidl_rmi_Ticket_createEmptyTicketBook(t, &amp;_ex); SIDL_CHECK(_ex);
+id1 = sidl_rmi_TicketBook_insert(tb, t, &amp;_ex); SIDL_CHECK(_ex); 
+sidl_rmi_Ticket_deleteRef(t , &amp;_ex); SIDL_CHECK(_ex);
+
+t = foo_Bar_runSimulation_send(b2, x, y, &amp;_ex); SIDL_CHECK(_ex);
+id2 = sidl_rmi_TicketBook_insert(tb, t, &amp;_ex); SIDL_CHECK(_ex); 
+sidl_rmi_Ticket_deleteRef(t , &amp;_ex); SIDL_CHECK(_ex);
+
+t = foo_Bar_runSimulation_send(b3, x, y, &amp;_ex); SIDL_CHECK(_ex);
+id3 = sidl_rmi_TicketBook_insert(tb, t, &amp;_ex); SIDL_CHECK(_ex); 
+sidl_rmi_Ticket_deleteRef(t , &amp;_ex); SIDL_CHECK(_ex);
+
+/* ... Work ... */
+
+while(!sidl_tmi_TicketBook_isEmpty(tb, &amp;_ex)) {
+  SIDL_CHECK(_ex);
+  tmpid = sidl_tmi_TicketBook_removeReady(&amp;t,&amp;_ex); SIDL_CHECK(_ex);
+  switch(tmpid) {
+  case id1:
+    foo_Bar_runSimulation_recv(b, t, &amp;y, &amp;z, &amp;_ex); SIDL_CHECK(_ex);
+    /* Do something with data from Simulation 1 */
+    break;
+  case id2:
+    foo_Bar_runSimulation_recv(b, t, &amp;y, &amp;z, &amp;_ex); SIDL_CHECK(_ex);
+    /* Do something with data from Simulation 2 */
+    break;
+  case id3:
+    foo_Bar_runSimulation_recv(b, t, &amp;y, &amp;z, &amp;_ex); SIDL_CHECK(_ex);
+    /* Do something with data from Simulation 3 */
+    break;
+
+  }
+  sidl_rmi_Ticket_deleteRef(t , &amp;_ex); SIDL_CHECK(_ex);
+}
+
+</PRE></td></tr></table></blockquote>
+<P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

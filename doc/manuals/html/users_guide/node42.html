@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node43.html">
+<LINK REL="previous" HREF="node41.html">
+<LINK REL="up" HREF="node41.html">
+<LINK REL="next" HREF="node43.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1463"
+  HREF="node43.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1457"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1451"
+  HREF="node41.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1459"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1461"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1464"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Up:</B> <A NAME="tex2html1458"
+  HREF="node41.html">Hello World Tutorial</A>
+<B> Previous:</B> <A NAME="tex2html1452"
+  HREF="node41.html">Hello World Tutorial</A>
+ &nbsp; <B>  <A NAME="tex2html1460"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1462"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION02310000000000000000">
+Introduction</A>
+</H1>
+This tutorial guides you through the process of writing the classic
+``Hello World!'' example using the Babel tools.  
+In the process, you will learn that the most vexing problem is
+getting the compiler and linker flags set up properly.
+Closely followed by the hassles of encoding this information
+in portable Makefiles.
+
+<P>
+This section offers a spectrum of possible solutions, from 
+the minimalist but not portable, to the very robust and portable
+but not trivial, and a few options in between. The following 
+sections start from the simplest setup, and work up in terms
+of complexity and features.
+
+<P>
+Assuming Babel is built, installed and your PATH environment
+variable has been set, we need to set up a few directories
+for this exercise.  
+One can verify it was built and installed properly by 
+going to the directory where it was built and typing
+<TT>make installcheck</TT>.  (Warning: It can take
+a few hours on a good workstation for Babel's exhaustive tests to complete.)
+To verify Babel is in your path, simply try running it with the 
+<TT>-version</TT> or <TT>-help</TT> option.
+Now pick a starting directory and issue
+the following commands to create some directories
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>mkdir -p hello/minimal/libCxx</B></TT>
+<BR><TT>%</TT> <TT><B>mkdir -p hello/minimal/libF90</B></TT>
+<BR><TT>%</TT> <TT><B>cd hello</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+Now we write a SIDL file to describe the calling interface.
+It will be used by the Babel tools to generate glue code that 
+hooks together different programming languages.  
+A complete description of SIDL can be found in Chapter&nbsp;<A HREF="node49.html#c:basics">5</A>.
+We will use the same SIDL file for several different coding exercises
+and Makefile setups, so the SIDL file need not be large or complex
+for our purposes.
+
+<P>
+For this particular application, we will write a SIDL file 
+that contains a class World in a package Hello.  
+Method getMsg() in class World returns a string containing 
+the traditional computer greeting.  
+Using your favorite text editor, create a file called 
+hello.sidl in the hello/ directory containing the following:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 package Hello version 1.0 { 
+   2   class World { 
+   3     string getMsg(); 
+   4   } 
+   5 } 
+</PRE></I></td></tr></table></blockquote>
+<P>
+The package statement provides a scope (or namespace) for class
+World, which contains only one method, getMsg().  The version clause of the
+statement identifies this as version 1.0 of the Hello package.  
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1463"
+  HREF="node43.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1457"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1451"
+  HREF="node41.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1459"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1461"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1464"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Up:</B> <A NAME="tex2html1458"
+  HREF="node41.html">Hello World Tutorial</A>
+<B> Previous:</B> <A NAME="tex2html1452"
+  HREF="node41.html">Hello World Tutorial</A>
+ &nbsp; <B>  <A NAME="tex2html1460"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1462"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

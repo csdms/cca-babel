@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings generation</TITLE>
+<META NAME="description" CONTENT="Bindings generation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node139.html">
+<LINK REL="previous" HREF="node137.html">
+<LINK REL="up" HREF="node137.html">
+<LINK REL="next" HREF="node139.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3157"
+  HREF="node139.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3151"
+  HREF="node137.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3145"
+  HREF="node137.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3153"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3155"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3158"
+  HREF="node139.html">Bindings implementation</A>
+<B> Up:</B> <A NAME="tex2html3152"
+  HREF="node137.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3146"
+  HREF="node137.html">Implementation-side</A>
+ &nbsp; <B>  <A NAME="tex2html3154"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3156"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03141000000000000000"></A><A NAME="ss:c:implgen"></A><A NAME="7056"></A>
+<A NAME="7057"></A><A NAME="7058"></A>
+<BR>
+Bindings generation
+</H2>
+
+<P>
+To create the C implementation bindings for a set of SIDL classes,
+Babel should be invoked as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="7059"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -exclude-external -server=C file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>or use the short form
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -E -sC file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+The command creates a number of files.  Specifically, a makefile fragment, 
+called <TT>babel.make</TT>, headers, and source files are generated.  
+The only files needing hand-editing are the C ``Impl'' files -- which 
+are header and source files whose names end in <TT>_Impl.h</TT> or
+<TT>_Impl.c</TT>, respectively.  More on this in Subsection&nbsp;<A HREF="node139.html#ss:c:implfill">6.4.2</A>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

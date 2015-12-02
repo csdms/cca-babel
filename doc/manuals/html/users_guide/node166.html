@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Hooks implementation</TITLE>
+<META NAME="description" CONTENT="Hooks implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node165.html">
+<LINK REL="up" HREF="node161.html">
+<LINK REL="next" HREF="node167.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3581"
+  HREF="node167.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3575"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3571"
+  HREF="node165.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3577"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3579"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3582"
+  HREF="node167.html">FORTRAN 77 Bindings</A>
+<B> Up:</B> <A NAME="tex2html3576"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3572"
+  HREF="node165.html">Exception throwing</A>
+ &nbsp; <B>  <A NAME="tex2html3578"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3580"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03245000000000000000"></A><A NAME="ss:cxx:hooksimpl"></A><A NAME="8724"></A><A NAME="8725"></A>
+<A NAME="8726"></A>
+<A NAME="8727"></A><A NAME="8728"></A>
+<A NAME="8729"></A><A NAME="8730"></A>
+<BR>
+Hooks implementation
+</H2>
+
+<P>
+As discussed in Subsection&nbsp;<A HREF="node159.html#ss:cxx:sethooks">7.3.7</A>, when hooks execution 
+is enabled, implementation-specific instrumentation is executed.  Using 
+the <TT><B><code>--</code>generate-hooks</B></TT> option on the Babel
+command line when generating implementation-side bindings results
+in the automatic generation of a <TT>_pre</TT> and <TT>_post</TT>
+method for every static and non-static method associated with each class
+in the specification.  For the <TT>aStaticMethod</TT> specified in 
+Subsection&nbsp;<A HREF="node159.html#ss:cxx:sethooks">7.3.7</A>, the generated <TT>_pre</TT> method 
+implementation is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void
+hooks::Basics_impl::aStaticMeth_pre_impl(int32_t i, int32_t io )
+{
+  // DO-NOT-DELETE splicer.begin(hooks.Basics.aStaticMeth_pre)
+  /*
+   * Add instrumentation here to be executed immediately prior
+   * to dispatch to aStaticMeth().
+   */
+  // DO-NOT-DELETE splicer.end(hooks.Basics.aStaticMeth_pre)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+while that of the <TT>_post</TT> method is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void
+hooks::Basics_impl::aStaticMeth_post_impl(int32_t i, int32_t o, int32_t io,
+                                          int32_t _retval)
+{
+  // DO-NOT-DELETE splicer.begin(hooks.Basics.aStaticMeth_post)
+  /*
+   * Add instrumentation here to be executed immediately after
+   * return from dispatch to aStaticMeth().
+   */
+  // DO-NOT-DELETE splicer.end(hooks.Basics.aStaticMeth_post)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Per the normal implementation process, the desired instrumentation
+should be added within the splicer blocks of
+<TT>aStaticMethod_pre</TT> and
+<TT>aStaticMethod_post</TT>.  As stated in the comments
+within those blocks, <TT>aStaticMethod_pre</TT> will be
+executed immediately prior to dispatch to <TT>aStaticMethod</TT> when the
+latter is invoked by a client.  Assuming no exceptions are encountered,
+<TT>aStaticMethod_post</TT> is executed immediately upon
+return from <TT>aStaticMethod</TT>.
+
+<P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

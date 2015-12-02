@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Method signatures</TITLE>
+<META NAME="description" CONTENT="Method signatures">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node223.html">
+<LINK REL="previous" HREF="node220.html">
+<LINK REL="up" HREF="node219.html">
+<LINK REL="next" HREF="node222.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4463"
+  HREF="node222.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4457"
+  HREF="node219.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4451"
+  HREF="node220.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4459"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4461"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4464"
+  HREF="node222.html">Out and inout arguments</A>
+<B> Up:</B> <A NAME="tex2html4458"
+  HREF="node219.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4452"
+  HREF="node220.html">Name space</A>
+ &nbsp; <B>  <A NAME="tex2html4460"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4462"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03522000000000000000"></A><A NAME="ss:java:signatures"></A><A NAME="13629"></A>
+<BR>
+Method signatures
+</H2>
+
+<P>
+Since the bindings map well into Java language constructs,
+Java method signatures correspond very closely to those in the specification.
+Adapted from the Babel regression tests, the following is an example 
+specification of a package called <TT>ExceptionTest</TT> that has a class 
+named <TT>Fib</TT> with a <TT>getFib</TT> method declared as<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13633"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int getFib(in int n, in int max_depth, in int max_value, in int depth)
+  throws NegativeValueException, FibException;
+</I></PRE></td></tr></table></blockquote>
+<P>
+The corresponding client-side, or stub, signature is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13635"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim"> public native int getFib(
+    int n,
+    int max_depth,
+    int max_value,
+    int depth) throws
+    ExceptionTest.FibException,
+    ExceptionTest.NegativeValueException;
+</PRE></td></tr></table></blockquote>
+<P>
+Note the one-to-one mapping in arguments and native exception types.
+
+<P>
+The corresponding implementation-side signature is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13637"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  public int getFib_Impl (
+    /*in*/ int n,
+    /*in*/ int max_depth,
+    /*in*/ int max_value,
+    /*in*/ int depth )
+    throws ExceptionTest.FibException,
+    ExceptionTest.NegativeValueException,
+    sidl.RuntimeException.Wrapper
+</PRE></td></tr></table></blockquote>
+<P>
+Once again, there is a one-to-one mapping of arguments and the two
+specified exceptions.  However, the implementation side includes
+the (implicit) <TT>sidl.RuntimeException</TT>'s <TT>Wrapper</TT>
+class (since <TT>RuntimeException</TT> is an interface.  For more
+on the reasoning behind this, refer to Subsection&nbsp;<A HREF="node224.html#sss:Java:ifcs">10.2.3</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html4465"
+  HREF="node222.html"><TT><I CLASS="slanted">Out</I></TT> and <TT><I CLASS="slanted">inout</I></TT> arguments</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

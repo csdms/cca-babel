@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Arrays</TITLE>
+<META NAME="description" CONTENT="Arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node226.html">
+<LINK REL="up" HREF="node223.html">
+<LINK REL="next" HREF="node228.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4548"
+  HREF="node228.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4542"
+  HREF="node223.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4538"
+  HREF="node226.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4544"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4546"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4549"
+  HREF="node228.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html4543"
+  HREF="node223.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4539"
+  HREF="node226.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html4545"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4547"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03523400000000000000"></A><A NAME="sss:java:arrays"></A><A NAME="13773"></A><A NAME="13774"></A>
+<A NAME="13775"></A><A NAME="13776"></A>
+<BR>
+Arrays
+</H3>
+
+<P>
+As discussed in Section&nbsp;<A HREF="node62.html#s:arrays">5.4</A>, SIDL supports both normal and raw
+arrays (i.e., r-arrays).  Normal SIDL arrays can be used by any supported
+language; whereas, r-arrays are restricted to numeric types.  This subsection
+discusses both within the context of Java bindings.
+<A NAME="13778"></A><A NAME="13779"></A>
+
+<P>
+Every object and type defined in SIDL has a corresponding array to
+hold elements of that type.
+<A NAME="13780"></A>
+In the case of Java bindings, this means the entire SIDL array API is available 
+with a few exceptions that have no real use in the language.  More specifically,
+<TT>ensure()</TT><A NAME="13782"></A>, <TT>borrow()</TT><A NAME="13784"></A>, and 
+<TT>first()</TT><A NAME="13786"></A> are not supported in the bindings.
+Unlike with most of the other language bindings, explicit
+array deletion should be done using the <TT>destroy()</TT> array function.
+Refer to Subsection&nbsp;<A HREF="node71.html#ss:basics:array:api">5.4</A> for more information on the API.
+
+<P>
+More to the point are the specifics of the Java implementation -- which
+provides a wider variety of options for constructing arrays than other 
+bindings.  Each
+SIDL type and class includes a static inner class named <TT>Array</TT>.
+This is the main Array class and, in order to support up to 7
+dimensional arrays, every method takes either 7 array indices or an
+array of indices.  For example, in order to get the element (2,3) from a 2
+dimensional array, <TT>arry._get(2,3,0,0,0,0,0)</TT> would be used.
+<A NAME="13791"></A>
+Since typing all those zeros can get a little tedious, a set of 
+array subclasses have also been implemented with one subclass per
+supported dimension.  So, given an <TT>Array2</TT> instead of an <TT>Array</TT>,
+<TT>arry2._get(2,3)</TT> could be used to get the element (2,3) instead.
+
+<P>
+These numbered array subclasses improve on the array API usability
+somewhat, but they do have a side effect.  In order to avoid conflicts
+between the array superclass and the numbered array subclass
+functions, all other basic array methods found in the <TT>Array</TT> superclass
+are preceded by an underscore '_'<A NAME="13796"></A>.  For example, 
+<TT>arry._dim()</TT> returns an array's dimensionality.  Since numbered
+arrays all inherit these methods, they can be used as well.  In the 
+dimensionality example, <TT>arry2._dim()</TT> could also be used -- though
+the answer should be obvious.
+
+<P>
+Furthermore, there is another underscore rule for arrays in Java.  All
+numbered arrays have two <TT>get</TT> and two <TT>set</TT> functions.  The
+<TT>_get</TT> and <TT>_set</TT> functions are the same in <TT>Array</TT> and all
+the <TT>Array#</TT> subclasses in that they simply pass the arguments of the
+<TT>_get</TT> call down to the underlying implementation.  However, the 
+underscore-less <TT>get</TT> and <TT>set</TT> methods do bounds checking in Java
+before calling the underlying implementation.  If a problem is detected, they
+throw <TT>ArrayIndexOutOfBoundsException</TT>.  
+
+<P>
+Because numbered arrays are subclasses of <TT>Array</TT>, an <TT>Array#</TT> 
+can be Java cast to an <TT>Array</TT>, if necessary.  However, some
+functions return an <TT>Array</TT>.  <A NAME="13813"></A>
+In order to convert an <TT>Array</TT> to the correctly numbered array, a 
+function in <TT>Array</TT>, called <TT>_dcast()</TT>, can be used by simply
+invoking <TT>_dcast()</TT> on the object.
+For example, given a one-dimensional array of type <TT>foo.bar</TT> called 
+<TT>arry</TT> that is represented by the Java class <TT>Array</TT>, the
+correctly numbered array type can be retrieved as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13821"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">foo.bar.Array1 arry1 = arry._dcast();
+</PRE></td></tr></table></blockquote>
+<P>
+After this cast, two references are now available to the same array;
+namely, <TT>arry</TT> and <TT>arry1</TT>.
+
+<P>
+Finally, the Java array constructors are slightly different than
+in other languages.  The constructor definition for <TT>Array</TT> is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13826"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public Array(int dim, int[] lower, int[] upper, boolean isRow) 
+</PRE></td></tr></table></blockquote>
+<P>
+This constructor creates an array of dimension <TT>dim</TT>.  It takes
+two arrays of integers to define the lower and upper bounds of each
+dimension in the array.  If lower or upper has fewer elements than
+there are dimensions in the array, or any element in lower is larger
+than the corresponding element in upper, the constructor will throw
+an exception.  Finally, the constructor takes a boolean <TT>isRow</TT>.
+If <TT>isRow</TT> is true, a SIDL array will be created in
+row-major order; if false, a column-major order array will be created.
+
+<P>
+Constructors for numbered arrays are simpler.  The constructor for a 
+two-dimensional array is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13831"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public Array2( int l0, int l1, int u0, int u1, boolean isRow)
+</PRE></td></tr></table></blockquote>
+<P>
+Since the dimensionality is known, the dimension argument was dropped.
+In addition, it is no longer necessary to create arrays of bounds to 
+pass into the constructor; instead,
+<TT>l0</TT> and <TT>l1</TT> are the lower bounds and <TT>u0</TT> and
+<TT>u1</TT> the upper.  The choice between column- and row-major orders
+is obviously still necessary.
+
+<P>
+For arrays with all lower bounds of zero, an even simpler constructor
+is available.  Its signature is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13837"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public Array2( int s0, int s1, boolean isRow) 
+</PRE></td></tr></table></blockquote>
+<P>
+Another alternate construction method for SIDL arrays is present in numbered
+arrays.  The following constructor takes a two-dimensional Java array,
+and copies it into a 2-dimensional SIDL array:
+<A NAME="13839"></A>
+<A NAME="13840"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">public Array2(foo.bar[][] array, boolean isRow)
+</PRE></td></tr></table></blockquote>
+<P>
+Alternatively, arrays can be constructed as copies of existing arrays through
+two additional built-in methods.
+An existing numbered SIDL array of the correct dimension can be set to
+the same contents of a Java array with the <TT>fromArray</TT> method.
+The same arguments as the constructor above are used but nothing is returned.
+Conversely, a SIDL array can be copied into a Java array through the
+<TT>toArray</TT> numbered array function.  The function takes no arguments 
+but returns a new Java array containing copies of the SIDL array's elements.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4548"
+  HREF="node228.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4542"
+  HREF="node223.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4538"
+  HREF="node226.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4544"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4546"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4549"
+  HREF="node228.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html4543"
+  HREF="node223.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4539"
+  HREF="node226.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html4545"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4547"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

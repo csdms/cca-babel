@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Scientific Interface Definition Language (SIDL)</TITLE>
+<META NAME="description" CONTENT="Scientific Interface Definition Language (SIDL)">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html995"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html989"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html983"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html991"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html993"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html996"
+  HREF="node18.html">Benefits to Customers</A>
+<B> Up:</B> <A NAME="tex2html990"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html984"
+  HREF="node16.html">Babel Facilitates Language Interoperability</A>
+ &nbsp; <B>  <A NAME="tex2html992"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html994"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION01120000000000000000"></A><A NAME="574"></A>
+<BR>
+Scientific Interface Definition Language (SIDL)
+</H1> 
+
+<P>
+In order to support multi-language interoperability, Babel relies 
+on the specification of interfaces in the
+Scientific Interface Definition Language (SIDL) (pronounced
+``SIGH-dull'').  SIDL is similar to COM<A NAME="575"></A> and CORBA<A NAME="576"></A> IDLs, 
+but was designed with an emphasis on scientific computing.
+Specifically, SIDL supports dynamic multi-dimensional arrays and
+has built-in complex numbers.  
+SIDL also supports interface contracts<A NAME="577"></A>, which 
+define properties that must hold true during execution -- before and/or 
+after method invocation -- when contract enforcement is enabled.
+It will acquire a set of directives to aid in the description of 
+massively parallel distributed objects.
+
+<P>
+When it comes to deciding what programming idioms
+to support across all languages and which ones to reject,
+SIDL strikes a careful balance between minimalism and 
+completeness.  It is <SPAN  CLASS="textit">not</SPAN> a lowest common denominator solution.
+SIDL is minimal to keep the learning curve as low as possible.
+It is complete so developers do not feel 
+constrained in how to express their solutions.
+
+<P>
+SIDL is object-oriented<A NAME="579"></A>.  Its object model closely resembles that of
+Java and Objective C.  In this model there is single inheritance of
+implementation and multiple inheritance of interfaces. It supports the
+typical notions of virtual, static, and final methods. SIDL also
+provides a basic set of features by defining and implementing the basic
+types for interfaces, classes and exceptions. All types implicitly
+inherit from these basic types.
+
+<P>
+The most important concept to grasp about SIDL is that SIDL only
+defines a public interface that other programs may use to access your code.
+As a result, all methods defined as part of a SIDL file are public;
+if you do not want a method to be globally usable, simply do not
+define it in your SIDL file.  Furthermore, all object and class data
+is implicitly private.  There is no way to declare or define data in a
+SIDL file.  Instead, any data required for your code should be declared
+in the implementation language files.  This way, the languages that use
+your code through Babel may create your objects and pass them around
+just like any normal piece of data, but they may only access the data
+through the provided interface.
+
+<P>
+SIDL also has a complete set of fundamental data types<A NAME="580"></A>, from 
+booleans to double precision complex numbers.  It also supports
+more sophisticated types such as enumerations, strings, 
+objects, and dynamic multi-dimensional arrays.
+
+<P>
+SIDL is still a work in progress.
+Of particular research interest are directives that will be 
+added for parallel distributed object interaction and features 
+to specify computational quality of service semantics associated 
+with the interfaces.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html995"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html989"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html983"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html991"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html993"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html996"
+  HREF="node18.html">Benefits to Customers</A>
+<B> Up:</B> <A NAME="tex2html990"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html984"
+  HREF="node16.html">Babel Facilitates Language Interoperability</A>
+ &nbsp; <B>  <A NAME="tex2html992"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html994"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

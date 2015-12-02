@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exceptions</TITLE>
+<META NAME="description" CONTENT="Exceptions">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node254.html">
+<LINK REL="previous" HREF="node252.html">
+<LINK REL="up" HREF="node250.html">
+<LINK REL="next" HREF="node254.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4964"
+  HREF="node254.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4958"
+  HREF="node250.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4952"
+  HREF="node252.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4960"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4962"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4965"
+  HREF="node254.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html4959"
+  HREF="node250.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4953"
+  HREF="node252.html">Integers</A>
+ &nbsp; <B>  <A NAME="tex2html4961"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4963"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03623300000000000000"></A><A NAME="sss:python:exceptions"></A><A NAME="15668"></A><A NAME="15669"></A>
+<BR>
+Exceptions
+</H3>
+
+<P>
+Python exceptions must be Python classes; they cannot be C extension
+types -- the mechanism used to wrap SIDL objects as Python
+objects.  Because of this, Babel defines an exception class for each
+SIDL type that implements <TT>sidl.BaseException</TT>.  For a type
+called <TT>X.Y.Z</TT>, the Python exception class is named
+<TT>X.Y.Z._Exception</TT>.  
+<A NAME="15673"></A>
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+In Babel 0.10.2 and previous releases, the Python exception class was 
+named <TT>X.Y.Z.Exception</TT>, but this name can potentially collide with 
+the class constructor or a static method named <TT>Exception</TT>.  For 
+backwards compatibility, Babel defines <TT>X.Y.Z.Exception</TT> if the 
+name <TT>Exception</TT> is not used in the class.
+</SPAN>
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

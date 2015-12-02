@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in FORTRAN 77</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in FORTRAN 77">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node334.html">
+<LINK REL="previous" HREF="node332.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node334.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6208"
+  HREF="node334.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6202"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6196"
+  HREF="node332.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6204"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6206"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6209"
+  HREF="node334.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6203"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6197"
+  HREF="node332.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6205"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6207"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04350000000000000000"></A><A NAME="s:f77"></A><A NAME="19546"></A><A NAME="19547"></A>
+<BR>
+The Backdoor Initializer in FORTRAN 77
+</H1>
+In FORTRAN 77, using the Backdoor Initializer is similar to using it
+in C.  There is a special new constructor named <TT>_wrapObj</TT> that
+takes the private data pointer.  
+
+<P>
+Of course, dynamically allocating data in FORTRAN 77 is tricky, and
+requires very close cooperation with the Impl class that uses the
+data.  Most of the complexity of this example code is caused by those
+problems, not so much the Backdoor Initializer itself.
+
+<P>
+<A NAME="19549"></A>
+Since we need to store 2 strings and an integer, we create 3 sidl arrays to
+hold the private data.  We create an opaque array of 2 elements called pdata to hold
+the other two arrays.  Then we create a string array of 2 elements
+called a_string, and an integer array of 1 element called a_int.
+d_string is element 0 of the string array, and d_ctortest is element
+1.  We then place a_string into pdata as element 0, and a_int in pdata
+as element 1.  We then call <TT>_wrapObj</TT>, which takes pdata as an
+in argument as the first argument, and the object we are creating,
+data, as an out argument as the second argument. 
+
+<P>
+Notice that we don't have to include an Impl files to FORTRAN 77,
+since, there aren't actually any types.
+
+<P>
+Fairly complex, but here's the client code from wraptest.f:
+<BR>
+<PRE  CLASS="verbatim">      program wraptest
+      implicit none
+      integer*8 data, user, pdata, backup, throwaway
+      integer*8 a_string, a_int
+      integer*4 d_int
+      character*80 d_string
+      character*80 d_ctortest
+      character*80 d_silly
+
+c     pdata is the internal data, and holds two arrays, string an int.
+      call sidl_opaque__array_create1d_f(2, pdata)
+      call sidl_string__array_create1d_f(2, a_string)
+      call sidl_int__array_create1d_f(1, a_int)
+
+c     initialize the data arrays
+      call sidl_string__array_set1_f(a_string, 0, d_string)
+      call sidl_string__array_set1_f(a_string, 1, d_ctortest)
+      call sidl_int__array_set1_f(a_int, 0, d_int)
+
+c     initilize pdata
+      call sidl_opaque__array_set1_f(pdata, 0, a_string)
+      call sidl_opaque__array_set1_f(pdata, 1, a_int)
+
+      call wrapper_User__create_f(user, throwaway)
+
+c     private data first, then the object being created
+      call wrapper_Data__wrapObj_f(pdata, data, throwaway)
+
+      call sidl_opaque__array_get1_f(pdata, 0, a_string)
+      call sidl_string__array_get1_f(a_string, 1, d_ctortest)
+
+      print *, d_ctortest
+
+      call wrapper_User_accept_f(user, data, throwaway)
+
+      call sidl_string__array_get1_f(a_string, 0, d_string)
+      call sidl_int__array_get1_f(a_int, 0, d_int)
+
+      print *, d_string, ' ', d_int
+
+      call wrapper_User_deleteRef_f(user, throwaway)
+      call wrapper_Data_deleteRef_f(data, throwaway)
+      end
+</PRE></td></tr></table></blockquote>  	
+
+<P>
+and the Impl side code from wrapper_Data_Impl.f
+<BR>
+<PRE  CLASS="verbatim">        subroutine wrapper_Data__ctor2_fi(self, private_data, exception)
+        implicit none
+        integer*8 self
+        integer*8 private_data
+        integer*8 exception
+
+C       DO-NOT-DELETE splicer.begin(wrapper.Data._ctor2)
+        integer*8 a_string, pdata
+        character*80 d_string, d_ctortest
+        call sidl_opaque__array_get1_f(private_data, 0, a_string)
+        call sidl_string__array_set1_f(a_string, 1, 'ctor was run') 
+C       DO-NOT-DELETE splicer.end(wrapper.Data._ctor2)
+        end
+
+        subroutine wrapper_Data_setString_fi(self, s, exception)
+        implicit none
+        integer*8 self
+        character*(*) s
+        integer*8 exception
+
+C       DO-NOT-DELETE splicer.begin(wrapper.Data.setString)
+        integer*8 data, a_string
+        call wrapper_Data__get_data_f(self, data)
+        if (data .ne. 0) then
+           call sidl_opaque__array_get1_f(data, 0, a_string)
+           call sidl_string__array_set1_f(a_string, 0, s)
+        endif
+C       DO-NOT-DELETE splicer.end(wrapper.Data.setString)
+        end
+
+        subroutine wrapper_Data_setInt_fi(self, i, exception)
+        implicit none
+        integer*8 self
+        integer*4 i
+        integer*8 exception
+
+C       DO-NOT-DELETE splicer.begin(wrapper.Data.setInt)
+        integer*8 data, a_int
+        call wrapper_Data__get_data_f(self, data)
+        if (data .ne. 0) then
+           call sidl_opaque__array_get1_f(data, 1, a_int)
+           call sidl_int__array_set1_f(a_int, 0, i)
+        endif
+C       DO-NOT-DELETE splicer.end(wrapper.Data.setInt)
+        end
+
+</PRE></td></tr></table></blockquote>    
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6208"
+  HREF="node334.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6202"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6196"
+  HREF="node332.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6204"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6206"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6209"
+  HREF="node334.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6203"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6197"
+  HREF="node332.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6205"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6207"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

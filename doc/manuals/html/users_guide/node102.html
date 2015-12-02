@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: ensure</TITLE>
+<META NAME="description" CONTENT="Function: ensure">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node103.html">
+<LINK REL="previous" HREF="node101.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node103.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2447"
+  HREF="node103.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2441"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2435"
+  HREF="node101.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2443"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2445"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2448"
+  HREF="node103.html">Function: first</A>
+<B> Up:</B> <A NAME="tex2html2442"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2436"
+  HREF="node101.html">Function: copy</A>
+ &nbsp; <B>  <A NAME="tex2html2444"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2446"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024483100000000000000"></A><A NAME="3792"></A>
+<BR>
+Function: ensure
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+struct sidl_double__array *
+sidl_double__array_ensure(const struct sidl_double__array *src,
+                          int32_t                          dimen,
+                          int                              ordering);
+
+// C++
+void
+sidl::array&lt;double&gt;::ensure(int32_t dimen, int ordering);
+
+C FORTRAN 77
+       subroutine sidl_double__array_ensure_f(src, dimen, ordering, result)
+       integer*8 src, result
+       integer*4 dimen, ordering
+
+! FORTRAN 90
+subroutine ensure(src, dimen, ordering, result)
+   type(sidl_double_1d), intent(in) :: src    ! type depends on array dimension
+   type(sidl_double_1d), intent(out) :: result! type depends on array dimension
+   integer (selected_int_kind(9)) :: dimen, ordering
+</PRE></td></tr></table></blockquote>
+<P>
+This method is used to obtain a matrix with a guaranteed ordering and
+dimension from an array with uncertain properties.  If the incoming
+array has the required ordering and dimension, its reference count is
+incremented, and it is returned.  If it doesn't, a copy with the
+correct ordering is created and returned.  In either case, the caller
+knows that the returned matrix (if not NULL) has the desired
+properties.
+
+<P>
+This method is used internally to enforce the array ordering
+constraints in SIDL.  Clients can use it in similar ways.  However,
+because the method was intended as an internal Babel feature, 
+is not available in Java or Python.
+
+<P>
+The ordering parameter should be one of the constants defined in
+<TT>enum sidl_array_ordering</TT> (e.g.
+<BR><TT>sidl_general_order</TT>,
+<TT>sidl_column_major_order</TT>, or <TT>sidl_row_major_order</TT>).  If
+you pass in
+<BR><TT>sidl_general_order</TT>, this routine will only check
+the dimension of the matrix.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

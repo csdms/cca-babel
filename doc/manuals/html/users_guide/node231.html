@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Environment variables</TITLE>
+<META NAME="description" CONTENT="Environment variables">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node232.html">
+<LINK REL="previous" HREF="node230.html">
+<LINK REL="up" HREF="node229.html">
+<LINK REL="next" HREF="node232.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4611"
+  HREF="node232.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4605"
+  HREF="node229.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4599"
+  HREF="node230.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4607"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4609"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4612"
+  HREF="node232.html">Imports</A>
+<B> Up:</B> <A NAME="tex2html4606"
+  HREF="node229.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4600"
+  HREF="node230.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4608"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4610"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03532000000000000000"></A><A NAME="ss:Java:env"></A><A NAME="13916"></A><A NAME="13917"></A>
+<A NAME="13918"></A><A NAME="13919"></A>
+<BR>
+Environment variables
+</H2>
+
+<P>
+Four environment variables are associated with running Java bindings.
+The first three, described below, identify path-related directories that
+must be set properly for various tools.  It is assumed Babel was already
+installed in directories rooted at <TT>$PREFIX</TT>.  The last variable is
+used to pass options to the implementation-side.
+
+<P>
+<DL>
+<DT><STRONG><TT>CLASSPATH</TT>.</STRONG></DT>
+<DD>Java uses the <TT>CLASSPATH</TT><A NAME="13924"></A> environment variable to 
+find <TT>.class</TT> files.  While not specific to Babel, this colon-separated 
+list of directories must include at least three directories.  The first
+is the one containing the implementation-side <TT>.class</TT> files.  The second
+is the directory containing <TT>sidl_$VERSION.jar</TT>, where <TT>$VERSION</TT> 
+is the version of your installed Babel, which is likely to be 
+the SIDL jar file.  The latter directory should be <TT>$PREFIX/lib</TT>.
+Finally, <TT>CLASSPATH</TT> must include <TT>$PREFIX/runtime/java</TT>.
+
+<P>
+</DD>
+<DT><STRONG><TT>LD_LIBRARY_PATH</TT> (or <TT>LIBPATH</TT> on AIX).</STRONG></DT>
+<DD>Many systems require <TT>LD_LIBRARY_PATH</TT><A NAME="13935"></A>
+environment variable contain <TT>$PREFIX/lib</TT>.  However, the
+system-specific environment variable should be used.  AIX, for example,
+uses <TT>LIBPATH</TT>.  The goal is to
+include <TT>$PREFIX/lib</TT> in the search path used to locate shared/dynamic
+link libraries.
+
+<P>
+</DD>
+<DT><STRONG><TT>SIDL_DLL_PATH</TT>.</STRONG></DT>
+<DD>The <TT>SIDL_DLL_PATH</TT><A NAME="13941"></A> environment variable
+is typically required to contain the path to the directory holding
+the shared/dynamic link library containing the implementation of SIDL
+objects.  This is a semicolon-separated path variable.
+
+<P>
+</DD>
+<DT><STRONG><TT>BABEL_JVM_FLAGS</TT>.</STRONG></DT>
+<DD>Consisting of a semicolon-separated list of command line options, 
+<TT>BABEL_JVM_FLAGS</TT> passes them on to the implementation.
+For instance, <TT>-Xcheck:jni</TT> can be useful since it results in the 
+JVM validating parameters and environment data prior to JNI requests.
+The following command illustrates additional useful options<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">BABEL_JVM_FLAGS="-verbose:gc;-Xmx500m"
+</PRE></td></tr></table></blockquote>
+<P>
+</DD>
+</DL>
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">WARNING</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+Not including all the necessary files in the <TT>SIDL_DLL_PATH</TT> and 
+<TT>LD_LIBRARY_PATH</TT> <SPAN  CLASS="textit">can</SPAN> crash the JVM in unexpected ways.  
+Babel tries to generate helpful error messages, but sometimes the JVM 
+crashes due to missing files with the resulting output not being very helpful.
+If the JVM crashes, <TT>SIDL_DLL_PATH</TT> and <TT>LD_LIBRARY_PATH</TT> 
+should be checked to ensure they point to the necessary files.
+</SPAN>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4611"
+  HREF="node232.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4605"
+  HREF="node229.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4599"
+  HREF="node230.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4607"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4609"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4612"
+  HREF="node232.html">Imports</A>
+<B> Up:</B> <A NAME="tex2html4606"
+  HREF="node229.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4600"
+  HREF="node230.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4608"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4610"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings generation</TITLE>
+<META NAME="description" CONTENT="Bindings generation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node213.html">
+<LINK REL="previous" HREF="node211.html">
+<LINK REL="up" HREF="node211.html">
+<LINK REL="next" HREF="node213.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4303"
+  HREF="node213.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4297"
+  HREF="node211.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4291"
+  HREF="node211.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4299"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4301"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4304"
+  HREF="node213.html">Bindings implementation</A>
+<B> Up:</B> <A NAME="tex2html4298"
+  HREF="node211.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4292"
+  HREF="node211.html">Implementation-side</A>
+ &nbsp; <B>  <A NAME="tex2html4300"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4302"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03441000000000000000"></A><A NAME="ss:f90:implgen"></A><A NAME="11850"></A>
+<A NAME="11851"></A><A NAME="11852"></A>
+<BR>
+Bindings generation
+</H2>
+
+<P>
+Much of the information associated with generating client-side bindings is 
+pertinent to implementing a SIDL class in Fortran 90.  The mapping of SIDL 
+types to language constructs was given in Table&nbsp;<A HREF="node197.html#tbl:f90:types">9.1</A>.
+If the implementation calls other SIDL methods, client-side caller rules 
+must be followed.
+
+<P>
+To create the implementation bindings for a set of SIDL classes in Fortran 90,
+Babel is invoked as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11854"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -exclude-external -server=f90 file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>or simply
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -E -s=f90 file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+As a result, a makefile fragment called <TT>babel.make</TT>, numerous C 
+header and source files, and some Fortran 90 source files will be created.  
+The <TT>SUBROUTINE</TT> and <TT>END SUBROUTINE</TT>
+statements are automatically generated and the types of arguments declared.  
+Implementation details must be added to the Fortran 90 ``Impl'' files,
+whose names end with <TT>_Impl.F90</TT> and <TT>_Mod.F90</TT>.
+More on this matter is provided in Subsection&nbsp;<A HREF="node213.html#ss:f90:implfill">9.4.2</A>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

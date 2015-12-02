@@ -1,0 +1,149 @@
+#!/usr/local/bin/python
+#
+# File:        testexceptions
+# Copyright:   (c) 2001 Lawrence Livermore National Security, LLC
+# Revision:    @(#) $Revision: 6192 $
+# Date:        $Date: 2007-10-22 16:12:59 -0700 (Mon, 22 Oct 2007) $
+# Description: Exercise exceptions
+#
+# Try to exercise everything possible in Python.
+
+import sidlPyArrays
+import ExceptionTest.Fib
+import ExceptionTest.FibException
+import ExceptionTest.NegativeValueException
+import ExceptionTest.TooDeepException
+import ExceptionTest.TooBigException
+import sidl.BaseClass
+import sys
+from synch.ResultType import *
+from synch import RegOut
+if sidlPyArrays.type == "numpy":
+ from numpy import zeros, int32
+else:
+ import Numeric
+ int32 = Numeric.Int32
+ zeros = Numeric.zeros
+
+class TestCounter:
+
+  def __init__(self, numparts = -1):
+    self.partno = 0
+    self.tracker = RegOut.RegOut()
+    self.tracker.setExpectations(numparts)
+
+  def describeTest(self, description):
+    self.partno = self.partno + 1
+    self.tracker.startPart(self.partno)
+    self.tracker.writeComment(description)
+
+  def fail(self):
+    self.tracker.forceFailure()
+
+  def evalTest(self, result, expected):
+    if (result):
+      if (expected):
+        self.tracker.endPart(self.partno, PASS)
+      else:
+        self.tracker.endPart(self.partno, XPASS)
+    else:
+      if (expected):
+        self.tracker.endPart(self.partno, FAIL)
+      else:
+        self.tracker.endPart(self.partno, XFAIL)
+        
+  def finish(self):
+    self.tracker.close()
+
+def testLeak(fib, counter):
+  counter.describeTest("test for memory leaks and ignored return values")
+  try:
+    (result, a2, a3, r2, c2, c3, s2, s3, o2, o3) = fib.noLeak(
+      zeros((3, 3), int32), zeros((4, 4), int32),
+      zeros((3, 3), int32), zeros((3, 3), int32),
+      zeros((3,), int32), zeros((4, ), int32),
+      "foo", "foo", sidl.BaseClass.BaseClass(),
+      sidl.BaseClass.BaseClass())
+    counter.evalTest(0, 1)
+  except sidl.SIDLException._Exception:
+    counter.evalTest(1, 1)
+  except:
+    (etype, eobj, etb) = sys.exc_info()
+    print etype, eobj
+    counter.evalTest(0, 1)
+
+def driver(counter):
+  counter.describeTest("fib = ExceptionTest.Fib.Fib()")
+  fib = ExceptionTest.Fib.Fib()
+  counter.evalTest(fib != None, 1)
+  
+  counter.describeTest("fib.getFib(10, 25, 200, 0) -> no exception expected")
+  try:
+    fib.getFib(10, 25, 200, 0)
+  except:
+    counter.evalTest(0, 1)
+  else:
+    counter.evalTest(1, 1)
+  
+  counter.describeTest(
+  "fib.getFib(-1, 10, 10, 0) -> NegativeValueException expected")
+  try:
+    fib.getFib(-1, 10, 10, 0)
+  except ExceptionTest.NegativeValueException._Exception:
+    (etype, eobj, etb) = sys.exc_info()
+    if (eobj.exception.isType("ExceptionTest.NegativeValueException")):
+      counter.evalTest(1, 1)
+    else:
+      counter.evalTest(0, 1)
+  except:
+    print "Wrong exception thrown:", sys.exc_info()
+    counter.evalTest(0, 1)
+  else:
+    print "Unexpected result: No exception thrown\n"
+    counter.evalTest(0, 1)
+
+  counter.describeTest("fib.getFib(10, 1, 1000, 0) -> TooDeepException")
+  try:
+    fib.getFib(10, 1, 1000, 0)
+  except ExceptionTest.FibException._Exception:
+    (etype, eobj, etb) = sys.exc_info()
+    if (eobj.exception.isType("ExceptionTest.TooDeepException")):
+      counter.evalTest(1, 1)
+    else:
+      counter.evalTest(0, 1)
+  except:
+    print "Wrong exception thrown:", sys.exc_info()
+    counter.evalTest(0, 1)
+  else:
+    print "Unexpected result: No exception thrown\n"
+    counter.evalTest(0, 1)
+
+  counter.describeTest("fib.getFib(10, 1000, 1, 0) -> TooBigException")
+  try:
+    fib.getFib(10, 1000, 1, 0)
+  except ExceptionTest.FibException._Exception:
+    (etype, eobj, etb) = sys.exc_info()
+    if (eobj.exception.isType("ExceptionTest.TooBigException")):
+      counter.evalTest(1, 1)
+    else:
+      counter.evalTest(0, 1)
+  except:
+    print sys.exc_info()
+    counter.evalTest(0, 1)
+  else:
+    print "Unexpected result: No exception thrown\n"
+    counter.evalTest(0, 1)
+  testLeak(fib, counter)
+
+if __name__ == '__main__':
+  import sys
+  counter = TestCounter(6)
+  try:
+    driver(counter)
+  except:
+    (type, value, trace) = sys.exc_info()
+    counter.fail()
+    import traceback
+    traceback.print_exception(type, value, trace)
+  counter.finish()
+0

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Header files</TITLE>
+<META NAME="description" CONTENT="Header files">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node131.html">
+<LINK REL="previous" HREF="node129.html">
+<LINK REL="up" HREF="node128.html">
+<LINK REL="next" HREF="node131.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3044"
+  HREF="node131.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3038"
+  HREF="node128.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3032"
+  HREF="node129.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3040"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3042"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3045"
+  HREF="node131.html">Object management</A>
+<B> Up:</B> <A NAME="tex2html3039"
+  HREF="node128.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3033"
+  HREF="node129.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3041"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3043"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03132000000000000000"></A>
+<A NAME="6915"></A>
+<A NAME="6916"></A>
+<BR>
+Header files
+</H2>
+
+<P>
+The hierarchical nature of SIDL packages lends itself to multiple
+options for including enumerations, 
+interfaces, and classes.  The naming convention for associated
+header files uses underscore-separated parts corresponding to the
+package hierarchy.  That is, type <TT>X.Y.Z</TT> -- where X is the name
+of the package, Y the subpackage, and Z the class -- is included with
+<TT>#include "X_Y_Z.h"</TT><A NAME="6919"></A><A NAME="6920"></A>.
+The header files for the whole subpackage, <TT>X.Y</TT>, are included with
+<TT>#include "X_Y.h"</TT>.  For instance, all 
+types in the <TT>sidl</TT> name space are included in <TT>#include "sidl.h"</TT>.
+<A NAME="6925"></A>
+
+<P>
+Babel ensures each generated client-side header file automatically includes
+<TT>sidl_header.h</TT><A NAME="6927"></A>, which defines<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+
+<OL>
+<LI><TT>struct sidl_dcomplex</TT> for the SIDL dcomplex type with
+parts named <TT>real</TT> and <TT>imaginary</TT>;
+</LI>
+<LI><TT>struct sidl_fcomplex</TT> for the SIDL fcomplex type with
+parts named <TT>real</TT> and <TT>imaginary</TT>;
+</LI>
+<LI><TT>int32_t</TT> and <TT>int64_t</TT> for the SIDL int and long
+types;
+</LI>
+<LI>a typedef for <TT>sidl_bool</TT> for the SIDL bool type;
+</LI>
+<LI>preprocessor symbols <TT>TRUE</TT> and <TT>FALSE</TT>; and 
+</LI>
+<LI>function prototypes for the multi-dimensional array APIs for
+the basic SIDL types.
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3044"
+  HREF="node131.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3038"
+  HREF="node128.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3032"
+  HREF="node129.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3040"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3042"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3045"
+  HREF="node131.html">Object management</A>
+<B> Up:</B> <A NAME="tex2html3039"
+  HREF="node128.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3033"
+  HREF="node129.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3041"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3043"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

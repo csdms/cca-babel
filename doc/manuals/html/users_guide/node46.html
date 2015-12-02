@@ -1,0 +1,432 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Writing the C Client</TITLE>
+<META NAME="description" CONTENT="Writing the C Client">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node45.html">
+<LINK REL="up" HREF="node43.html">
+<LINK REL="next" HREF="node47.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1520"
+  HREF="node47.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1514"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1510"
+  HREF="node45.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1516"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1518"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1521"
+  HREF="node47.html">Portable Makefiles: using babel-config</A>
+<B> Up:</B> <A NAME="tex2html1515"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Previous:</B> <A NAME="tex2html1511"
+  HREF="node45.html">Writing the Fortran&nbsp;90 Implementation</A>
+ &nbsp; <B>  <A NAME="tex2html1517"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1519"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02323000000000000000"></A><A NAME="1909"></A>
+<BR>
+Writing the C Client
+</H2>
+
+<P>
+Now, finally, we are ready to write a client.  For this
+exercise, we wrote our driver in C and built two executables; 
+each one linking in one of the two implementation libraries.
+We will put our driver in the <TT>minimal/</TT> directory
+(which happens to be the parent directory of where the 
+C++ and Fortran&nbsp;90 implementations are, though this detail
+is only relevant to makefile construction).
+From our Fortran&nbsp;90 subdirectory, we go up one and 
+generate the client-side C bindings.
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>cd ..</B></TT>
+<BR><TT>%</TT> <TT><B>babel -makefile -cC ../hello.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+The ``<TT>-cC</TT>'' flag,
+or its equivalent long-form ``<TT>-client=C</TT>'', tells the 
+Babel code generator to create only the C stub calling code, 
+not the entire library implementation.  
+
+<P>
+There are a few details worth noting here.  The C bindings
+generate function names by combining packages, classes, and method names 
+with underscores (e.g. <TT>Hello_World_getMsg()</TT>.  Whenever you 
+see double underscores<A NAME="1918"></A> in Babel generated symbols, they indicate something
+built-in to (and sometimes specific to) the language binding.  
+The <TT>_create()</TT> method is built-in to every instantiatable class 
+defined in SIDL, triggering the creation of Babel internal data structures
+as well as the constructor of the actual object implementation.
+
+<P>
+The code listing below shows a well crafted driver
+with full error checking.  
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 #include &lt;stdio.h&gt;
+   2 #include "Hello_World.h"
+   3 #include "sidl_BaseInterface.h"
+   4 #include "sidl_Exception.h"
+   5 
+   6 
+   7 int main() { 
+   8   Hello_World h;
+   9   sidl_BaseInterface ex;
+  10   char * msg;
+  11 
+  12   /* create instance of Hello World */
+  13   h = Hello_World__create(&amp;ex); SIDL_CHECK(ex);
+  14   if ( h == NULL ) { 
+  15     fprintf(stderr,"%s:%d Failed to create an instance of Hello_World!\n",
+  16             __FILE__,__LINE__);
+  17     return 2;
+  18   }
+  19 
+  20   /* get the message from the object */
+  21   msg = Hello_World_getMsg(h, &amp;ex); SIDL_CHECK(ex);
+  22   if ( msg == NULL ) { 
+  23     fprintf(stderr, "%s:%d Hello_World_getMsg() returned a NULL instead "
+  24 	            "of a string!\n",__FILE__,__LINE__);
+  25     return 3;
+  26   }
+  27   
+  28   /* done with object so we can release it */
+  29   Hello_World_deleteRef(h,&amp;ex); SIDL_CHECK(ex);
+  30 
+  31   /* print the string */
+  32   printf("%s\n",msg);
+  33 
+  34   /* release the string */
+  35   sidl_String_free(msg);
+  36 
+  37   return 0;
+  38   
+  39  EXIT: /* this is error handling code for any exceptions that were thrown */
+  40   {
+  41     fprintf(stderr,"%s:%d: Error, exception caught\n",__FILE__,__LINE__);
+  42     sidl_BaseInterface ignore = NULL;
+  43     sidl_BaseException be = sidl_BaseException__cast(ex,&amp;ignore);
+  44 
+  45     msg = sidl_BaseException_getNote(be, &amp;ignore);
+  46     fprintf(stderr,"%s\n",msg);
+  47     sidl_String_free(msg);
+  48 
+  49     msg = sidl_BaseException_getTrace(be, &amp;ignore);
+  50     fprintf(stderr,"%s\n",msg);
+  51     sidl_String_free(msg);
+  52 
+  53     sidl_BaseException_deleteRef(be, &amp;ignore);
+  54     SIDL_CLEAR(ex);
+  55     return 1;
+  56   }
+  57 }
+</PRE></td></tr></table></blockquote>
+<P>
+As with other examples, we will go through this one
+line by line.  It is important to note that no where
+in this file is any indication of what language the
+Babel object is implemented in.  When you see the makefile, 
+we will show that this code can be linked against multiple
+implementations in different languages.<DL>
+<DT><STRONG>line 2:</STRONG></DT>
+<DD>This line includes the C stub for the <TT><I CLASS="slanted">Hello.World</I></TT> type.
+</DD>
+<DT><STRONG>line 3:</STRONG></DT>
+<DD>We also include the C stub for the <TT><I CLASS="slanted">sidl.BaseInterface</I></TT> type
+  which all classes and interfaces ultimately inherit from.  In C, we often
+  use this type to hold the exception argument.
+</DD>
+<DT><STRONG>line 4:</STRONG></DT>
+<DD>There is no <TT><I CLASS="slanted">sidl.Exception</I></TT> type.  This header actually 
+  introduces some useful macros for dealing with exception handling in C.
+</DD>
+<DT><STRONG>line 13:</STRONG></DT>
+<DD>This is where the object is <TT>_create()</TT>'ed.  Note
+  that the creation may fail, so we use the <TT>SIDL_CHECK</TT> macro 
+  introduced from <TT>sidl_Exception.h</TT> to test the exception and 
+  goto <TT>EXIT</TT> (line 39), if necessary.
+</DD>
+<DT><STRONG>line 21:</STRONG></DT>
+<DD>With a live reference to the object, we now try to 
+  get the message out of it.  Note that we check if the exception is thrown
+  <SPAN  CLASS="textit">and</SPAN> if the string is <TT>NULL</TT>.
+</DD>
+<DT><STRONG>line 29:</STRONG></DT>
+<DD>Once we have the message, we can dispose of our reference
+  to the object.
+</DD>
+<DT><STRONG>line 32:</STRONG></DT>
+<DD>Print the message
+</DD>
+<DT><STRONG>line 35:</STRONG></DT>
+<DD>Free the string.  Return values have the same semantics as
+  out parameters which is the caller always recieves a reference count and
+  is obligied to dispose of it when done.
+</DD>
+<DT><STRONG>line 37:</STRONG></DT>
+<DD>Normal termination.  
+</DD>
+<DT><STRONG>lines 39-56:</STRONG></DT>
+<DD>This is exception handling code.  Its hard to imagine
+  so many possibilities for failure in our little example, but it
+  is useful to see how exception classes can be cast to appropriate 
+  types (line 43), and be queried for both original error message and
+  the trace of the call stack from which it was thrown.
+</DD>
+<DT><STRONG>line 42:</STRONG></DT>
+<DD>Note that Babel generated methods always throw exceptions, 
+  but in exception handling code, we often ignore them.  Do not call
+  <TT>SIDL_CHECK</TT> after the <TT>EXIT</TT> as this can easily result
+  in an infinite loop.
+</DD>
+</DL>
+
+<P>
+Now we need to edit the GNUmakefile that builds the code in
+this directory and links it with the C++ or Fortran 90 
+implementations in the two subdirectories.  This case requires
+more editing that the previous two examples.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">   1 include babel.make
+   2 # please name the server library here
+   3 LIBNAME=client
+   4 # please name the SIDL file here
+   5 SIDLFILE=../hello.sidl
+   6 # extra include/compile flags 
+   7 EXTRAFLAGS=
+   8 # extra libraries that the implementation needs to link against
+   9 EXTRALIBS=
+  10 # library version number
+  11 VERSION=0.1.1
+  12 # PREFIX specifies the top of the installation directory
+  13 PREFIX=/usr/local
+  14 # the default installation installs the .la and .scl (if any) into the
+  15 # LIBDIR
+  16 LIBDIR=$(PREFIX)/lib
+  17 # the default installation installs the stub header and IOR header files
+  18 # in INCLDIR
+  19 INCLDIR=$(PREFIX)/include
+  20 
+  21 
+  22 # most of the rest of the file should not require editing
+  23 
+  24 ifeq ($(IMPLSRCS),)
+  25   SCLFILE=
+  26   BABELFLAG=--client=c
+  27   MODFLAG=
+  28 else
+  29   SCLFILE=lib$(LIBNAME).scl
+  30   BABELFLAG=--server=c
+  31   MODFLAG=-module
+  32 endif
+  33 
+  34 all : lib$(LIBNAME).la $(SCLFILE) runC2Cxx runC2F90
+  35 
+  36 CXX=`babel-config --query-var=CXX`
+  37 runC2Cxx: lib$(LIBNAME).la libCxx/libhello.la main.lo
+  38 	babel-libtool --mode=link $(CXX) -static main.lo lib$(LIBNAME).la \
+  39 	    libCxx/libhello.la -o runC2Cxx
+  40 
+  41 runC2F90: lib$(LIBNAME).la libF90/libhello.la
+  42 	babel-libtool --mode=link $(CC) -static main.lo lib$(LIBNAME).la \
+  43 	    libF90/libhello.la -o runC2F90
+  44 
+  45 CC=`babel-config --query-var=CC`
+  46 INCLUDES=`babel-config --includes`
+  47 CFLAGS=`babel-config --flags-c`
+  48 LIBS=`babel-config --libs-c-client`
+  49 
+  50 STUBOBJS=$(STUBSRCS:.c=.lo)
+  51 IOROBJS=$(IORSRCS:.c=.lo)
+  52 SKELOBJS=$(SKELSRCS:.c=.lo)
+  53 IMPLOBJS=$(IMPLSRCS:.c=.lo)
+  54 
+  55 PUREBABELGEN=$(IORHDRS) $(IORSRCS) $(STUBSRCS) $(STUBHDRS) $(SKELSRCS)
+  56 BABELGEN=$(IMPLHDRS) $(IMPLSRCS)
+  57 
+  58 $(IMPLOBJS) : $(STUBHDRS) $(IORHDRS) $(IMPLHDRS)
+  59 
+  60 lib$(LIBNAME).la : $(STUBOBJS) $(IOROBJS) $(IMPLOBJS) $(SKELOBJS)
+  61 	babel-libtool --mode=link --tag=CC $(CC) -o lib$(LIBNAME).la \
+  62 	  -rpath $(LIBDIR) -release $(VERSION) \
+  63 	  -no-undefined $(MODFLAG) \
+  64 	  $(CFLAGS) $(EXTRAFLAGS) $^ $(LIBS) \
+  65 	  $(EXTRALIBS)
+  66 
+  67 $(PUREBABELGEN) $(BABELGEN) : babel-stamp
+  68 	@if test -f $@; then \
+  69 	    touch $@; \
+  70 	else \
+  71 	    rm -f babel-stamp ; \
+  72 	    $(MAKE) babel-stamp; \
+  73 	fi
+  74 
+  75 babel-stamp: $(SIDLFILE)
+  76 	@rm -f babel-temp
+  77 	@touch babel-temp
+  78 	babel $(BABELFLAG) $(SIDLFILE) 
+  79 	@mv -f babel-temp $@
+  80 
+  81 lib$(LIBNAME).scl : $(IORSRCS)
+  82 ifeq ($(IORSRCS),)
+  83 	echo "lib$(LIBNAME).scl is not needed for client-side C bindings."
+  84 else
+  85 	-rm -f $@
+  86 	echo '&lt;?xml version="1.0" ?&gt;' &gt; $@
+  87 	echo '&lt;scl&gt;' &gt;&gt; $@	
+  88 	if test `uname` = "Darwin"; then scope="global"; else scope="local"; \
+  89 	   fi ; \
+  90           echo '  &lt;library uri="'`pwd`/lib$(LIBNAME).la'" scope="'"$$scope"'" resolution="lazy" &gt;' &gt;&gt; $@
+  91 	grep __set_epv $^ /dev/null | awk 'BEGIN {FS=":"} { print $$1}' | sort -u | sed -e 's/_IOR.c//g' -e 's/_/./g' | awk ' { printf "    &lt;class name=\"%s\" desc=\"ior/impl\" /&gt;\n", $$1 }' &gt;&gt;$@
+  92 	echo "  &lt;/library&gt;" &gt;&gt;$@
+  93 	echo "&lt;/scl&gt;" &gt;&gt;$@
+  94 endif
+  95 
+  96 .SUFFIXES: .lo
+  97 
+  98 .c.lo:
+  99 	babel-libtool --mode=compile --tag=CC $(CC) $(INCLUDES) $(CFLAGS) $(EXTRAFLAGS) -c -o $@ $&lt;
+ 100 
+ 101 clean : 
+ 102 	-rm -f $(PUREBABELGEN) babel-temp babel-stamp *.o *.lo
+ 103 
+ 104 realclean : clean
+ 105 	-rm -f lib$(LIBNAME).la lib$(LIBNAME).scl
+ 106 	-rm -rf .libs
+ 107 
+ 108 install : install-libs install-headers install-scl
+ 109 
+ 110 
+ 111 install-libs : lib$(LIBNAME).la
+ 112 	-mkdir -p $(LIBDIR)
+ 113 	babel-libtool --mode=install install -c lib$(LIBNAME).la \
+ 114 	  $(LIBDIR)/lib$(LIBNAME).la
+ 115 
+ 116 install-scl : $(SCLFILE)
+ 117 ifneq ($(IORSRCS),)
+ 118 	-rm -f $(LIBDIR)/lib$(LIBNAME).scl
+ 119 	-mkdir -p $(LIBDIR)
+ 120 	echo '&lt;?xml version="1.0" ?&gt;' &gt; $(LIBDIR)/lib$(LIBNAME).scl
+ 121 	echo '&lt;scl&gt;' &gt;&gt; $(LIBDIR)/lib$(LIBNAME).scl	
+ 122 	if test `uname` = "Darwin"; then scope="global"; else scope="local"; \
+ 123 	   fi ; \
+ 124           echo '  &lt;library uri="'$(LIBDIR)/lib$(LIBNAME).la'" scope="'"$$scope"'" resolution="lazy" &gt;' &gt;&gt; $(LIBDIR)/lib$(LIBNAME).scl
+ 125 	grep __set_epv $^ /dev/null | awk 'BEGIN {FS=":"} { print $$1}' | sort -u | sed -e 's/_IOR.c//g' -e 's/_/./g' | awk ' { printf "    &lt;class name=\"%s\" desc=\"ior/impl\" /&gt;\n", $$1 }' &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 126 	echo "  &lt;/library&gt;" &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 127 	echo "&lt;/scl&gt;" &gt;&gt;$(LIBDIR)/lib$(LIBNAME).scl
+ 128 endif
+ 129 
+ 130 install-headers : $(IORHDRS) $(STUBHDRS)
+ 131 	-mkdir -p $(INCLDIR)
+ 132 	for i in $^ ; do \
+ 133 	  babel-libtool --mode=install cp $$i $(INCLDIR)/$$i ; \
+ 134 	done
+ 135 
+ 136 .PHONY: all clean realclean install install-libs install-headers install-scl
+</PRE></td></tr></table></blockquote>
+<P><DL>
+<DT><STRONG>line 1:</STRONG></DT>
+<DD>Again we include the Babel-generated makefile fragment.
+  Again we see that its contents depend on the language being generated.
+</DD>
+<DT><STRONG>line 3:</STRONG></DT>
+<DD>Here we edit the name to be <TT>client</TT>.
+</DD>
+<DT><STRONG>lines 5-19:</STRONG></DT>
+<DD>These have the same meanings as in the examples
+  above.
+</DD>
+<DT><STRONG>lines 34-43:</STRONG></DT>
+<DD>Here we must modify the <TT>all</TT> target
+  definition and add lines to link <TT>runC2Cxx</TT> and
+  <TT>runC2F90</TT>. Note that when linking C to C++, we must use the
+  C++ compiler.
+</DD>
+</DL>
+
+<P>
+At last, we can make the two executables and run them.
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>make all</B></TT>
+<BR><TT>%</TT> <TT><B>./runC2Cxx</B></TT>
+<BR>
+Hello from C++!
+<BR><TT>%</TT> <TT><B>./runC2F90</B></TT>
+<BR>
+Hello from Fortran 90!
+</TT></BLOCKQUOTE>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1520"
+  HREF="node47.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1514"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1510"
+  HREF="node45.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1516"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1518"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1521"
+  HREF="node47.html">Portable Makefiles: using babel-config</A>
+<B> Up:</B> <A NAME="tex2html1515"
+  HREF="node43.html">Minimal Makefiles</A>
+<B> Previous:</B> <A NAME="tex2html1511"
+  HREF="node45.html">Writing the Fortran&nbsp;90 Implementation</A>
+ &nbsp; <B>  <A NAME="tex2html1517"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1519"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

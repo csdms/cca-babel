@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The C Macro API</TITLE>
+<META NAME="description" CONTENT="The C Macro API">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node105.html">
+<LINK REL="previous" HREF="node71.html">
+<LINK REL="up" HREF="node62.html">
+<LINK REL="next" HREF="node105.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2473"
+  HREF="node105.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2467"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2461"
+  HREF="node103.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2469"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2471"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2474"
+  HREF="node105.html">The C Data Structure</A>
+<B> Up:</B> <A NAME="tex2html2468"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html2462"
+  HREF="node103.html">Function: first</A>
+ &nbsp; <B>  <A NAME="tex2html2470"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2472"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02449000000000000000"></A><A NAME="3832"></A><A NAME="3833"></A>
+<BR>
+The C Macro API
+</H2>
+
+<P>
+Many of the SIDL array access functions have a corresponding C macro 
+API for those who fear the function overhead of the C function API. 
+When efficiency is not a concern, we recommend using the function API, 
+but the C macro API is preferable to the direct access to the data structure. 
+Parts of the macro API are not available for arrays of strings,
+interfaces or objects because the issues associated with memory and
+object reference management.
+
+<P>
+The macro API is very similar to the function API; however, 
+a single set of macros applies to all the supported array types. 
+The macro names are independent of the type of array you're accessing.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlArrayDim(array)
+</PRE></td></tr></table></blockquote><A NAME="3835"></A><A NAME="3836"></A>
+Return the dimension of array.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlLower(array,ind)
+</PRE></td></tr></table></blockquote><A NAME="3838"></A><A NAME="3839"></A>
+Return the lower bound on dimension ind.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlUpper(array,ind)
+</PRE></td></tr></table></blockquote><A NAME="3841"></A><A NAME="3842"></A>
+Return the upper bound on dimension ind.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlLength(array,ind)
+</PRE></td></tr></table></blockquote><A NAME="3844"></A><A NAME="3845"></A>
+Return the extent on dimension ind. The extent is equal to
+<TT>sidlUpper(array,ind) - sidlLower(array,ind) + 1</TT>.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">sidlStride(array,ind)
+</PRE></td></tr></table></blockquote><A NAME="3848"></A><A NAME="3849"></A>
+Return the stride for dimension ind. 
+The stride is the offset between elements in a particular dimension. 
+It can be positive or negative. It is in terms of number of value
+types (i.e., it's 1 means contiguous regardless of what data type).
+
+<P>
+The macros to access array elements of array elements
+are unavailable for arrays of strings, classes and interfaces.
+<BR>
+<PRE  CLASS="verbatim">sidlArrayElem1(array, ind1)
+sidlArrayElem2(array, ind1, ind2)
+sidlArrayElem3(array, ind1, ind2, ind3)
+sidlArrayElem4(array, ind1, ind2, ind3, ind4)
+sidlArrayElem5(array, ind1, ind2, ind3, ind4, ind5)
+sidlArrayElem6(array, ind1, ind2, ind3, ind4, ind5, ind6)
+sidlArrayElem7(array, ind1, ind2, ind3, ind4, ind5, ind6, ind7)
+</PRE></td></tr></table></blockquote><A NAME="3851"></A><A NAME="3852"></A>
+Provide access to array elements to arrays of dimension 1-7.  This
+macro can appear on the left hand side of an assignment or on the
+right hand side in an expression.  These macros blindly assume that
+the dimension and indices are correct.
+
+<P>
+The macros to access the address of array elements are unavailable for
+arrays of strings, classes, and interfaces.
+<BR>
+<PRE  CLASS="verbatim">sidlArrayAddr1(array, ind1)
+sidlArrayAddr2(array, ind1, ind2)
+sidlArrayAddr3(array, ind1, ind2, ind3)
+sidlArrayAddr4(array, ind1, ind2, ind3, ind4)
+sidlArrayAddr5(array, ind1, ind2, ind3, ind4, ind5)
+sidlArrayAddr6(array, ind1, ind2, ind3, ind4, ind5, ind6)
+sidlArrayAddr7(array, ind1, ind2, ind3, ind4, ind5, ind6, ind7)
+</PRE></td></tr></table></blockquote><A NAME="3854"></A><A NAME="3855"></A>
+Return the address of elements in arrays of dimension 1-7. This
+macro can appear on the left hand side of an assignment or on the
+right hand side in an expression.  These macros blindly assume that
+the dimension and indices are correct.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2473"
+  HREF="node105.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2467"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2461"
+  HREF="node103.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2469"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2471"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2474"
+  HREF="node105.html">The C Data Structure</A>
+<B> Up:</B> <A NAME="tex2html2468"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html2462"
+  HREF="node103.html">Function: first</A>
+ &nbsp; <B>  <A NAME="tex2html2470"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2472"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Pointers</TITLE>
+<META NAME="description" CONTENT="Pointers">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node200.html">
+<LINK REL="previous" HREF="node198.html">
+<LINK REL="up" HREF="node197.html">
+<LINK REL="next" HREF="node200.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4117"
+  HREF="node200.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4111"
+  HREF="node197.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4105"
+  HREF="node198.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4113"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4115"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4118"
+  HREF="node200.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html4112"
+  HREF="node197.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4106"
+  HREF="node198.html">Strings</A>
+ &nbsp; <B>  <A NAME="tex2html4114"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4116"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03423200000000000000"></A><A NAME="sss:f90:pointers"></A><A NAME="11515"></A><A NAME="11516"></A>
+<A NAME="11517"></A><A NAME="11518"></A>
+<BR>
+Pointers
+</H3>
+
+<P>
+Pointer types are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> opaque, interface, class, and array.  This subsection
+elaborates on each within the context of the Fortran 90 language bindings.
+Opaque<A NAME="11519"></A><A NAME="11520"></A>
+pointers<A NAME="11521"></A><A NAME="11522"></A> are 
+mapped to the equivalent of SIDL double.  That is, the
+intermediate object reference (IOR) assumes a 64-bit integer is used to
+enable portability between systems with 32-bit and 64-bit address spaces. 
+On a 32-bit system, the upper 32
+bits of these quantities are ignored.  Systems with more than 64-bit
+pointers aren't currently supported.
+A derived type is used to hold opaque pointers for 
+interfaces<A NAME="11523"></A><A NAME="11524"></A>, 
+classes<A NAME="11525"></A><A NAME="11526"></A>, and 
+arrays<A NAME="11527"></A><A NAME="11528"></A>.  
+The derived type for arrays of numeric types also
+has a pointer to an array to provide native access without
+function calls.  For each interface and class, there are two modules
+created.  In the first module, the derived type for the object and
+array are defined.  In the second, methods for the object (or interface)
+and arrays of the object (or interface) are defined.  Clients of a class (or
+interface), typically <TT>use</TT> the module containing the methods.  
+It, in turn, <TT>use</TT>s the module containing the types.
+
+<P>
+Generally, clients should treat 
+opaque<A NAME="11531"></A><A NAME="11532"></A>, 
+interface<A NAME="11533"></A><A NAME="11534"></A>, 
+class<A NAME="11535"></A><A NAME="11536"></A>, and 
+array<A NAME="11537"></A><A NAME="11538"></A>
+values as black boxes.  However, the value zero is special
+since it is the equivalent of <TT>NULL</TT><A NAME="11540"></A>.
+Hence, any non-zero value is or should be a valid object
+reference.  The method module provides built-in functions to test whether an
+interface, class, or array value <TT>is_null</TT> or is
+<TT>not_null</TT>.  There is also a subroutine to initialize the value
+to <TT>set_null</TT><A NAME="11547"></A>.  Clients should
+generally initialize new class (or interface) pointers to <TT>NULL</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4117"
+  HREF="node200.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4111"
+  HREF="node197.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4105"
+  HREF="node198.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4113"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4115"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4118"
+  HREF="node200.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html4112"
+  HREF="node197.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html4106"
+  HREF="node198.html">Strings</A>
+ &nbsp; <B>  <A NAME="tex2html4114"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4116"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

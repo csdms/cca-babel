@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Backdoor Initializer in C++</TITLE>
+<META NAME="description" CONTENT="The Backdoor Initializer in C++">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node336.html">
+<LINK REL="previous" HREF="node334.html">
+<LINK REL="up" HREF="node328.html">
+<LINK REL="next" HREF="node336.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6236"
+  HREF="node336.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6230"
+  HREF="node328.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6224"
+  HREF="node334.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6232"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6234"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6237"
+  HREF="node336.html">The Backdoor Initializer in</A>
+<B> Up:</B> <A NAME="tex2html6231"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Previous:</B> <A NAME="tex2html6225"
+  HREF="node334.html">The Backdoor Initializer in</A>
+ &nbsp; <B>  <A NAME="tex2html6233"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6235"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04370000000000000000"></A><A NAME="s:Cxx"></A><A NAME="19563"></A>
+<BR>
+The Backdoor Initializer in C++
+</H1>
+
+<P>
+In Object Oriented languages there is no <TT>_wrapObj</TT> method
+exposed to the user.  Instead, the same functionality is achieved
+simply by calling ``new'' on the Impl class.  Interestingly, this
+means the constructor functionality is NOT placed in a Babel
+<TT>ctor</TT> method, but is, instead, actually in the default object constructor.
+
+<P>
+Here is the private data definition from wrapper_Data_Impl.hxx:
+<BR>
+<PRE  CLASS="verbatim">
+namespace wrapper { 
+  class Data_impl : public virtual ::wrapper::Data 
+
+....
+  public:
+    char* d_string;
+    int d_int;
+    char* d_ctorTest;
+
+....
+  };  // end class Data_impl
+} // end namespace wrapper
+</PRE></td></tr></table></blockquote> 
+
+<P>
+Here is the client code from wraptest.cxx.  Notice wrapper_Data_Impl
+is included.
+<BR>
+<PRE  CLASS="verbatim">#include "wrapper_User.hxx"
+#include "wrapper_Data.hxx"
+#include "wrapper_Data_Impl.hxx"
+
+int main(int argc, char **argv) { 
+  wrapper::Data_impl data;
+  wrapper::User user = wrapper::User::_create();
+  
+  ASSERT( data.d_ctorTest == "ctor was run");
+  
+  /* Test the data setting*/
+  user.accept(data);
+  
+  ASSERT( data.d_string == "Hello World!");
+  ASSERT( data.d_int == 3);
+  return 0;
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Finally, the Impl code from wrapper_Data_Impl.cxx, notice where the
+constructor code is placed. 
+<BR>
+<PRE  CLASS="verbatim">// speical constructor, used for data wrapping(required).  
+// Do not put code here unless you really know what you're doing!
+wrapper::Data_impl::Data_impl() : StubBase(reinterpret_cast&lt; 
+  void*&gt;(::wrapper::Data::_wrapObj(this)),false) , _wrapped(true) { 
+  // DO-NOT-DELETE splicer.begin(wrapper.Data._ctor2)
+  d_ctorTest = "ctor was run";
+  // DO-NOT-DELETE splicer.end(wrapper.Data._ctor2)
+}
+
+void wrapper::Data_impl::setString_impl (
+  /* in */const ::std::string&amp; s ) {
+  // DO-NOT-DELETE splicer.begin(wrapper.Data.setString)
+  d_string = "Hello World!";
+  // DO-NOT-DELETE splicer.end(wrapper.Data.setString)
+}
+
+void wrapper::Data_impl::setInt_impl (
+  /* in */int32_t i ) 
+{
+  // DO-NOT-DELETE splicer.begin(wrapper.Data.setInt)
+  d_int = 3;
+  // DO-NOT-DELETE splicer.end(wrapper.Data.setInt)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

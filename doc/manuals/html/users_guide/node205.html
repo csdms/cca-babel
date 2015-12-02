@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object management</TITLE>
+<META NAME="description" CONTENT="Object management">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node206.html">
+<LINK REL="previous" HREF="node204.html">
+<LINK REL="up" HREF="node203.html">
+<LINK REL="next" HREF="node206.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4204"
+  HREF="node206.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4198"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4192"
+  HREF="node204.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4200"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4202"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4205"
+  HREF="node206.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html4199"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4193"
+  HREF="node204.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4201"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4203"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03432000000000000000"></A>
+<A NAME="11731"></A>
+<A NAME="11732"></A>
+<BR>
+Object management
+</H2>
+
+<P>
+SIDL-specified objects are managed through explicit creation and
+reference counting<A NAME="11733"></A>.  Babel automatically generates
+a <TT>new()</TT><A NAME="11735"></A> method for concrete classes.
+The method is used to instantiate the class and return the associated reference.
+The following example illustrates the instantiation and casting of an object
+to an interface<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11736"></A><A NAME="11737"></A>
+<A NAME="11738"></A><A NAME="11739"></A>
+<A NAME="11740"></A><A NAME="11741"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl_BaseClass
+  use sidl_BaseInterface
+  type(sidl_BaseClass_t)     :: object
+  type(sidl_BaseInterface_t) :: interface
+  type(sidl_BaseInterface_t) :: exception
+  ! perhaps other code here
+  call new(object, exception)
+  call cast(object, interface, exception)
+</PRE></td></tr></table></blockquote>
+<P>
+The owner of the instance is responsible for its proper disposal.  In other
+words, when processing with the object is done, the owner must
+invoke <TT>deleteRef()</TT><A NAME="11744"></A> on it.  Similarly, any object 
+references returned
+by a subroutine call must be deleted or given to another part of the code
+that will take ownership of and, therefore, responsibility
+for <TT>deleteRef</TT>'ing it.
+The following example illustrates calling <TT>deleteRef()</TT> using the
+<TT><I CLASS="slanted">sidl.BaseInterface</I></TT> method<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11748"></A>
+<A NAME="11749"></A><A NAME="11750"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl_BaseInterface
+  type(sidl_BaseInterface_t) :: interface1, interface2
+  type(sidl_BaseInterface_t) :: exception
+  logical                    :: areSame
+  !
+  ! code to initialize interface1 &amp; interface 2 here
+  !
+  call deleteRef(interface1, exception)
+</PRE></td></tr></table></blockquote>
+<P>
+When it is necessary to determine if two references point to the same object,
+the built-in <TT>isSame</TT> method can be used.  For example, the following
+attempts to determine if <TT>interface1</TT> and <TT>interface2</TT> point to
+the same object<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11755"></A><A NAME="11756"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl_BaseInterface
+  ! later in the code
+  call isSame(interface1, interface2, areSame, exception)
+  ! areSame holds the return value
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4204"
+  HREF="node206.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4198"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4192"
+  HREF="node204.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4200"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4202"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4205"
+  HREF="node206.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html4199"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4193"
+  HREF="node204.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4201"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4203"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The C Data Structure</TITLE>
+<META NAME="description" CONTENT="The C Data Structure">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node104.html">
+<LINK REL="up" HREF="node62.html">
+<LINK REL="next" HREF="node106.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2485"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2479"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2475"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2481"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2483"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2486"
+  HREF="node106.html">Interface Contracts</A>
+<B> Up:</B> <A NAME="tex2html2480"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html2476"
+  HREF="node104.html">The C Macro API</A>
+ &nbsp; <B>  <A NAME="tex2html2482"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2484"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION024410000000000000000"></A>
+<A NAME="3857"></A><A NAME="3858"></A>
+<BR>
+The C Data Structure
+</H2>
+
+<P>
+If even the macro interface is not fast enough for you, 
+you can access the internal data structure for all the basic types except string. 
+You cannot access the internal data structure for arrays of strings, 
+interfaces and objects.
+
+<P>
+The basic form of the C data structure for type XXXX is:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">struct sidl__array_vtable {
+
+  /* Release resources associted with the array (refcount at zero) */
+  void (*d_destroy)(struct sidl__array *);
+
+  /* Clone or addRef depending on whether data is borrowed */
+  struct sidl__array *(*d_smartcopy)(struct sidl__array *);
+
+  /* Return the type of the array. */
+  int32_t (*d_arraytype)(void);
+};
+
+struct sidl__array {
+  int32_t                         *d_lower;
+  int32_t                         *d_upper;
+  int32_t                         *d_stride;
+  const struct sidl__array_vtable *d_vtable;
+  int32_t                          d_dimen;
+  int32_t                          d_refcount;
+};
+
+
+struct sidl_XXXX__array {
+  struct sidl__array       d_metadata;
+  &lt;value type for XXXX&gt;   *d_firstElement;
+};
+</PRE></td></tr></table></blockquote>
+<P>
+The string ``<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN>value type for XXXX<SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$&gt;$"></SPAN>'' should be replaced by something like 
+<TT>sidl_bool</TT>for an array of <TT><I CLASS="slanted">bool</I></TT>, 
+<TT>int32_t</TT> for any array of <TT><I CLASS="slanted">int</I></TT>, 
+<TT>double</TT> for an array of <TT><I CLASS="slanted">double</I></TT>, 
+<TT>int64_t</TT> for an array of <TT><I CLASS="slanted">long</I></TT>, etc. (See Table&nbsp;<A HREF="node71.html#tbl:basics:arraytypes">5.2</A>)
+
+<P>
+<DL>
+<DT><STRONG><TT>d_dimen</TT></STRONG></DT>
+<DD>tells the dimension of the multi-dimensional array. 
+<TT>d_lower</TT>, <TT>d_upper</TT>, and <TT>d_stride</TT> each point to arrays 
+of <TT>d_dimen int32_t</TT>'s.  <TT>d_lower[i]</TT> provides the lower bound 
+for the index in dimension <TT>i</TT>, and <TT>d_upper[i]</TT> provides the upper 
+bound for the index in dimension <TT>i</TT>.  Both the lower and upper bounds 
+are valid index values; the upper bound is not one past the end.
+
+<P>
+</DD>
+<DT><STRONG><TT>d_borrowed</TT></STRONG></DT>
+<DD>is true if the array does not managed the data 
+that <TT>d_firstElement</TT> points too, and it is false otherwise. This 
+mainly influences the behavior of the destructor.
+
+<P>
+Clients should not modify <TT>d_lower</TT>, <TT>d_upper</TT>, <TT>d_stride</TT>, 
+<TT>d_dimen</TT>, <TT>d_borrowed</TT> or (in the case of pointers) the values 
+to which they point.
+
+<P>
+</DD>
+<DT><STRONG><TT>d_stride[i]</TT></STRONG></DT>
+<DD>determines how elements are packed in dimension 
+<TT>i</TT>.  A value of 1 means that to get from element <TT>j</TT> to <TT>j+1</TT> 
+in dimension <TT>i</TT>, you add one to the data pointer.  Negative values for 
+<TT>d_stride</TT> can be used to express a transposed matrix.  The definition 
+also allows either column or row major ordering for the data, and it also 
+allows treating a subsection of an array as an array.
+
+<P>
+</DD>
+</DL>
+
+<P>
+The data structure was inspired by the data structure used by Numeric Python; 
+although, in Numeric Python, the stride is in terms of bytes. In SIDL, the 
+stride is in terms of number of objects. One can convert to the Numeric 
+Python view of things by multiplying the stride by the sizeof the value type.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2485"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2479"
+  HREF="node62.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2475"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2481"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2483"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2486"
+  HREF="node106.html">Interface Contracts</A>
+<B> Up:</B> <A NAME="tex2html2480"
+  HREF="node62.html">Arrays</A>
+<B> Previous:</B> <A NAME="tex2html2476"
+  HREF="node104.html">The C Macro API</A>
+ &nbsp; <B>  <A NAME="tex2html2482"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2484"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Built-in Functions</TITLE>
+<META NAME="description" CONTENT="Built-in Functions">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node305.html">
+<LINK REL="previous" HREF="node303.html">
+<LINK REL="up" HREF="node302.html">
+<LINK REL="next" HREF="node305.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5783"
+  HREF="node305.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5777"
+  HREF="node302.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5771"
+  HREF="node303.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5779"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5781"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5784"
+  HREF="node305.html">Passing Objects from a</A>
+<B> Up:</B> <A NAME="tex2html5778"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Previous:</B> <A NAME="tex2html5772"
+  HREF="node303.html">Adding Protocols</A>
+ &nbsp; <B>  <A NAME="tex2html5780"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5782"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04132000000000000000"></A><A NAME="ss:RMIbuiltins"></A>
+<BR>
+Built-in Functions
+</H2>
+
+<P>
+We already covered two important built-in Babel RMI functions in
+Section&nbsp;<A HREF="node299.html#ss:RMIcreateconnect">15.2.3</A>.  They were the
+<TT>_create[Remote]</TT> and <TT>_connect</TT> static built-in functions,
+which remotely create an object or connect to an already existing
+remote object respectively.
+
+<P>
+There are three other important RMI related built-in functions that a
+user may find useful.  The first two are related:
+
+<P>
+<TT><I CLASS="slanted">bool _isRemote();</I></TT><A NAME="17634"></A><A NAME="17635"></A>
+
+<P>
+<TT><I CLASS="slanted">bool _isLocal();</I></TT><A NAME="17637"></A><A NAME="17638"></A>
+
+<P>
+<TT>_isLocal()</TT> and <TT>_isRemote()</TT> are
+opposites. <TT>_isRemote()</TT> returns <TT>TRUE</TT> if the object it is called
+on is a remote object.  <TT>_isLocal()</TT>, on the other hand, returns
+<TT>TRUE</TT> if the object is implemented locally.  
+
+<P>
+Many Babel RMI users will never need these functions.  If you don't
+care where an object exists, or you already know statically, these
+methods are totally superfluous.  However, since calls on remote
+objects have serious performance implications, we included these functions
+for convenience.
+
+<P>
+There is one other important RMI related built-in:
+
+<P>
+<TT><I CLASS="slanted">string _getURL();</I></TT><A NAME="17646"></A><A NAME="17647"></A>
+
+<P>
+This function returns the URL of the object it is called on.  This is
+straight forward for Remote objects, but for local objects it may have
+some interesting side effects.  First, if there is no BOS running
+locally, no local objects can be exported remotely. Therefore no local
+object will have a URL.  In this case <TT>_getURL()</TT> returns
+<TT>NULL</TT>.  However, if there is a BOS running, then local object
+may have a URL.  In this case, if the object has already been
+exported, <TT>_getURL()</TT> will return the URL in the
+<TT><I CLASS="slanted">sidl.rmi.InstanceRegistry</I></TT>, if the object is not in the
+<TT><I CLASS="slanted">InstanceRegistry</I></TT>, Babel will add it, thereby automatically
+generating a URL for the object.  To reiterate, a possible side-effect
+of calling <TT>_getURL()</TT> is that the object it is called on my be
+added to the <TT><I CLASS="slanted">InstanceRegistry</I></TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5783"
+  HREF="node305.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5777"
+  HREF="node302.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5771"
+  HREF="node303.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5779"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5781"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5784"
+  HREF="node305.html">Passing Objects from a</A>
+<B> Up:</B> <A NAME="tex2html5778"
+  HREF="node302.html">Babel RMI Usage</A>
+<B> Previous:</B> <A NAME="tex2html5772"
+  HREF="node303.html">Adding Protocols</A>
+ &nbsp; <B>  <A NAME="tex2html5780"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5782"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object Creation and Connection</TITLE>
+<META NAME="description" CONTENT="Object Creation and Connection">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node300.html">
+<LINK REL="previous" HREF="node298.html">
+<LINK REL="up" HREF="node296.html">
+<LINK REL="next" HREF="node300.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5712"
+  HREF="node300.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5706"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5700"
+  HREF="node298.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5708"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5710"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5713"
+  HREF="node300.html">RMI Arguments</A>
+<B> Up:</B> <A NAME="tex2html5707"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5701"
+  HREF="node298.html">Babel Object Server</A>
+ &nbsp; <B>  <A NAME="tex2html5709"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5711"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION04123000000000000000"></A><A NAME="ss:RMIcreateconnect"></A><A NAME="17580"></A> <A NAME="17581"></A> <A NAME="17582"></A> <A NAME="17583"></A>
+<BR>
+Object Creation and Connection
+</H2>
+
+<P>
+There are two main ways of accessing objects on a remote server,
+creation and connection.  
+
+<P>
+A client may create a remote object with the Babel built-in
+<TT><I CLASS="slanted">static _createRemote(in string URL)</I></TT> method.  This asks the remote
+server given in the URL to create an object.  For example, the C function
+
+<P>
+<TT>foo_Bar b = foo_Bar__createRemote(``simhandle://pc3:9999/'');</TT>
+
+<P>
+will create an object of type foo.Bar on the server running on pc3
+port<A NAME="17586"></A><A NAME="17587"></A> 9999 using the ``Simple Protocol.''
+
+<P>
+<TT>foo_Bar b</TT> may now be passed around exactly like a normal Babel object,
+except that all calls on b will actually run on pc3.
+
+<P>
+However, in some cases, an object already exists on a remote server
+that the user just wants to access.  In this case, the object can be
+connected to via the built-in <TT><I CLASS="slanted">static _connect(in string URL)</I></TT> method.  The only
+difference is, in this case the URL must include an object ID to
+uniquely identify the object desired on the BOS.  For example:
+
+<P>
+<TT>foo_Bar b = foo_Bar__connect(``simhandle://pc3:9999/Bar1025'');</TT>
+
+<P>
+here again, <TT>foo_Bar b</TT> may now be used exactly like any other Babel
+object.  To relate back to normal Babel, connection is kind of like an
+active addRef.  The user actively goes and gets his own reference to a
+given object.
+
+<P>
+<TT>_connect</TT> is actually used by Babel internally whenever objects
+are passed remotely as arguments.  In fact, users will probably rarely
+use connect directly, most often it will be done automatically by
+Babel when objects are passed remotely.  <TT>_connect</TT> is exposed to the
+user mostly for Web Services, where the objectID may always be the
+same, and for special boot strapping uses.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5712"
+  HREF="node300.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5706"
+  HREF="node296.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5700"
+  HREF="node298.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5708"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5710"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5713"
+  HREF="node300.html">RMI Arguments</A>
+<B> Up:</B> <A NAME="tex2html5707"
+  HREF="node296.html">Babel RMI Concepts</A>
+<B> Previous:</B> <A NAME="tex2html5701"
+  HREF="node298.html">Babel Object Server</A>
+ &nbsp; <B>  <A NAME="tex2html5709"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5711"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

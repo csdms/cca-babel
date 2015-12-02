@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: get4</TITLE>
+<META NAME="description" CONTENT="Function: get4">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node86.html">
+<LINK REL="previous" HREF="node84.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node86.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2209"
+  HREF="node86.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2203"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2197"
+  HREF="node84.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2205"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2207"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2210"
+  HREF="node86.html">Function: get5-7</A>
+<B> Up:</B> <A NAME="tex2html2204"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2198"
+  HREF="node84.html">Function: get3</A>
+ &nbsp; <B>  <A NAME="tex2html2206"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2208"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024481400000000000000"></A><A NAME="3682"></A>
+<BR>
+Function: get4
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+double
+sidl_double__array_get4(const struct sidl_double__array* array,
+                     int32_t                       i1,
+                     int32_t                       i2,
+                     int32_t                       i3,
+                     int32_t                       i4);
+// C++
+double
+sidl::array&lt;double&gt;::get(int32_t i1, int32_t i2, int32_t i3, int32_t i4);
+
+C FORTRAN 77
+       subroutine sidl_double__array_get4_f(array, i1, i2, i3, i4, result)
+       integer*8 array
+       integer*4 i1, i2, i3, i4
+       real*8 result
+
+! FORTRAN 90
+subroutine get(array, i1, i2, i3, i4, result)
+  type(sidl_double_4d), intent(in) :: array
+  integer (selected_int_kind(9)), intent(in) :: i1, i2, i3, i4
+  real (selected_real_kind(17,308)), intent(out) :: result
+
+// Java
+  public double get(int i, int j, int k, int l);
+</PRE></td></tr></table></blockquote>
+<P>
+This method returns the element with indices(<TT>i1</TT>, <TT>i2</TT>, <TT>i3</TT>, <TT>i4</TT>) 
+for a four dimensional array. 
+The return type of this method is the value type for the SIDL type being
+held (see Table&nbsp;<A HREF="node71.html#tbl:basics:arraytypes">5.2</A>). 
+This method must only be called for four dimensional arrays. 
+For objects and interfaces, the client owns the returned reference 
+(i.e., the client is
+obliged to call <TT>deleteRef()</TT> when they are done with the 
+reference unless it is <TT>NULL</TT>). 
+For arrays of strings, the client owns the returned string (i.e., the client is
+obliged to call <TT>free()</TT> on the returned pointer unless it is <TT>NULL</TT>). 
+There is no reliable way to determine from the return value cases when 
+<TT>i1</TT>, <TT>i2</TT>, <TT>i3</TT>, or <TT>i4</TT> are out of bounds.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

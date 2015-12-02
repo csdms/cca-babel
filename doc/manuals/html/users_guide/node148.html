@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Data types</TITLE>
+<META NAME="description" CONTENT="Data types">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node151.html">
+<LINK REL="previous" HREF="node147.html">
+<LINK REL="up" HREF="node145.html">
+<LINK REL="next" HREF="node149.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3324"
+  HREF="node149.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3318"
+  HREF="node145.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3312"
+  HREF="node147.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3320"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3322"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3325"
+  HREF="node149.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html3319"
+  HREF="node145.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3313"
+  HREF="node147.html">Method signatures</A>
+ &nbsp; <B>  <A NAME="tex2html3321"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3323"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03223000000000000000"></A><A NAME="ss:cxx:types"></A><A NAME="8398"></A>
+<A NAME="8399"></A>
+<BR>
+Data types
+</H2>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<A NAME="tbl:cxx:types"></A>
+<DIV ALIGN="CENTER">
+<A NAME="8401"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 7.1:</STRONG>
+SIDL to C++ Type Mappings</CAPTION>
+<TR><TH ALIGN="LEFT"><SPAN  CLASS="textbf">SIDL TYPE</SPAN></TH>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">C++ TYPE</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">int</I></TT></TD>
+<TD ALIGN="LEFT"><TT>int32_t</TT> <A NAME="8410"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">long</I></TT></TD>
+<TD ALIGN="LEFT"><TT>int64_t</TT> <A NAME="8413"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">float</I></TT></TD>
+<TD ALIGN="LEFT"><TT>float</TT> <A NAME="8416"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">double</I></TT></TD>
+<TD ALIGN="LEFT"><TT>double</TT> <A NAME="8419"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">bool</I></TT></TD>
+<TD ALIGN="LEFT"><TT>bool</TT> <A NAME="8422"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">char</I></TT></TD>
+<TD ALIGN="LEFT"><TT>char</TT> <A NAME="8425"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">string</I></TT></TD>
+<TD ALIGN="LEFT"><TT>std::string</TT> <A NAME="8428"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">fcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl::fcomplex</TT> <A NAME="8431"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">dcomplex</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl::dcomplex</TT> <A NAME="8434"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">enum</I></TT></TD>
+<TD ALIGN="LEFT"><TT>enum</TT> <A NAME="8437"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">opaque</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl::opaque</TT> <A NAME="8440"></A><A NAME="8441"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">interface</I></TT></TD>
+<TD ALIGN="LEFT"><TT>class</TT> <A NAME="8444"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">class</I></TT></TD>
+<TD ALIGN="LEFT"><TT>class</TT> <A NAME="8447"></A></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT><I CLASS="slanted">array</I></TT></TD>
+<TD ALIGN="LEFT"><TT>sidl::array</TT> (template specialization) <A NAME="8450"></A></TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+Basic SIDL types are mapped into C++ according to 
+Table&nbsp;<A HREF="#tbl:cxx:types">7.1</A>.  The remainder of this subsection 
+illustrates the use of enumerations and arrays.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html3326"
+  HREF="node149.html">Enumerations</A>
+<LI><A NAME="tex2html3327"
+  HREF="node150.html">Arrays</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3324"
+  HREF="node149.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3318"
+  HREF="node145.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3312"
+  HREF="node147.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3320"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3322"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3325"
+  HREF="node149.html">Enumerations</A>
+<B> Up:</B> <A NAME="tex2html3319"
+  HREF="node145.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html3313"
+  HREF="node147.html">Method signatures</A>
+ &nbsp; <B>  <A NAME="tex2html3321"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3323"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

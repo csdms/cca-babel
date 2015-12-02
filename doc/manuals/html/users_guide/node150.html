@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Arrays</TITLE>
+<META NAME="description" CONTENT="Arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node149.html">
+<LINK REL="up" HREF="node148.html">
+<LINK REL="next" HREF="node151.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3352"
+  HREF="node151.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3346"
+  HREF="node148.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3342"
+  HREF="node149.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3348"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3350"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3353"
+  HREF="node151.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html3347"
+  HREF="node148.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3343"
+  HREF="node149.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html3349"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3351"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03223200000000000000"></A><A NAME="sss:cxx:arrays"></A><A NAME="8470"></A>
+<A NAME="8471"></A><A NAME="8472"></A>
+<BR>
+Arrays
+</H3>
+
+<P>
+As discussed in Section&nbsp;<A HREF="node62.html#s:arrays">5.4</A>, SIDL supports both normal and raw
+arrays (i.e., r-arrays).  Normal SIDL arrays can be used by any supported
+language; whereas, r-arrays are restricted to numeric types.  This subsection 
+discusses both within the context of C++ bindings.  
+
+<P>
+<A NAME="8474"></A><A NAME="8475"></A>
+Although it is feasible to expose the underlying C array API to create, 
+destroy and access normal array elements and meta-data, the C++ bindings
+provide a <TT>sidl::array&lt;T&gt;</TT> template mechanism that is more in keeping 
+with C++ idioms. 
+For SIDL built-in types, template specializations of <TT>sidl::array&lt;T&gt;</TT>
+are defined in <TT>sidl_ucxx.hxx</TT><A NAME="8479"></A>. 
+The array template is specialized in the corresponding stub header for
+SIDL interfaces and classes.
+The extensive use of template specialization is used in an effort 
+to hide details that the array implementation shifts between
+the C++ type externally, and the C-based types stored in the IOR.
+(See <TT>basearray</TT> in <TT>sidl_ucxx.hxx</TT> for the traits classes 
+and grungy implementation details.) 
+For example, the process to create a one-dimensional SIDL array of prime 
+numbers is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="8482"></A>
+<A NAME="8483"></A><A NAME="8484"></A>
+<A NAME="8485"></A><A NAME="8486"></A>
+<A NAME="8487"></A><A NAME="8488"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int32_t len = 10; // array length=10
+int32_t dim = 1;  // one dimensional
+int32_t lower[1] = {0}; // zero offset
+int32_t upper[1] = {len-1};
+int32_t prime = nextPrime(0);
+
+// create a SIDL array of primes.
+sidl::array&lt;int32_t&gt; a = sidl::array&lt;int32_t&gt;::createRow(dim, lower, upper);
+for( int i=0; i&lt;len; ++i ) { 
+   prime = nextPrime( prime );
+   a.set(i, v);
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Of course, the example above is only one way to create an array. 
+The list of member functions for all C++ array classes is: 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">// constructors
+array ( ior_array_t * src ); // internal
+array ( const array &amp; src ); // copy constructor
+
+// destructor
+~array() ;
+
+// create row-size of 1 to 7 dimensions
+static array&lt;T&gt;
+createRow( int32_t dimen, const int32_t lower[], 
+           const int32_t upper[]);
+
+// create column-wise of 1 to 7 dimensions 
+static array&lt;T&gt;
+createCol( int32_t dimen, const int32_t lower[], 
+           const int32_t upper[]);
+
+// create 1-D array of specified length
+static array&lt;T&gt; create1d( int32_t len );
+
+// create 1-D array of specified length and init 
+static array&lt;T&gt; create1d(int32_t len, ior_item_internal_t data) 
+
+// create 2-D array of specified extents
+static array&lt;T&gt; create2dCol( int32_t m, int32_t n);
+
+// create 2-D array of specified extents
+static array&lt;T&gt; create2dRow( int32_t m, int32_t n);
+
+// get a slice of the array
+array&lt;T&gt;
+slice( int32_t dimen, const int32_t numElem[], 
+       const int32_t *srcStart = 0,
+       const int32_t *srcStride = 0,
+       const int32_t *newStart = 0);
+
+void borrow( item_ior_t * first_element, int32_t dimen,
+        const int32_t lower[], const int32_t upper[], 
+        const int32_t stride[]);
+
+void ensure( int32_t dimen, array_ordering ordering );
+
+void addRef();
+
+void deleteRef();
+
+// get/set
+cxx_item_t get(int32_t i);
+cxx_item_t get(int32_t i1, int32_t i2);
+cxx_item_t get(int32_t i1, int32_t i2, int32_t i3);
+cxx_item_t get(int32_t i1, int32_t i2, int32_t i3, 
+		       int32_t i4);
+cxx_item_t get(int32_t i1, int32_t i2, int32_t i3, 
+		       int32_t i4, int32_t i5);
+cxx_item_t get(int32_t i1, int32_t i2, int32_t i3, 
+		       int32_t i4, int32_t i5, int32_t i6);
+cxx_item_t get(int32_t i1, int32_t i2, int32_t i3, 
+		       int32_t i4, int32_t i5, int32_t i6, int32_t i7);
+cxx_item_t get(const int32_t *indices);
+
+void set(int32_t i, cxx_item_t elem);
+void set(int32_t i1, int32_t i2, cxx_item_t elem);
+void set(int32_t i1, int32_t i2, int32_t i3,
+	 cxx_item_t elem);
+void set(int32_t i1, int32_t i2, int32_t i3, int32_t i4,
+	 cxx_item_t elem);
+void set(int32_t i1, int32_t i2, int32_t i3, int32_t i4,
+	 int32_t i5, cxx_item_t elem);
+void set(int32_t i1, int32_t i2, int32_t i3, int32_t i4,
+	 int32_t i5, int32_t i6, cxx_item_t elem);
+void set(int32_t i1, int32_t i2, int32_t i3, int32_t i4,
+	 int32_t i5, int32_t i6, int32_t i7, cxx_item_t elem);
+void set(const int32_t *indices, cxx_item_t elem);
+
+// [] overloaded to be same as get(i)
+cxx_item_t operator[](int32_t i) const ;
+
+bool is1dPacked() const;
+
+// returns STL forward iterator iff 1DPacked, else null
+iterator begin();
+
+// returns STL forward iterator iff 1DPacked, else null
+const_iterator begin();
+
+// returns STL forward iterator iff 1DPacked, else null
+iterator end();
+
+// returns STL forward iterator iff 1DPacked, else null
+const_iterator end();
+
+const int32_t* first() const;
+
+int32_t* first();
+                                                                                
+void copy( const array&lt; T &gt;&amp; src );
+
+
+// other accessors
+int32_t dimen() const;
+
+int32_t lower( int32_t dim ) const;
+
+int32_t upper( int32_t dim ) const;
+
+int32_t stride( int32_t dim ) const;
+
+bool _is_nil() const;
+
+bool _not_nil() const;
+
+// get a const pointer to the actual array ior 
+const array_ior_t* _get_ior() const;
+
+// get a non-const pointer to the actual array ior
+array_ior_t* _get_ior();
+
+void _set_ior( ior_array_t * s);
+                                                                                
+array&amp; operator =(const array &amp;rhs);
+                                                                                
+array&amp; operator =(const basearray &amp;rhs);
+</PRE></td></tr></table></blockquote>
+<P>
+where 
+<TT>cxx_array_t</TT>, 
+<TT>cxx_item_t</TT>,
+<TT>ior_array_t</TT>,
+<TT>ior_item_t</TT>,
+<TT>ior_item_internal_t</TT>,
+<TT>iterator</TT>,
+<BR><TT>const_iterator</TT>,
+<TT>pointer</TT>, and 
+<TT>value_type</TT> are all public typedefs in the array class.
+Table&nbsp;<A HREF="node71.html#tbl:basics:arrayfuncs">5.3</A> provides a brief description of each 
+function in the array API.
+
+<P>
+The values of these typedefs are determined by traits classes,
+which are a fairly standard, albeit advanced, C++ templating
+idiom.  Refer to any advanced C++ text for a detailed explanation.
+Both the <TT>array_traits&lt;&gt;</TT> and <TT>array&lt;&gt;</TT>
+template specializations for <TT>int32_t</TT> are reproduced below.
+More built-in types and the UCxx stubs for user-defined types can be 
+found in <TT>sidl_ucxx.hxx</TT><A NAME="8505"></A>.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim"> // template specialization for array_traits&lt;int32_t&gt;
+  template&lt;&gt;
+  struct array_traits&lt;int32_t&gt; {
+    typedef array&lt;int32_t&gt;                            cxx_array_t;
+    typedef int32_t                               cxx_item_t;
+    typedef struct sidl_int__array                       ior_array_t;
+    typedef int32_t                               ior_item_t;
+    typedef const int32_t*      ior_item_internal_t;
+    typedef cxx_item_t                               value_type;
+    typedef value_type*                              pointer;
+    typedef const value_type*                        const_pointer;
+  };
+ template&lt;&gt;
+  class array&lt; int32_t &gt;
+    : public basearray
+  {
+  public:
+    typedef basearray                                  Base;
+    typedef array_traits&lt;int32_t&gt;::cxx_array_t          cxx_array_t;
+    typedef array_traits&lt;int32_t&gt;::cxx_item_t           cxx_item_t;
+    typedef array_traits&lt;int32_t&gt;::ior_array_t          ior_array_t;
+    typedef array_traits&lt;int32_t&gt;::ior_item_t           ior_item_t;
+    typedef array_traits&lt;int32_t&gt;::ior_item_internal_t  ior_item_internal_t;
+    typedef array_iter&lt; array_traits&lt;int32_t&gt; &gt;         iterator;
+    typedef const_array_iter&lt; array_traits&lt;int32_t&gt; &gt;   const_iterator;
+    typedef array_traits&lt; int32_t &gt; ::pointer         pointer;
+    typedef array_traits&lt; int32_t &gt; ::value_type      value_type;
+   
+    // lots of methods to follow
+  }
+</PRE></td></tr></table></blockquote>
+<P>
+The C++ mapping for r-arrays is essentially identical to the mapping
+for C (see Section&nbsp;<A HREF="node126.html#sss:c:arrays">6.2.3</A>).  The only difference is that the
+C++ client header provides an overloaded version of each method
+containing an r-array taking normal SIDL arrays instead of raw
+data.  
+<A NAME="8508"></A>
+For example, the <TT>solve</TT> method from
+Section&nbsp;<A HREF="node65.html#ss:r-arrays">5.4</A> produces the following code in the
+header file.
+<A NAME="8511"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">    void solve (/*in*/    double* A,
+                /*inout*/ double* x,
+                /*in*/    double* b,
+                /*in*/    int32_t m,
+                /*in*/    int32_t n) throw ();
+
+    void solve (/*in*/    ::sidl::array&lt;double&gt; A,
+                /*inout*/ ::sidl::array&lt;double&gt;&amp; x,
+                /*in*/    ::sidl::array&lt;double&gt; b) throw();
+</PRE></td></tr></table></blockquote>
+<P>
+Multi-dimensional arrays, such as <TT>A</TT> in the above example,
+are stored in column-major order.  Babel provides macros to
+access r-array data correctly.  In this case, for example, 
+<TT>RarrayElem2(A, i, j, m)</TT> can be used to access the element in row <TT>i</TT>
+and column <TT>j</TT>.  In addition, memory can be accessed by stride one 
+by making the row index the inner loop and the column index the outer.
+Similar macros are available in <TT>sidlArray.h</TT> for arrays of dimension 
+1 through 7.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3352"
+  HREF="node151.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3346"
+  HREF="node148.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3342"
+  HREF="node149.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3348"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3350"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3353"
+  HREF="node151.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html3347"
+  HREF="node148.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3343"
+  HREF="node149.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html3349"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3351"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

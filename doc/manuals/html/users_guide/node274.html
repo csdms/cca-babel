@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception throwing</TITLE>
+<META NAME="description" CONTENT="Exception throwing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node275.html">
+<LINK REL="previous" HREF="node273.html">
+<LINK REL="up" HREF="node269.html">
+<LINK REL="next" HREF="node275.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5265"
+  HREF="node275.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5259"
+  HREF="node269.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5253"
+  HREF="node273.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5261"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5263"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5266"
+  HREF="node275.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html5260"
+  HREF="node269.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html5254"
+  HREF="node273.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html5262"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5264"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03645000000000000000"></A>
+<A NAME="15954"></A><A NAME="15955"></A>
+<BR>
+Exception throwing
+</H2>
+
+<P>
+Recall Subsection&nbsp;<A HREF="node253.html#sss:python:exceptions">11.2.3</A> discussed issues associated
+with support for SIDL exceptions. 
+Below is an example snippet of code for throwing the exceptions that are
+caught in the Subsection&nbsp;<A HREF="node266.html#ss:python:exceptioncatching">11.3.7</A> example.
+The <TT>setNote</TT> method provides a useful error message,
+and the <TT>add</TT> method helps provide a multi-language traceback
+capability -- provided each layer of the call stack calls <TT>add</TT>.
+<A NAME="15961"></A>
+<A NAME="15962"></A><A NAME="15963"></A>
+<A NAME="15964"></A><A NAME="15965"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  def getFib(self, n, max_depth, max_value, depth):
+    # sidl EXPECTED INCOMING TYPES
+    # ============================
+    # int n, max_depth, max_value, depth
+    #
+    # sidl EXPECTED RETURN VALUE(s)
+    # =============================
+    # int _return
+    # DO-NOT-DELETE splicer.begin(getFib)
+    if (n &lt; 0):
+      ex = ExceptionTest.NegativeValueException.NegativeValueException()
+      ex.setNote("n negative")
+      ex.add(__name__, 0, "ExceptionTest.Fib.getFib")
+      raise ExceptionTest.NegativeValueException._Exception, ex
+    # numerous lines deleted
+    # DO-NOT-DELETE splicer.end(getFib)
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

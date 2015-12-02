@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Using Babel</TITLE>
+<META NAME="description" CONTENT="Using Babel">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node39.html">
+<LINK REL="previous" HREF="node37.html">
+<LINK REL="up" HREF="node37.html">
+<LINK REL="next" HREF="node39.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1402"
+  HREF="node39.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1396"
+  HREF="node37.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1390"
+  HREF="node37.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1398"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1400"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1403"
+  HREF="node39.html">Long and Short Forms</A>
+<B> Up:</B> <A NAME="tex2html1397"
+  HREF="node37.html">Command Line Options</A>
+<B> Previous:</B> <A NAME="tex2html1391"
+  HREF="node37.html">Command Line Options</A>
+ &nbsp; <B>  <A NAME="tex2html1399"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1401"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02221000000000000000">
+Using Babel</A>
+</H2>
+
+<P>
+Babel requires exactly one of the following 
+mutually exclusive arguments on the command line unless you use the 
+<TT><B><code>--</code>multi</B></TT> option.
+
+<UL>
+<LI><TT><B><code>--</code>help</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; Print options to stdout.
+</LI>
+<LI><TT><B><code>--</code>version</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; Print version of Babel.
+</LI>
+<LI><TT><B><code>--</code>text=<I CLASS="sans"><I CLASS="slanted">form</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+	Generate text equivalent (``sidl'' or ``xml'') of associated
+	package(s) or generate interface documentation with ``html''.
+</LI>
+<LI><TT><B><code>--</code>client=<I CLASS="sans"><I CLASS="slanted">lang</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+	Generate client, or proxy, classes to access library.
+</LI>
+<LI><TT><B><code>--</code>server=<I CLASS="sans"><I CLASS="slanted">lang</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+	Generate the server and client classes to implement the library.
+</LI>
+<LI><TT><B><code>--</code>parse-check</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+	Check the SIDL file only.
+</LI>
+</UL>
+By far, the three most common uses of Babel will be 
+to generate the Client-side proxies, Server-side
+implementations, and XML associated with the SIDL file.
+The last option is essentially used internally when the Babel runtime 
+library is being developed.
+
+<P>
+The <TT><B><code>--</code>multi</B></TT> option lets you generate multiple
+targets for a given set of files in a single run. Put it first on the
+command line, each <TT><B><code>--</code>client</B></TT> or <TT><B>  <code>--</code>server</B></TT> can have a different set of settings.
+
+<P>
+Additionally, there are a few supplemental arguments
+that complete the picture.
+
+<UL>
+<LI><TT><B><code>--</code>output-directory=<I CLASS="sans"><I CLASS="slanted">dir</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	Specifies the root directory associated with the
+	generated files.  The default setting is 
+	the current working directory.
+</LI>
+<LI><TT><B><code>--</code>generate-hooks</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Generate additional methods in the implementation files that
+	allow developers to put additional code to be called before 
+	and after the actual method call. These hooks are useful for
+	implementation-specific method invocation instrumentation.  
+        Their execution can be disabled at run-time.
+</LI>
+<LI><TT><B><code>--</code>generate-subdirs</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	Generates files in a directory tree
+	matching the packaging scope of the SIDL file.  This
+	is on by default for languages that have this
+	requirement, such as Java and Python, but off
+	by default for languages that have no such
+	requirement.  Hence, code generation for only the 
+        latter languages (e.g. C, C++, F77, F90) is effected
+	by this option.
+</LI>
+<LI><TT><B><code>--</code>generate-subdirs-off</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Turn the <TT><B><code>--</code>generate-subdirs</B></TT>
+	feature off. This is useful with 
+	<TT><B><code>--</code>multi</B></TT> option.
+</LI>
+<LI><TT><B><code>--</code>short-file-name</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+        When the <code>--</code>generate-subdirs and
+        <code>--</code>short-file-names options are
+        used simultaneously, the generated file names will not include
+        package names, just the class or interface symbol. Thus,
+        either long or short names must be used in all clients or
+        servers that have interdependencies; mixing short and long
+        names will result in compile and/or runtime errors.
+</LI>
+<LI><TT><B><code>--</code>repository-path=<I CLASS="sans"><I CLASS="slanted">path</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	Specifies a semicolon separated list of directories,
+	or URLs<A NAME="tex2html22"
+  HREF="footnode.html#foot1148"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>	to search for XML Type descriptions.  The need for
+	these XML types is to resolve references in the 
+	SIDL file.
+	This option can be used multiple times on the same 
+        command line.  If appropriate, the Babel script 
+        adds the default repository path to the command line 
+        before dispatching to the Java Virtual Machine.
+</LI>
+<LI><TT><B><code>--</code>no-default-repository</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; 
+	Prohibits the use of the default repository
+	in resolving symbols.
+</LI>
+<LI><TT><B><code>--</code>suppress-contracts</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	Refrain from generating checks associated with contracts 
+	specified in the SIDL file.
+</LI>
+<LI><TT><B><code>--</code>suppress-ior</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Refrain from generating IOR source and header files.
+</LI>
+<LI><TT><B><code>--</code>suppress-timestamp</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Suppresses the insertion of meta-information that 
+        could result in generated files that would otherwise
+        not differ from prior executions on the same, unchanged
+        input file.
+	Typically Babel inserts meta-information such as
+	creation time into files it generates.  Although
+	this information is useful, it does result in the 
+        creation of excessive changes when using version control systems.  
+</LI>
+<LI><TT><B><code>--</code>exclude=<I CLASS="sans"><I CLASS="slanted">regex</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	This options can be used multiple times. Each time you
+	add a regular expression that will be used to exclude
+	symbols from code generation. No code or XML will be
+	generated for any symbol matching the user provided
+	regular expression. This command line option requires
+	version 1.4.0 or later of the Java runtime environment.
+</LI>
+<LI><TT><B><code>--</code>cca-mode</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This flag changes the contents of splicer blocks to
+	match the requirements for the Common Component Architecture (CCA).
+	Unimplemented methods throw exceptions, and there are some
+	extra indications for Bocca about which sections still
+	require editing.
+</LI>
+<LI><TT><B><code>--</code>comment-local-only</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	This option reduces the amount of comments in stub
+	C header files. It will only include the doc comments
+	for locally defined method. It will not include doc
+	comments for inherited methods.
+</LI>
+<LI><TT><B><code>--</code>hide-glue</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This option causes all non-impl files to be generated
+	in a <TT>glue/</TT> subdirectory. This reduces the
+	``clutter'' in the current directory.
+</LI>
+<LI><TT><B><code>--</code>hide-glue-off</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Turn off the <TT><B><code>--</code>hide-glue</B></TT> setting.
+</LI>
+<LI><TT><B><code>--</code>language-subdir</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This options causes all generated files to be stored in a 
+	language-dependent subdirectory; if the <TT><B>        <code>--</code>generate-subdirs</B></TT> option is also used, the language
+        directory will be at the bottom of the hierarchy.
+</LI>
+<LI><TT><B><code>--</code>language-subdir-off</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        Turn the <TT><B><code>--</code>language-subdir</B></TT> setting
+	off.
+</LI>
+<LI><TT><B><code>--</code>make-prefix=<I CLASS="sans"><I CLASS="slanted">prefix</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        The string <I CLASS="sans"><I CLASS="slanted">prefix</I></I> is prepended to the name of
+	<TT>babel.make</TT> and the symbols defined inside <TT>babel.make</TT>
+	to allow Babel to be run multiple times in a single directory without
+	overwriting files.
+</LI>
+<LI><TT><B><code>--</code>makefile</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This instructs Babel to generate a sample GNU Makefile named <TT>GNUmakefile</TT>.
+	The sample GNU Makefile uses <TT>babel-config</TT> to determine the appropriate build
+	flags. It's meant to be a simple, example Makefile, and it will likely require
+	editing before incorporating it in a larger project build.  It may not work 
+	correctly with other options that change where files are
+        generated such as the <code>--</code><TT>hide-glue</TT> option.
+</LI>
+<LI><TT><B><code>--</code>exclude-external</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This option causes code to be generated only for the symbols
+	specified on the command line.  If you list a SIDL file
+	on the command line, all the symbols it contains will be 
+	included.  No code is generated for symbols
+	on which the users symbols depend. This behavior is now the default 
+	behavior, so this option is not usually required.
+</LI>
+<LI><TT><B><code>--</code>include-referenced</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+        This option causes code to be generated for symbols specified
+	on the command line and for all symbols referenced by symbols
+	on the command line. It is the opposite behavior to 
+	<TT><B><code>--</code>exclude-external</B></TT>.
+</LI>
+<LI><TT><B><code>--</code>cxx-ior-exception</B></TT>&nbsp;&nbsp;:&nbsp;&nbsp;
+	Earlier versions of the Babel C++ bindings checked the IOR
+	pointer in a given stub before making any calls on it.  If the IOR was
+	null, a NullIORException was thrown.  It was later found that in
+	certain cases these checks were taking an inordinent amount of time,
+	and since C++ does not normally check pointers before dereferencing
+	them, it was decided that this feature was out of line with the spirit
+	of C++.  However, since some code had already been written that used
+	this feature, we could not completely eliminate the checks.
+	Therefore, this command line option was added.  Calling babel
+	with it will generate C++ stubs with the
+	checks in them.  This option has no effect on other languages.     
+</LI>
+<LI><TT><B><code>--</code>vpath=<I CLASS="sans"><I CLASS="slanted">dir</I></I></B></TT>&nbsp;&nbsp;:&nbsp;&nbsp; This
+  option sets the root directory Babel searches first when trying to
+  load implementation files to preserve splicer block contents in the hand
+  edited implementation files. If you are generating server-side C for
+  a concrete class <TT>x.y.z</TT> and you used <TT><B>  <code>--</code>vpath=/tmp</B></TT>, Babel would try to read splicer blocks from
+  <TT>/tmp/x_y_z_Impl.h</TT> and <TT>/tmp/x_y_z_Impl.c</TT>. If it does
+  not find either file in <TT>/tmp</TT>, it also checks the current
+  directory. If you are using <TT><B>  <code>--</code>generate-subdirs</B></TT> with <TT><B><code>--</code>vpath</B></TT>, the
+  vpath directory is the root of the tree, so for the example, Babel
+  would search for <TT>/tmp/x/y/z_Impl.h</TT> and
+  <TT>/tmp/x/y/z_Impl.c</TT>. When appropriate, Babel inserts
+  <TT>#line</TT> directives to refer debuggers to the original
+  file. As its name suggests, this option is useful when making vpath
+  builds using make. Some people also use it to avoid spurious changes
+  to the files managed by their revision control system.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1402"
+  HREF="node39.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1396"
+  HREF="node37.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1390"
+  HREF="node37.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1398"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1400"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1403"
+  HREF="node39.html">Long and Short Forms</A>
+<B> Up:</B> <A NAME="tex2html1397"
+  HREF="node37.html">Command Line Options</A>
+<B> Previous:</B> <A NAME="tex2html1391"
+  HREF="node37.html">Command Line Options</A>
+ &nbsp; <B>  <A NAME="tex2html1399"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1401"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

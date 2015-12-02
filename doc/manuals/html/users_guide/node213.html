@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings implementation</TITLE>
+<META NAME="description" CONTENT="Bindings implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node214.html">
+<LINK REL="previous" HREF="node212.html">
+<LINK REL="up" HREF="node211.html">
+<LINK REL="next" HREF="node214.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4317"
+  HREF="node214.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4311"
+  HREF="node211.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4305"
+  HREF="node212.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4313"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4315"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4318"
+  HREF="node214.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html4312"
+  HREF="node211.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4306"
+  HREF="node212.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html4314"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4316"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03442000000000000000"></A><A NAME="ss:f90:implfill"></A><A NAME="11870"></A>
+<BR>
+Bindings implementation
+</H2>
+
+<P>
+Implementation details must be added to the ``Impl'' files generated in
+Subsection&nbsp;<A HREF="node212.html#ss:f90:implgen">9.4.1</A>.  Changes to these files must be made between
+code splicer pairs to ensure their retention in subsequent invocations of
+Babel.  Below is an example of the 
+standard, automatically generated code splicer pairs.
+<A NAME="11872"></A><A NAME="11873"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">! DO-NOT-DELETE splicer.begin(_miscellaneous_code_start)
+! Insert-Code-Here {_miscellaneous_code_start} (extra code)
+! DO-NOT-DELETE splicer.end(_miscellaneous_code_start)
+
+.
+.
+.
+
+recursive subroutine Pkg_Class_name_mi(self, arg, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use Pkg_Class
+  use Pkg_Class_impl
+  ! DO-NOT-DELETE splicer.begin(Pkg.Class.name.use)
+  ! Insert-Code-Here {Pkg.Class.name.use} (use statements)
+  ! DO-NOT-DELETE splicer.end(Pkg.Class.name.use)
+  implicit none
+  type(Pkg_Class_t) :: self ! in
+  integer (kind=sidl_int) :: arg ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+
+! DO-NOT-DELETE splicer.begin(Pkg.Class.name)
+! Insert-Code-Here {Pkg.Class.name} (name method)
+! DO-NOT-DELETE splicer.end(Pkg.Class.name)
+end subroutine Pkg_Class_name_mi
+</PRE></td></tr></table></blockquote>
+<P>
+The comment 
+``Insert-Code-Here'' associated with the ``miscellaneous code start'' 
+splicer pair will need to be replaced with details such as 
+additional abbreviation file(s) and any local, or 
+private, subroutines.  For the subroutine's ``use'' splicer pair, the 
+``Insert-Code-Here {Pkg.Class.name.use} (use statements)'' comment must
+be replaced with any <TT>use</TT> statements needed by the subroutine.  
+Finally, the implementation between the subroutine body's splicer pairs 
+must be added in place of the 
+``Insert-Code-Here {Pkg.Class.name} (name method)'' comment.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

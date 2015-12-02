@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Arrays</TITLE>
+<META NAME="description" CONTENT="Arrays">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node175.html">
+<LINK REL="up" HREF="node172.html">
+<LINK REL="next" HREF="node177.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3755"
+  HREF="node177.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3749"
+  HREF="node172.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3745"
+  HREF="node175.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3751"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3753"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3756"
+  HREF="node177.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html3750"
+  HREF="node172.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3746"
+  HREF="node175.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html3752"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3754"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION03323400000000000000"></A><A NAME="sss:f77:arrays"></A><A NAME="9870"></A><A NAME="9871"></A>
+<A NAME="9872"></A><A NAME="9873"></A>
+<BR>
+Arrays
+</H3>
+
+<P>
+As discussed in Section&nbsp;<A HREF="node62.html#s:arrays">5.4</A>, SIDL supports both normal and raw
+arrays (i.e., r-arrays).  Normal SIDL arrays can be used by any supported
+language; whereas, r-arrays are restricted to numeric types and use in
+languages such as C, C++, and Fortran.  This subsection discusses both
+within the context of FORTRAN 77 bindings.  More information on the FORTRAN
+77 version of the SIDL array API can be found in 
+Subsection&nbsp;<A HREF="node71.html#ss:basics:array:api">5.4</A>.
+
+<P>
+The difference in how normal SIDL arrays and r-arrays are accessed is profound. 
+A normal SIDL array is passed as an
+<TT>integer*8</TT>, and accessed using an API or
+by converting the array data to an index into a known array.  
+R-arrays<A NAME="9877"></A><A NAME="9878"></A>
+appear like normal FORTRAN 77 arrays, so there is a big incentive to
+use r-arrays for performance purposes, when appropriate.
+
+<P>
+The client-side interface for the <TT>solve</TT> example introduced in
+Section&nbsp;<A HREF="node65.html#ss:r-arrays">5.4</A> behaves as if it is a FORTRAN 77 function
+with the following declarations:
+<A NAME="9881"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine num_Linsol_solve_f(self, A, x, m, n, exception)
+        implicit none
+C       in num.Linsol self
+        integer*8 self
+C       in int m, n
+        integer*4 m, n
+C       out sidl.BaseInterface exception
+        integer*8 exception
+C       in rarray&lt;double,2&gt; A(m,n)
+        double precision A(0:m-1, 0:n-1)
+C       inout rarray&lt;double&gt; x(n)
+        double precision x(0:n-1)
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+Array indices go from
+<SPAN  CLASS="textbf">0</SPAN> to <TT>m</TT><SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img23.png"
+ ALT="$-1$"></SPAN> instead of the normal 1 to <TT>m</TT>.  This
+was a concession to the C/C++ programmers who have to deal with the
+fact that <TT>A</TT> is stored in column-major order.
+</SPAN>
+
+<P>
+The remainder of this section is dedicated to describing how normal
+SIDL arrays are accessed.  The normal SIDL C function API is available 
+to create, destroy, and access array elements and meta-data -- with 
+<TT>_f</TT> appended to subroutine names but no extra exception arguments.
+
+<P>
+For <TT><I CLASS="slanted">dcomplex</I></TT>, <TT><I CLASS="slanted">double</I></TT>, <TT><I CLASS="slanted">fcomplex</I></TT>,
+<TT><I CLASS="slanted">float</I></TT>, <TT><I CLASS="slanted">int</I></TT>, and <TT><I CLASS="slanted">long</I></TT> SIDL types, 
+a method is provided to get direct access to array elements. 
+For other types, you must use the array API to access elements.
+For SIDL type <TT>X</TT>, a FORTRAN 77 function called
+<TT>sidl_X__array_access_f</TT> provides direct access, as illustrated
+below.  This will
+<SPAN  CLASS="textbf">not</SPAN> work if your FORTRAN 77 compiler does array bounds checking,
+however.
+<A NAME="9898"></A>
+<A NAME="9899"></A><A NAME="9900"></A>
+<A NAME="9901"></A><A NAME="9902"></A>
+<A NAME="9903"></A><A NAME="9904"></A>
+<A NAME="9905"></A><A NAME="9906"></A>
+<A NAME="9907"></A><A NAME="9908"></A>
+<A NAME="9909"></A><A NAME="9910"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        integer*4 lower(1), upper(1), stride(1), i, index(1)
+        integer*4 value, refarray(1), modval
+        integer*8 nextprime, refindex, tmp
+        lower(1) = 0
+        value = 0
+        upper(1) = len - 1
+        call sidl_int__array_create_f(1, lower, upper, retval)
+        call sidl_int__array_access_f(retval, refarray, lower,
+     $       upper, stride, refindex)
+        do i = 0, len - 1
+           tmp = value
+           value = nextprime(tmp)
+           modval = mod(i, 3)
+           if (modval .eq. 0) then
+              call sidl_int__array_set1_f(retval, i, value)
+           else
+              if (modval .eq. 1) then
+                 index(1) = i
+                 call sidl_int__array_set_f(retval, index, value)
+              else
+C this is equivalent to the sidl_int__array_set_f(retval, index, value)
+                 refarray(refindex + stride(1)*(i - lower(1))) =
+     $                value
+              endif
+           endif
+        enddo
+</PRE></td></tr></table></blockquote>
+<P>
+To access a two-dimensional array, the expression referring to element
+<TT>i</TT>, <TT>j</TT> is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       refarray(refindex + stride(1) * (i - lower(1)) + stride(2) * 
+    $   (j - lower(2))    
+</PRE></td></tr></table></blockquote>
+<P>
+The expression referring to element <TT>i</TT>, <TT>j</TT>, <TT>k</TT> 
+of a three-dimensional array is<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> 
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       refarray(refindex + stride(1) * (i - lower(1)) + stride(2) * 
+    $   (j - lower(2)) + stride(3) * (k - lower(3))
+</PRE></td></tr></table></blockquote>
+<P>
+Software packages such as LINPACK or BLAS can be called, but 
+the stride should be checked to make sure the array is suitably packed.
+<TT>stride(i)</TT><A NAME="9920"></A> indicates the distance between elements in 
+dimension
+<TT>i</TT>, where a value of 1 means elements are packed densely in dimension
+<TT>i</TT>.  Negative stride values are possible and, when an array is
+a slice of another array, there may be no dimension with a stride of 1. 
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">NOTE</SPAN><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+For a <TT><I CLASS="slanted">dcomplex</I></TT><A NAME="9925"></A> array, the reference array should be a 
+Fortran array of <TT>REAL*8</TT> instead of a Fortran array of double complex 
+to avoid potential alignment problems.  For a <TT><I CLASS="slanted">fcomplex</I></TT><A NAME="9928"></A>
+array, the reference array is a <TT>COMPLEX*8</TT> because we don't anticipate 
+an alignment problem in this case.
+</SPAN>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3755"
+  HREF="node177.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3749"
+  HREF="node172.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3745"
+  HREF="node175.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3751"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3753"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3756"
+  HREF="node177.html">Type casting</A>
+<B> Up:</B> <A NAME="tex2html3750"
+  HREF="node172.html">Data types</A>
+<B> Previous:</B> <A NAME="tex2html3746"
+  HREF="node175.html">Enumerations</A>
+ &nbsp; <B>  <A NAME="tex2html3752"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3754"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

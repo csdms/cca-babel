@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>dense</TITLE>
+<META NAME="description" CONTENT="dense">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node390.html">
+<LINK REL="previous" HREF="node388.html">
+<LINK REL="up" HREF="node371.html">
+<LINK REL="next" HREF="node390.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html7217"
+  HREF="node390.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html7211"
+  HREF="node371.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html7205"
+  HREF="node388.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html7213"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html7215"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html7218"
+  HREF="node390.html">developer</A>
+<B> Up:</B> <A NAME="tex2html7212"
+  HREF="node371.html">Glossary</A>
+<B> Previous:</B> <A NAME="tex2html7206"
+  HREF="node388.html">dcomplex</A>
+ &nbsp; <B>  <A NAME="tex2html7214"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html7216"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION054180000000000000000">
+dense</A>
+</H1> <A NAME="20408"></A>
+
+<P>
+<SPAN  CLASS="textbf">Definition:</SPAN> A dense array is an array where all the dimensions are ``densely
+packed,'' or, in terms of memory addressing, there are no ``spaces''
+between array elements.  For example, if a one-dimensional SIDL array
+of 10 elements is created, it will be densely packed.  However, if a
+slice of the array is taken with a stride of 2, the resulting array
+will use the same data as the original array.  However, the new array
+will be only five elements long, and will only consist of the even
+elements of the original array.  This is not densely packed. Example:
+
+<P>
+Array 1: 0 1 2 3 4 5 6 7 8 9
+
+<P>
+Array 2: 0 - 2 - 4 - 6 - 8 -    
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

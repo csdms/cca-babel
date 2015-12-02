@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Overloaded methods</TITLE>
+<META NAME="description" CONTENT="Overloaded methods">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node236.html">
+<LINK REL="previous" HREF="node234.html">
+<LINK REL="up" HREF="node229.html">
+<LINK REL="next" HREF="node236.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4667"
+  HREF="node236.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4661"
+  HREF="node229.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4655"
+  HREF="node234.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4663"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4665"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4668"
+  HREF="node236.html">Exception catching</A>
+<B> Up:</B> <A NAME="tex2html4662"
+  HREF="node229.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4656"
+  HREF="node234.html">Static methods</A>
+ &nbsp; <B>  <A NAME="tex2html4664"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4666"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03536000000000000000"></A>
+<A NAME="13990"></A>
+<A NAME="13991"></A>
+<BR>
+Overloaded methods
+</H2>
+
+<P>
+Using the <TT>overload_sample.sidl</TT> file from Section&nbsp;<A HREF="node116.html#sec:overloading">5.7</A>
+as an example, recall that three versions of the <TT>getValue</TT> method are
+specified.  The first signature takes no arguments, the second takes an
+integer, and the third a boolean.  The code snippet below illustrates
+object creation, and method invocation for each of the overloaded methods.
+<A NAME="13995"></A>
+<A NAME="13996"></A><A NAME="13997"></A>
+<A NAME="13998"></A><A NAME="13999"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">boolean b1, bresult;
+int     i1, iresult, nresult;
+
+Overload.Sample t  = new Overload.Sample();
+
+nresult = t.getValue();
+bresult = t.getValue(b1);
+iresult = t.getValue(i1);
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

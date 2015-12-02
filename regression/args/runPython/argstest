@@ -1,0 +1,247 @@
+#!/usr/local/bin/python
+#
+# File:        argstest
+# Copyright:   (c) 2001 Lawrence Livermore National Security, LLC
+# Revision:    @(#) $Revision: 6192 $
+# Date:        $Date: 2007-10-22 16:12:59 -0700 (Mon, 22 Oct 2007) $
+# Description: Exercise every kind of argument
+#
+# Try to exercise everything possible in Python.
+
+import sidlPyArrays
+import Args.Basic
+if sidlPyArrays.type == "numpy":
+  from numpy import zeros, float32
+else:
+  import Numeric
+  zeros = Numeric.zeros
+  float32 = Numeric.Float32
+from synch.ResultType import *
+from synch import RegOut
+
+def toFloat(d):
+  tmp = zeros((1,), float32)
+  try:
+    tmp[0] = d
+  except AttributeError:
+    # don't die!
+    tmp[0] = d
+  return float(tmp[0])
+
+class TestCounter:
+
+  def __init__(self, numparts = -1):
+    self.tracker = RegOut.RegOut()
+    self.partno = 0
+    self.tracker.setExpectations(numparts)
+
+  def describeTest(self, description):
+    self.partno = self.partno + 1
+    self.tracker.startPart(self.partno)
+    self.tracker.writeComment(description)
+
+  def fail(self):
+    self.tracker.forceFailure()
+
+  def evalTest(self, result, expected=1):
+    if (result):
+      if (expected):
+        self.tracker.endPart(self.partno, PASS)
+      else:
+        self.tracker.endPart(self.partno, XPASS)
+    else:
+      if (expected):
+        self.tracker.endPart(self.partno, FAIL)
+      else:
+        self.tracker.endPart(self.partno, XFAIL)
+        
+  def finish(self):
+    self.tracker.close()
+
+def driver(counter):
+  # boolean test
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackbool()')
+  counter.evalTest(obj.returnbackbool())
+
+  counter.describeTest('obj.passinbool(1)')
+  counter.evalTest(obj.passinbool(1))
+
+  counter.describeTest('(1, 1) == obj.passoutbool()')
+  counter.evalTest((1, 1) == obj.passoutbool())
+
+  counter.describeTest('(1, 0) == obj.passinoutbool(1)')
+  counter.evalTest((1, 0) == obj.passinoutbool(1))
+
+  counter.describeTest('(1, 1, 1) = obj.passeverywherebool(1, 0)')
+  counter.evalTest((1, 1, 1) == obj.passeverywherebool(1, 0))
+  
+  # char test
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackchar() == "3"')
+  counter.evalTest(obj.returnbackchar() == "3")
+
+  counter.describeTest('obj.passinchar("3")')
+  counter.evalTest(obj.passinchar("3"))
+
+  counter.describeTest('(1, "3") == obj.passoutchar()')
+  counter.evalTest((1, "3") == obj.passoutchar())
+
+  counter.describeTest('(1, "a") == obj.passinoutchar("A")')
+  counter.evalTest((1, "a") == obj.passinoutchar("A"))
+
+  counter.describeTest('("3", "3", "A") = obj.passeverywherechar("3", "a")')
+  counter.evalTest(("3", "3", "A") == obj.passeverywherechar("3", "a"))
+  
+  # int test
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackint() == 3')
+  counter.evalTest(obj.returnbackint() == 3)
+
+  counter.describeTest('obj.passinint(3)')
+  counter.evalTest(obj.passinint(3))
+
+  counter.describeTest('(1, 3) == obj.passoutint()')
+  counter.evalTest((1, 3) == obj.passoutint())
+
+  counter.describeTest('(1, -3) == obj.passinoutint(3)')
+  counter.evalTest((1, -3) == obj.passinoutint(3))
+
+  counter.describeTest('(3, 3, 3) = obj.passeverywhereint(3, -3)')
+  counter.evalTest((3, 3, 3) == obj.passeverywhereint(3, -3))
+
+  # long test
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbacklong() == 3L')
+  counter.evalTest(obj.returnbacklong() == 3L)
+
+  counter.describeTest('obj.passinlong(3L)')
+  counter.evalTest(obj.passinlong(3L))
+
+  counter.describeTest('(1, 3L) == obj.passoutlong()')
+  counter.evalTest((1, 3L) == obj.passoutlong())
+
+  counter.describeTest('(1, -3L) == obj.passinoutlong(3L)')
+  counter.evalTest((1, -3L) == obj.passinoutlong(3L))
+
+  counter.describeTest('(3L, 3L, 3L) = obj.passeverywherelong(3L, -3L)')
+  counter.evalTest((3L, 3L, 3L) == obj.passeverywherelong(3L, -3L))
+
+  # float test
+  floatpi = toFloat(3.1)
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackfloat() == 3.1')
+  counter.evalTest(obj.returnbackfloat() == floatpi)
+
+  counter.describeTest('obj.passinfloat(3.1)')
+  counter.evalTest(obj.passinfloat(floatpi))
+
+  counter.describeTest('(1, 3.1) == obj.passoutfloat()')
+  counter.evalTest((1, floatpi) == obj.passoutfloat())
+
+  counter.describeTest('(1, -3.1) == obj.passinoutfloat(3.1)')
+  counter.evalTest((1, -floatpi) == obj.passinoutfloat(floatpi))
+
+  counter.describeTest('(3.1, 3.1, 3.1) = obj.passeverywherefoat(3.1, -3.1)')
+  counter.evalTest((floatpi, floatpi, floatpi) == obj.passeverywherefloat(floatpi, -floatpi))
+
+  # double test
+  doublepi = 3.14
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackdouble() == 3.14')
+  counter.evalTest(obj.returnbackdouble() == doublepi)
+
+  counter.describeTest('obj.passindouble(3.14)')
+  counter.evalTest(obj.passindouble(doublepi))
+
+  counter.describeTest('(1, 3.14) == obj.passoutdouble()')
+  counter.evalTest((1, doublepi) == obj.passoutdouble())
+
+  counter.describeTest('(1, -3.14) == obj.passinoutdouble(3.14)')
+  counter.evalTest((1, -doublepi) == obj.passinoutdouble(doublepi))
+
+  counter.describeTest('(3.14, 3.14, 3.14) = obj.passeverywheredouble(3.14, -3.14)')
+  counter.evalTest((doublepi, doublepi, doublepi) == obj.passeverywheredouble(doublepi, -doublepi))
+
+  # fcomplex test
+  fcomplexpi = floatpi + floatpi * 1.0j
+  fconj = floatpi - floatpi * 1.0j
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackfcomplex() == 3.1 + 3.1i')
+  counter.evalTest(obj.returnbackfcomplex() == fcomplexpi)
+
+  counter.describeTest('obj.passinfcomplex(3.1 + 3.1i)')
+  counter.evalTest(obj.passinfcomplex(fcomplexpi))
+
+  counter.describeTest('(1, 3.1 + 3.1i) == obj.passoutfcomplex()')
+  counter.evalTest((1, fcomplexpi) == obj.passoutfcomplex())
+
+  counter.describeTest('(1, 3.1 - 3.1i) == obj.passinoutfcomplex(3.1 + 3.1i)')
+  counter.evalTest((1, fconj) == obj.passinoutfcomplex(fcomplexpi))
+
+  counter.describeTest('(3.1 + 3.1i, 3.1 + 3.1i, 3.1 + 3.1i) = obj.passeverywherefcomplex(3.1 + 3.1i, 3.1 - 3.1i)')
+  counter.evalTest((fcomplexpi, fcomplexpi, fcomplexpi) == obj.passeverywherefcomplex(fcomplexpi, fconj))
+
+  # dcomplex test
+  dcomplexpi = doublepi + doublepi * 1.0j
+  dconj = doublepi - doublepi * 1.0j
+  obj = Args.Basic.Basic()
+  counter.describeTest('obj = Args.Basic.Basic()')
+  obj = Args.Basic.Basic()
+  counter.evalTest(obj != None)
+
+  counter.describeTest('obj.returnbackdcomplex() == 3.14 + 3.14i')
+  counter.evalTest(obj.returnbackdcomplex() == dcomplexpi)
+
+  counter.describeTest('obj.passindcomplex(3.14 + 3.14i)')
+  counter.evalTest(obj.passindcomplex(dcomplexpi))
+
+  counter.describeTest('(1, 3.14 + 3.14i) == obj.passoutdcomplex()')
+  counter.evalTest((1, dcomplexpi) == obj.passoutdcomplex())
+
+  counter.describeTest('(1, 3.14 - 3.14i) == obj.passinoutdcomplex(3.14 + 3.14i)')
+  counter.evalTest((1, dconj) == obj.passinoutdcomplex(dcomplexpi))
+
+  counter.describeTest('(3.14 + 3.14i, 3.14 + 3.14i, 3.14 + 3.14i) = obj.passeverywheredcomplex(3.14 + 3.14i, 3.14 - 3.14i)')
+  counter.evalTest((dcomplexpi, dcomplexpi, dcomplexpi) == obj.passeverywheredcomplex(dcomplexpi, dconj))
+
+if __name__ == '__main__':
+  import sys
+  counter = TestCounter(48)
+  try:
+    driver(counter)
+  except:
+    (type, value, trace) = sys.exc_info()
+    counter.fail()
+    import traceback
+    traceback.print_exception(type, value, trace)
+  counter.finish()
+0

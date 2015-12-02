@@ -1,0 +1,39 @@
+#!/usr/local/bin/python
+#
+# File:        hookstest
+# Copyright:   (c) 2001 Lawrence Livermore National Security, LLC
+# Revision:    @(#) $Revision: 4767 $
+# Date:        $Date: 2005-07-26 13:45:06 -0700 (Tue, 26 Jul 2005) $
+# Description: Exercise every kind of argument
+#
+# Try to exercise everything possible in Python.
+
+import hooks.Basics
+import sidl.RuntimeException
+import sys
+from synch.ResultType import *
+
+import synch
+from synch import RegOut
+
+if __name__ == '__main__':
+  tracker = synch.RegOut.getInstance()
+  tracker.setExpectations(2)
+
+  hooks.Basics._set_hooks_static(1)
+  obj = hooks.Basics.Basics()
+  obj._set_hooks(1)
+  try:
+    (ret,b,c) = hooks.Basics.aStaticMeth(1,0)
+  except sidl.RuntimeException._Exception:
+    (etype, eobj, etb) = sys.exc_info()
+    eobj.exception.getNote()
+    
+  try:    
+    (ret,b,c) = obj.aNonStaticMeth(2,0)
+  except sidl.RuntimeException._Exception:
+    (etype, eobj, etb) = sys.exc_info()
+    print eobj.exception.getNote()
+  
+  tracker.close()
+0

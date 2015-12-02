@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Private data</TITLE>
+<META NAME="description" CONTENT="Private data">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node215.html">
+<LINK REL="previous" HREF="node213.html">
+<LINK REL="up" HREF="node211.html">
+<LINK REL="next" HREF="node215.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4331"
+  HREF="node215.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4325"
+  HREF="node211.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4319"
+  HREF="node213.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4327"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4329"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4332"
+  HREF="node215.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html4326"
+  HREF="node211.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4320"
+  HREF="node213.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html4328"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4330"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03443000000000000000"></A>
+<A NAME="11877"></A>
+<A NAME="11878"></A>
+<BR>
+Private data
+</H2>
+
+<P>
+Any variables declared in the implementation source file will, by
+virtue of Babel's encapsulation, be private.
+Special initialization procedures can be added to
+the built-in <TT>_load()</TT> method, which is guaranteed to be called
+exactly once per class to set global class data -- <SPAN  CLASS="textit">before</SPAN> 
+any user-defined methods can even be invoked.
+
+<P>
+The SIDL IOR keeps a pointer for each object that is intended to hold 
+a pointer to the object's internal data.  Below is an
+excerpt from a <TT>_Mod.F90</TT> file for an object whose state requires a
+single integer value.
+<A NAME="11882"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">#include "sort_SimpleCounter_fAbbrev.h"
+module sort_SimpleCounter_impl
+
+! DO-NOT-DELETE splicer.begin(sort.SimpleCounter.use)
+use sidl
+! DO-NOT-DELETE splicer.end(sort.SimpleCounter.use)
+
+type sort_SimpleCounter_priv
+  sequence
+  ! DO-NOT-DELETE splicer.begin(sort.SimpleCounter.private_data)
+   integer(kind=sidl_int) :: count
+  ! DO-NOT-DELETE splicer.end(sort.SimpleCounter.private_data)
+end type sort_SimpleCounter_priv
+
+type sort_SimpleCounter_wrap
+  sequence
+  type(sort_SimpleCounter_priv), pointer :: d_private_data
+end type sort_SimpleCounter_wrap
+
+end module sort_SimpleCounter_impl
+</PRE></td></tr></table></blockquote>
+<P>
+The derived type <TT>sort_SimpleCounter_priv</TT> is the type in which
+the developer adds data to store the object's state.  The
+<TT>sort_SimpleCounter_wrap</TT> type exists simply to 
+facilitate transferring the <TT>sort_SimpleCounter_priv</TT> 
+pointer to and from the IOR.
+
+<P>
+Access to this data is provided by two built-in functions -- referred to
+as <TT>set_data</TT> and <TT>get_data</TT> -- whose full names are derived 
+from the fully qualified type name<A NAME="11893"></A>.  In both cases, the 
+first argument is the object pointer (i.e., <TT>self</TT>), and the second is a
+derived type defined in the <TT>_Mod.F90</TT> file.  The developer is 
+responsible for managing the memory associated with the private data.
+
+<P>
+As illustrated in the constructor below, the basic process to initialize
+private data involves allocating memory then setting the data pointer.
+<A NAME="11896"></A>
+<A NAME="11897"></A><A NAME="11898"></A>
+<A NAME="11899"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">recursive subroutine sort_SimpleCounter__ctor_mi(self, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use sort_SimpleCounter
+  use sort_SimpleCounter_impl
+  ! DO-NOT-DELETE splicer.begin(sort.SimpleCounter._ctor.use)
+  ! Insert-Code-Here {sort.SimpleCounter._ctor.use} (use statements)
+  ! DO-NOT-DELETE splicer.end(sort.SimpleCounter._ctor.use)
+  implicit none
+  type(sort_SimpleCounter_t) :: self ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+
+! DO-NOT-DELETE splicer.begin(sort.SimpleCounter._ctor)
+  type(sort_SimpleCounter_wrap) :: dp
+  allocate(dp%d_private_data)
+  dp%d_private_data%count = 0
+  call sort_SimpleCounter__set_data_m(self, dp)
+! DO-NOT-DELETE splicer.end(sort.SimpleCounter._ctor)
+end subroutine sort_SimpleCounter__ctor_mi
+</PRE></td></tr></table></blockquote>
+<P>
+Note the use of <TT>allocate(pd%d_private_data)</TT> 
+in the constructor, <TT>_ctor</TT>, to allocate the memory for the
+<TT>sort_SimpleCounter_priv</TT> derived type and the fully qualified
+name for <TT>get_data</TT>.
+
+<P>
+Similarly, the destructor is responsible for freeing the data's memory
+as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11905"></A>
+<A NAME="11906"></A><A NAME="11907"></A>
+<A NAME="11908"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">recursive subroutine sort_SimpleCounter__dtor_mi(self, exception)
+  use sidl
+  use sidl_BaseInterface
+  use sidl_RuntimeException
+  use sort_SimpleCounter
+  use sort_SimpleCounter_impl
+  ! DO-NOT-DELETE splicer.begin(sort.SimpleCounter._dtor.use)
+  ! Insert-Code-Here {sort.SimpleCounter._dtor.use} (use statements)
+  ! DO-NOT-DELETE splicer.end(sort.SimpleCounter._dtor.use)
+  implicit none
+  type(sort_SimpleCounter_t) :: self ! in
+  type(sidl_BaseInterface_t) :: exception ! out
+
+! DO-NOT-DELETE splicer.begin(sort.SimpleCounter._dtor)
+  type(sort_SimpleCounter_wrap) :: dp
+  call sort_SimpleCounter__get_data_m(self, dp)
+  deallocate(dp%d_private_data)
+! DO-NOT-DELETE splicer.end(sort.SimpleCounter._dtor)
+end subroutine sort_SimpleCounter__dtor_mi
+</PRE></td></tr></table></blockquote>
+<P>
+In this case, <TT>deallocate(pd%d_private_data)</TT> is used to 
+free the memory allocated in the constructor for the 
+<TT>sort_SimpleCounter_priv</TT> derived type.  
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4331"
+  HREF="node215.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4325"
+  HREF="node211.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4319"
+  HREF="node213.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4327"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4329"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4332"
+  HREF="node215.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html4326"
+  HREF="node211.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html4320"
+  HREF="node213.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html4328"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4330"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception throwing</TITLE>
+<META NAME="description" CONTENT="Exception throwing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node166.html">
+<LINK REL="previous" HREF="node164.html">
+<LINK REL="up" HREF="node161.html">
+<LINK REL="next" HREF="node166.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3569"
+  HREF="node166.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3563"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3557"
+  HREF="node164.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3565"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3567"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3570"
+  HREF="node166.html">Hooks implementation</A>
+<B> Up:</B> <A NAME="tex2html3564"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3558"
+  HREF="node164.html">Private data</A>
+ &nbsp; <B>  <A NAME="tex2html3566"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3568"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03244000000000000000"></A>
+<A NAME="8712"></A>
+<A NAME="8713"></A>
+<BR>
+Exception throwing
+</H2>
+
+<P>
+The example below shows the standard way to throw an exception in C++.  Use
+of <TT>setNote</TT> and <TT>add</TT> methods
+is not strictly required; however, they do provide information that may be
+helpful in debugging or error reporting.
+<A NAME="8716"></A>
+<A NAME="8717"></A><A NAME="8718"></A>
+<A NAME="8719"></A><A NAME="8720"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">int32_t
+ExceptionTest::Fib_impl::getFib_impl (
+  /*in*/ int32_t n,         
+  /*in*/ int32_t max_depth,
+  /*in*/ int32_t max_value, 
+  /*in*/ int32_t depth ) 
+// throws:
+//     ::ExceptionTest::FibException
+//     ::ExceptionTest::NegativeValueException
+//     ::sidl::RuntimeException
+{
+  // DO-NOT-DELETE splicer.begin(ExceptionTest.Fib.getFib)
+  if (n &lt; 0) {
+    UCXX ::ExceptionTest::NegativeValueException ex = 
+      UCXX ::ExceptionTest::NegativeValueException::_create();
+    ex.setNote("n negative");
+    ex.add(__FILE__, __LINE__, "ExceptionTest::Fib_impl::getFib");
+    throw ex;
+                                                                                
+  } else if (depth &gt; max_depth) {
+    UCXX ::ExceptionTest::TooDeepException ex =
+      UCXX ::ExceptionTest::TooDeepException::_create();
+    ex.setNote("too deep");
+    ex.add(__FILE__, __LINE__, "ExceptionTest::Fib_impl::getFib");
+    throw ex;
+                                                                                
+  } else if (n == 0) {
+    return 1;
+                                                                                
+  } else if (n == 1) {
+    return 1;
+                                                                                
+  } else {
+    int32_t a = getFib(n-1, max_depth, max_value, depth+1);
+    int32_t b = getFib(n-2, max_depth, max_value, depth+1);
+    if (a + b &gt; max_value) {
+      UCXX ::ExceptionTest::TooBigException ex = 
+	UCXX ::ExceptionTest::TooBigException::_create();
+      ex.setNote("too big");
+      ex.add(__FILE__, __LINE__, "ExceptionTest::Fib_impl::getFib");
+      throw ex;
+    }
+    return a + b;
+  }
+  // DO-NOT-DELETE splicer.end(ExceptionTest.Fib.getFib)
+}
+                                                                                </PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

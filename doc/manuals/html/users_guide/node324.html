@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SIDL Library Issues</TITLE>
+<META NAME="description" CONTENT="SIDL Library Issues">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node325.html">
+<LINK REL="previous" HREF="node321.html">
+<LINK REL="up" HREF="node315.html">
+<LINK REL="next" HREF="node325.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6075"
+  HREF="node325.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6069"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6063"
+  HREF="node323.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6071"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6073"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6076"
+  HREF="node325.html">Language Bindings for the</A>
+<B> Up:</B> <A NAME="tex2html6070"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6064"
+  HREF="node323.html">Tracking Down Problems</A>
+ &nbsp; <B>  <A NAME="tex2html6072"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6074"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04240000000000000000"></A><A NAME="s:sidl_lib"></A>
+<BR>
+SIDL Library Issues
+</H1>
+
+<P>
+As mentioned in Section&nbsp;<A HREF="node109.html#s:sidl_runtime">5.6</A>, the Babel toolkit includes the
+SIDL runtime library.  The library provides a base interface, class,
+and exception as the foundation.  This is how Babel provides object-oriented
+features to non-object-oriented languages.  In order to support the runtime
+system and build the SIDL library, it also provides DLL and Loader classes.
+
+<P>
+<A NAME="18725"></A>Babel generated code depends critically on <TT>babel_config.h</TT> to correctly
+define a lot of platform specific details.  One detail that changes too 
+frequently to encode in <TT>babel_config.h</TT> is whether or not the software 
+is being compiled is position independent code (PIC).  This detail is commonly 
+added to the compilation instruction using the flags (e.g. <TT>-fPIC -DPIC</TT>
+<A NAME="tex2html51"
+  HREF="footnode.html#foot18811"><SUP><SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>).  The first flag tells the compiler to generate position independent 
+code.  The second defines the preprocessor macro <TT>PIC</TT>.  Looking now at 
+<TT>babel_config.h</TT>, we see that either <TT>SIDL_DYNAMIC_LIBRARY</TT> or 
+<TT>SIDL_STATIC_LIBRARY</TT> are defined depending on whether or not <TT>PIC</TT> 
+is defined.
+
+<P>
+As described in Section&nbsp;<A HREF="node322.html#ss:pic">16.3.1</A>, Babel tends to focus on static libraries 
+and dynamic linked libraries; not worrying much about <A NAME="18736"></A>shared libraries.  The 
+main reason is that for every last drop of performance, people would want 
+static libraries.  To support Java and Python (and the CCA model) dynamic 
+loading is required.  There's no real benefit to doing shared libraries that 
+can't be dynamically loaded, so in developing Babel, we focus on the other two 
+linkage situations.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6075"
+  HREF="node325.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6069"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6063"
+  HREF="node323.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6071"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6073"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6076"
+  HREF="node325.html">Language Bindings for the</A>
+<B> Up:</B> <A NAME="tex2html6070"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6064"
+  HREF="node323.html">Tracking Down Problems</A>
+ &nbsp; <B>  <A NAME="tex2html6072"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6074"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

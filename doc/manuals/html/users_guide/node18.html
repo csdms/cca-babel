@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Benefits to Customers</TITLE>
+<META NAME="description" CONTENT="Benefits to Customers">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1009"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1003"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html997"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1005"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1007"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1010"
+  HREF="node19.html">Beyond Babel's Scope</A>
+<B> Up:</B> <A NAME="tex2html1004"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html998"
+  HREF="node17.html">Scientific Interface Definition Language</A>
+ &nbsp; <B>  <A NAME="tex2html1006"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1008"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION01130000000000000000">
+Benefits to Customers</A>
+</H1>
+
+<P>
+Babel has two types of customers<A NAME="582"></A>:
+<SPAN  CLASS="textit">developer</SPAN><A NAME="584"></A> and <SPAN  CLASS="textit">user</SPAN><A NAME="586"></A>.  The
+developer implements a library that will be used by one or more users,
+and the user uses libraries via their Babel generated interfaces.
+Babel provides value to developers by making their software accessible
+to a larger customer base because their software can be used from more
+different programming languages.  Users, on the other hand, may not
+care or even know that they are interacting with a library through
+Babel. Babel provides value to users by making more software
+accessible to them.
+
+<P>
+Babel provides some features that benefits user and developer alike.
+The most important aspect to note here is that all Babel objects are
+reference counted<A NAME="587"></A>.  This feature is critical
+to encapsulate the memory allocation<A NAME="588"></A> library
+(e.g. C's malloc/free<A NAME="589"></A> or C++'s new/delete) used in the
+implementation of the object.  Users never need concern themselves
+with when to free up a resource, they only declare when they're done
+with their reference to that resource.  Developers are free to use
+different memory allocation subsystems in different parts of their
+code if need be.
+
+<P>
+Babel also provides a consistent type system.
+This is particularly important when you want to make
+object-oriented libraries written in C++, Python or Java accessible in
+procedural languages like FORTRAN 77, Fortran 90 and C. Babel maps the
+object-oriented concepts like inheritance, polymorphism and object
+identity into all supported languages.
+
+<P>
+Interface contracts<A NAME="590"></A>, which identify conditions 
+that must hold at the interface, can be used to improve the quality of 
+software for both developers and users.
+Interface contracts consist of precondition, postcondition, and/or 
+invariant clauses belonging to the interface, not the underlying 
+implementation(s).  
+<SPAN  CLASS="textit">Precondition</SPAN><A NAME="592"></A> 
+clauses<A NAME="593"></A> consist of assertions 
+on properties which must hold prior to method execution.
+<SPAN  CLASS="textit">Postcondition</SPAN><A NAME="595"></A> 
+clauses<A NAME="596"></A> contain assertions 
+which must hold upon method completion.  
+<SPAN  CLASS="textit">Invariant</SPAN><A NAME="598"></A> 
+clauses<A NAME="599"></A> apply before and after 
+method execution.  
+Consequently, in addition to providing useful documentation, SIDL interface 
+contracts are enforceable.
+So developers can enable contract enforcement as an aid to testing and
+debugging.
+Users can enable full or partial contract enforcement during deployment
+to gain confidence in unfamiliar software.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1009"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1003"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html997"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1005"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1007"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1010"
+  HREF="node19.html">Beyond Babel's Scope</A>
+<B> Up:</B> <A NAME="tex2html1004"
+  HREF="node15.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html998"
+  HREF="node17.html">Scientific Interface Definition Language</A>
+ &nbsp; <B>  <A NAME="tex2html1006"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1008"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

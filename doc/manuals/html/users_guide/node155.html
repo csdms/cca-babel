@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Object management</TITLE>
+<META NAME="description" CONTENT="Object management">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node156.html">
+<LINK REL="previous" HREF="node154.html">
+<LINK REL="up" HREF="node152.html">
+<LINK REL="next" HREF="node156.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3428"
+  HREF="node156.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3422"
+  HREF="node152.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3416"
+  HREF="node154.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3424"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3426"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3429"
+  HREF="node156.html">Static methods</A>
+<B> Up:</B> <A NAME="tex2html3423"
+  HREF="node152.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3417"
+  HREF="node154.html">Header files</A>
+ &nbsp; <B>  <A NAME="tex2html3425"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3427"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03233000000000000000"></A>
+<A NAME="8579"></A>
+<A NAME="8580"></A>
+<BR>
+Object management
+</H2>
+
+<P>
+SIDL-specified objects are managed through explicit creation with explicit
+reference counting<A NAME="8581"></A> basically unnecessary.
+Babel automatically generates a static method called <TT>_create</TT>
+that must be invoked to instantiate a concrete class.  
+The default constructor creates the equivalent of a <TT>NULL</TT> pointer.  
+Below is an example, using standard Babel classes, that creates an object
+of the base class then upcasts it to its parent interface.
+<A NAME="8584"></A>
+<A NAME="8585"></A><A NAME="8586"></A><A NAME="8587"></A>
+<A NAME="8588"></A><A NAME="8589"></A>
+<A NAME="8590"></A><A NAME="8591"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">#ifdef SIDL_USE_UCXX
+using namespace ucxx;
+#endif
+
+sidl::BaseClass object = sidl::BaseClass::_create();
+sidl::BaseInterface interface = object;
+</PRE></td></tr></table></blockquote>
+<P>
+SIDL C++ stubs can be treated as smart-pointers.
+Constructors, destructors, and operators are overloaded making explicit
+calls to <TT>addRef()</TT> or <TT>deleteRef()</TT> rarely needed.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

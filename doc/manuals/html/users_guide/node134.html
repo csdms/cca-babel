@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception catching</TITLE>
+<META NAME="description" CONTENT="Exception catching">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node135.html">
+<LINK REL="previous" HREF="node133.html">
+<LINK REL="up" HREF="node128.html">
+<LINK REL="next" HREF="node135.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3100"
+  HREF="node135.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3094"
+  HREF="node128.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3088"
+  HREF="node133.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3096"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3098"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3101"
+  HREF="node135.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html3095"
+  HREF="node128.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3089"
+  HREF="node133.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html3097"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3099"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03136000000000000000"></A><A NAME="ss:c:exceptions"></A><A NAME="6991"></A><A NAME="6992"></A>
+<A NAME="6993"></A>
+<BR>
+Exception catching
+</H2>
+
+<P>
+Since all methods can now throw <TT><I CLASS="slanted">sidl.RuntimeException</I></TT>
+<A NAME="6995"></A>, Babel ensures there is an 
+<TT><I CLASS="slanted">out</I></TT> argument to hold an exception.  If not explicitly specified,
+Babel will automatically add the argument.  For maximum
+backward compatibility and consistency, the argument is of type
+<TT>sidl.BaseInterface</TT>.  When the exception parameter value is not
+<TT>NULL</TT>, an exception has been thrown.  In that case, the caller should 
+ignore the value of the other <TT><I CLASS="slanted">out</I></TT> parameters as well as any 
+return value. 
+
+<P>
+To facilitate exception management, <TT>sidl_Exception.h</TT> provides several
+helper utilities.  Chief among them are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> 
+<TT>SIDL_CHECK</TT><A NAME="7002"></A>, 
+<TT>SIDL_CATCH</TT><A NAME="7004"></A>, 
+and <TT>SIDL_CLEAR</TT><A NAME="7006"></A>.
+Their use follows from their names.  Their signatures are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="7007"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* Macros to facilitate managing exceptions */
+SIDL_CHECK(EX_VAR)
+SIDL_CLEAR(EX_VAR) 
+
+/* Helper function to facilitate catching exceptions of a specific type */
+int
+SIDL_CATCH(struct sidl_BaseInterface__object *ex_var,
+           const char *sidl_Name);
+</PRE></td></tr></table></blockquote>
+<P>
+
+<TT>EX_VAR</TT> (or <TT>ex_var</TT>) is the exception object itself and 
+<TT>sidl_NAME</TT> is the string name of the exception type expected to 
+be caught.  
+
+<P>
+The following example, based on the <TT>getFib</TT> method from 
+Subsection&nbsp;<A HREF="node123.html#ss:c:signatures">6.2.2</A>, illustrates not only catching an 
+exception but determining whether it is one of the types identified 
+in the specification<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="7014"></A>
+<A NAME="7015"></A><A NAME="7016"></A>
+<A NAME="7017"></A><A NAME="7018"></A>
+<A NAME="7019"></A><A NAME="7020"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">#include "sidl_Exception.h"
+/* ...numerous lines deleted... */
+  int x;
+  sidl_BaseInterface _ex = NULL;
+
+  x = ExceptionTest_Fib_getFib(f, 10, 1, 100, 0, &amp;_ex);
+  if (SIDL_CATCH(_ex, "ExceptionTest.TooDeepException")) {
+    traceback(_ex);
+    SIDL_CLEAR(_ex);
+  }
+  else if (SIDL_CATCH(_ex, "ExceptionTest.TooBigException")) {
+    traceback(_ex);
+    SIDL_CLEAR(_ex);
+  }
+  else if (_ex == NULL) {
+    return FALSE;
+  }
+  SIDL_CHECK(_ex);
+  return TRUE;
+
+  EXIT:;
+    traceback(_ex);
+    SIDL_CLEAR(_ex);
+    return FALSE;
+</PRE></td></tr></table></blockquote>
+<P>
+As an alternative to using <TT>SIDL_CHECK</TT><A NAME="7023"></A>,
+<TT>_ex</TT> can be compared to <TT>NULL</TT> directly.  Similarly, instead of
+using <TT>SIDL_CATCH</TT><A NAME="7027"></A>, type casting can used to determine 
+which of the potential exception types was actually thrown.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3100"
+  HREF="node135.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3094"
+  HREF="node128.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3088"
+  HREF="node133.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3096"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3098"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3101"
+  HREF="node135.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html3095"
+  HREF="node128.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3089"
+  HREF="node133.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html3097"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3099"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

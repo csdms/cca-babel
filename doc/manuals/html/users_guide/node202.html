@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type casting</TITLE>
+<META NAME="description" CONTENT="Type casting">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node197.html">
+<LINK REL="up" HREF="node194.html">
+<LINK REL="next" HREF="node203.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4155"
+  HREF="node203.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4149"
+  HREF="node194.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4145"
+  HREF="node201.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4151"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4153"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4156"
+  HREF="node203.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html4150"
+  HREF="node194.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4146"
+  HREF="node201.html">Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html4152"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4154"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03424000000000000000"></A><A NAME="ss:f90:casting"></A><A NAME="11692"></A><A NAME="11693"></A>
+<A NAME="11694"></A>
+<BR>
+Type casting
+</H2>
+
+<P>
+Babel automatically generates the <TT>cast()</TT><A NAME="11696"></A>
+method for casting between different interface and class types.
+Actually, a set of overloaded methods support every allowable cast 
+between a type and all its parent types
+(both objects and interfaces).  The first argument is the object (or interface)
+to be cast, and the second is a variable of the desired
+type.  The cast is successful if, after the call to <TT>cast()</TT>, the value 
+of the second argument is <TT>not_null</TT><A NAME="11700"></A>.  The 
+caller then owns (and is responsible for) the returned reference.  
+Examples of type casting can be found in 
+Subsections&nbsp;<A HREF="node208.html#ss:f90:exceptioncatching">9.3.5</A> and&nbsp;<A HREF="node215.html#ss:f90:exceptionthrowing">9.4.4</A>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

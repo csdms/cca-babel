@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Private data</TITLE>
+<META NAME="description" CONTENT="Private data">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node165.html">
+<LINK REL="previous" HREF="node163.html">
+<LINK REL="up" HREF="node161.html">
+<LINK REL="next" HREF="node165.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3555"
+  HREF="node165.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3549"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3543"
+  HREF="node163.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3551"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3553"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3556"
+  HREF="node165.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html3550"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3544"
+  HREF="node163.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html3552"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3554"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03243000000000000000"></A><A NAME="ss:cxx:privatedata"></A><A NAME="8690"></A>
+<A NAME="8691"></A>
+<BR>
+Private data
+</H2>
+
+<P>
+Any variables declared in the implementation source file will, by virtue
+of Babel's encapsulation, be private.  The data can be global to the class --
+as in static variables declared within the <TT>_includes</TT> splicer block
+at the top of the class's <TT>_Impl.cxx</TT> file -- or ``local'' to an 
+instance.
+In the former case, special initialization procedures can be added to
+the built-in <TT>_load()</TT> method that is guaranteed to be called
+exactly once per class -- <SPAN  CLASS="textit">before</SPAN> any user-defined methods
+can even be invoked.  The latter case relies on the class-specific
+name space automatically generated in the implementation's header
+file.  As illustrated in the <TT>foo.bar</TT> example below, the implementor 
+is free to define suitable contents.
+<A NAME="8697"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">namespace foo {
+
+  /**
+   * Symbol "foo.bar" (version 0.1)
+   */
+  class bar_impl : public virtual ::foo::bar
+  // DO-NOT-DELETE splicer.begin(foo.bar._inherits)
+  // Put additional inheritance here...
+  // DO-NOT-DELETE splicer.end(foo.bar._inherits)
+  {
+
+  // All data marked protected will be accessable by
+  // descendant Impl classes
+  protected:
+    bool _wrapped;
+
+    // DO-NOT-DELETE splicer.begin(foo.bar._implementation) 
+    char*  d_timestamp;
+    // DO-NOT-DELETE splicer.end(foo.bar._implementation) 
+
+  public:
+    /* ...lines deleted... */
+  }
+}
+</PRE></td></tr></table></blockquote>
+<P>
+If the object has no state, these functions are typically empty. 
+The built-in <TT>_ctor()</TT> method is invoked upon instantiation.  
+Hence, private data should be initialized in the method.  For example<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="8700"></A>
+<A NAME="8701"></A><A NAME="8702"></A>
+<A NAME="8703"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void foo::bar_impl::_ctor() {
+  // DO-NOT-DELETE splicer.begin(foo.bar._ctor)
+  time_t currTime = time(NULL);
+  sidl_String_strdup(d_timestamp, ctime(&amp;currTime));
+  // DO-NOT-DELETE splicer.end(foo.bar._ctor)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+To avoid leaking memory, private data must be released during
+instance destruction.  This is accomplished through the built-in
+<TT>_dtor()</TT> method.  The memory is then freed as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="8706"></A>
+<A NAME="8707"></A><A NAME="8708"></A>
+<A NAME="8709"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void foo::bar_impl::_dtor() {
+  // DO-NOT-DELETE splicer.begin(foo.bar._dtor) 
+  sidl_String_free(d_timestamp);
+  // DO-NOT-DELETE splicer.end(foo.bar._dtor) 
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Hence, Babel supports the declaration and maintenance of private
+data on class and instance basis.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3555"
+  HREF="node165.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3549"
+  HREF="node161.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3543"
+  HREF="node163.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3551"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3553"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3556"
+  HREF="node165.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html3550"
+  HREF="node161.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3544"
+  HREF="node163.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html3552"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3554"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

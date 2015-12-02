@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings implementation</TITLE>
+<META NAME="description" CONTENT="Bindings implementation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node140.html">
+<LINK REL="previous" HREF="node138.html">
+<LINK REL="up" HREF="node137.html">
+<LINK REL="next" HREF="node140.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3171"
+  HREF="node140.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3165"
+  HREF="node137.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3159"
+  HREF="node138.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3167"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3169"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3172"
+  HREF="node140.html">Private data</A>
+<B> Up:</B> <A NAME="tex2html3166"
+  HREF="node137.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3160"
+  HREF="node138.html">Bindings generation</A>
+ &nbsp; <B>  <A NAME="tex2html3168"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3170"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03142000000000000000"></A><A NAME="ss:c:implfill"></A><A NAME="7073"></A>
+<BR>
+Bindings implementation
+</H2>
+
+<P>
+Implementation details must be added to the ``Impl'' files generated in
+Subsection&nbsp;<A HREF="node138.html#ss:c:implgen">6.4.1</A>.  Changes to these files must be made between 
+code splicer pairs to ensure their retention in subsequent invocations of
+Babel.
+The following is an example of a code splicer pair in C<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="7075"></A><A NAME="7076"></A>
+<A NAME="7077"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* DO-NOT-DELETE splicer.begin(num.Linsol._includes) */
+/* Insert-Code-Here {num.Linsol._includes} (includes and arbitrary code) */
+/* DO-NOT-DELETE splicer.end(num.Linsol._includes) */
+</PRE></td></tr></table></blockquote>
+<P>
+A snippet from the Babel-generated implementation file for the 
+<TT>solve</TT> example from Subsection&nbsp;<A HREF="node65.html#ss:r-arrays">5.4</A> is given below, 
+wherein r-array data are presented as <TT>double</TT> pointers, and 
+index variables are normal integers.
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">void
+impl_num_Linsol_solve(/* in */ num_Linsol self,
+                      /* in rarray[m,n] */ double* A,
+                      /* inout rarray[n] */ double* x,
+                      /* in */ int32_t m,
+                      /* in */ int32_t n,
+                      /* out */ sidl_BaseInterface *_ex)
+{
+  *_ex = 0;
+  /* DO-NOT-DELETE splicer.begin(num.Linsol.solve) */
+  /* Insert-Code-Here {num.Linsol.solve} (solve method) */
+  /* DO-NOT-DELETE splicer.end(num.Linsol.solve) */
+}
+</PRE></td></tr></table></blockquote>
+<P>
+Data for the 2-D array, <TT>A</TT>, is in column-major order. The
+<TT>RarrayElem2</TT><A NAME="7085"></A> helper macro, described in 
+Subsection&nbsp;<A HREF="node126.html#sss:c:arrays">6.2.3</A>, can be used to access <TT>A</TT>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

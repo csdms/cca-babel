@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: set</TITLE>
+<META NAME="description" CONTENT="Function: set">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node94.html">
+<LINK REL="previous" HREF="node92.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node94.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2321"
+  HREF="node94.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2315"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2309"
+  HREF="node92.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2317"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2319"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2322"
+  HREF="node94.html">Function: dimen</A>
+<B> Up:</B> <A NAME="tex2html2316"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2310"
+  HREF="node92.html">Function: set5-7</A>
+ &nbsp; <B>  <A NAME="tex2html2318"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2320"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION024482200000000000000"></A><A NAME="3744"></A>
+<BR>
+Function: set
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+void
+sidl_double__array_set(struct sidl_double__array* array,
+                       const int32_t              indices[],
+                       double                     value);
+
+// C++
+void
+sidl::array&lt;double&gt;::set(const int32_t indices[], double value);
+
+C FORTRAN 77
+       subroutine sidl_double__array_set_f(array, indices, value)
+       integer*8 array
+       integer*4 indices()
+       real*8 value
+
+! FORTRAN 90
+subroutine set(array, indices, value)
+  type(sidl_double_1d), intent(in) :: array ! type depends on dimension
+  integer (selected_int_kind(9)), intent(in), dimension(:) :: indices
+  real (selected_real_kind(17,308)), intent(in) :: value
+
+// Java
+  public native void _set(int i, int j, int k, int l, int m, int n, 
+                          int o, double value);
+</PRE></td></tr></table></blockquote>
+<P>
+This method sets the value in index indices for an array of any dimension to value. 
+The type of the argument value is the value type for the SIDL type being held (see
+table&nbsp;<A HREF="node71.html#tbl:basics:arraytypes">5.2</A>). 
+For arrays of objects and interfaces, the array will make its own reference 
+by calling <TT>addRef()</TT> on value, so the client retains its reference to value.
+For arrays of strings, the array will make a copy of the string, so the client 
+retains ownership of the value pointer.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

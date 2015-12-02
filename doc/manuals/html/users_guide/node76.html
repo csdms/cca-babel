@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: create2dRow</TITLE>
+<META NAME="description" CONTENT="Function: create2dRow">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node77.html">
+<LINK REL="previous" HREF="node75.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node77.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2083"
+  HREF="node77.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2077"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2071"
+  HREF="node75.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2079"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2081"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2084"
+  HREF="node77.html">Function: slice</A>
+<B> Up:</B> <A NAME="tex2html2078"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2072"
+  HREF="node75.html">Function: create2dCol</A>
+ &nbsp; <B>  <A NAME="tex2html2080"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2082"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION02448500000000000000"></A><A NAME="3569"></A>
+<BR>
+Function: create2dRow
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+struct sidl_double__array*
+sidl_double__array_create2dRow(int32_t m, int32_t n);
+
+// C++
+static sidl::array&lt;double&gt;
+sidl::array&lt;double&gt;::create2dRow(int32_t m, int32_t n);
+
+C FORTRAN 77
+       subroutine sidl_double__array_create2dRow_f(m, n, result)
+       integer*4 m, n
+       integer*8 result
+
+! FORTRAN 90
+subroutine create2dRow(m, n, result)
+  integer (selected_int_kind(9)), intent(in) :: m, n
+  type(sidl_double_2d), intent(out) :: result
+
+// Java
+// isRow should be false to get a column order array 
+  public Array2(int s0, int s1, boolean isRow);
+</PRE></td></tr></table></blockquote>
+<P>
+This method creates a dense, row-major, two-dimensional array of ints
+with a lower index of <SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img19.png"
+ ALT="$(0, 0)$"></SPAN> and an upper index of <!-- MATH
+ $(m - 1, n - 1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="101" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.png"
+ ALT="$(m - 1, n -
+1)$"></SPAN>.
+If <SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.png"
+ ALT="$m \leq 0$"></SPAN> or <SPAN CLASS="MATH"><IMG
+ WIDTH="42" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.png"
+ ALT="$n \leq 0$"></SPAN>, this method returns NULL. This is defined
+primarily as a convenience for C and C++ programmers; Fortran
+programmers should note that this subroutine creates arrays whose
+lower index is <EM>0</EM> not like standard Fortran arrays whose lower
+index is 1.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

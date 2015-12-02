@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Exception catching</TITLE>
+<META NAME="description" CONTENT="Exception catching">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node184.html">
+<LINK REL="previous" HREF="node182.html">
+<LINK REL="up" HREF="node178.html">
+<LINK REL="next" HREF="node184.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3858"
+  HREF="node184.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3852"
+  HREF="node178.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3846"
+  HREF="node182.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3854"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3856"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3859"
+  HREF="node184.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html3853"
+  HREF="node178.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3847"
+  HREF="node182.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html3855"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3857"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03335000000000000000"></A><A NAME="ss:f77:exceptioncatching"></A><A NAME="10031"></A><A NAME="10032"></A>
+<A NAME="10033"></A>
+<BR>
+Exception catching
+</H2>
+
+<P>
+Since all methods can now throw <TT><I CLASS="slanted">sidl.RuntimeException</I></TT>
+<A NAME="10035"></A>, Babel ensures there is an
+<TT><I CLASS="slanted">out</I></TT> argument to hold an exception.  If not explicitly specified,
+Babel will automatically add the argument.
+For maximum backward compatibility, the base exception argument type
+is <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.BaseInterface</I></TT>, while the base exception class is
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.SIDLException</I></TT>.  The exception argument appears after the
+return value when both occur in a method.  
+
+<P>
+After the call, the client
+should test this argument.  If a function does not test the exception
+argument, thrown exceptions will be utterly ignored -- not propagated
+to higher level functions.  If the exception parameter is non-zero, an
+exception was thrown by the method, and the caller should respond
+appropriately.  When an exception is thrown, the value of all other
+arguments is undefined (so should be ignored).
+
+<P>
+One approach to exception handling is to pass the exception on to the
+caller.  In this case, <TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.BaseException</I><I CLASS="slanted">.add</I></TT> 
+should be called to add another line in the stack trace for the exception.
+<TT><I CLASS="slanted">sidl</I><I CLASS="slanted">.BaseException</I></TT> defines two methods that can be helpful when
+reporting exceptions to end users<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>getNote</TT> and
+<TT>getTrace</TT>.  <TT>getNote</TT> often provides some indication of what
+went wrong.  Its contents are provided by the implementor of the
+called function, so it can be empty.  Similarly, <TT>getTrace</TT>
+provides a summary of the call stack.  Again, 
+implementors are responsible for providing the information.
+
+<P>
+Alternatively, the caller could try to determine which exception was thrown
+through casting the argument.  A successful cast
+indicates the type of exception that has occurred.  
+An example of this process is illustrated below, though not all exceptions
+associated with the method are checked.  
+The SIDL specification and corresponding FORTRAN 77 API are given in
+Section&nbsp;<A HREF="node171.html#ss:f77:signatures">8.2.2</A>.
+<A NAME="10051"></A>
+<A NAME="10052"></A><A NAME="10053"></A>
+<A NAME="10054"></A><A NAME="10055"></A>
+<A NAME="10056"></A><A NAME="10057"></A>
+<A NAME="10058"></A><A NAME="10059"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">       integer*8 fib, except, except2, except3
+       integer*4 index, maxdepth, maxval, depth, result
+       call ExceptionTest_Fib__create_f(fib, except)
+       if (except .ne. 0) then
+C         do something with a runtime exception
+       endif
+       index = 4
+       maxdepth = 100
+       maxvalue = 32000
+       depth = 0
+       call ExceptionTest_getFib_f(fib, index, maxdepth,
+     $       maxvalue, depth, result, except)
+       if (except .ne. 0) then
+         call ExceptionTest_FibException__cast_f(except, except2, except3)
+         if (except2 .ne. 0) then
+c           do something here with the FibException
+            call ExceptionTest_FibException_deleteRef_f(except2, except3)
+         else
+           call ExceptionTest_NegativeValueException__cast_f
+     $           (exception, except2, except3)
+c          do something here with the NegativeValueException
+            call ExceptionTest_NegativeValueException_
+     $           deleteRef_f(except2, except3)
+         endif
+         call sidl_BaseException_deleteRef_f(except, except3)
+       else
+         write (*,*) 'getFib for ', index, ' returned ', result
+       endif
+       call ExceptionTest_Fib_deleteRef_f(fib, except)
+</PRE></td></tr></table></blockquote>
+<P>
+If one of the
+possible exception types is a subclass of another, casting to the subclass 
+should be attempted before casting to the superclass -- assuming
+that the distinction between the two exception types results in
+different exception recovery behavior. 
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3858"
+  HREF="node184.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3852"
+  HREF="node178.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3846"
+  HREF="node182.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3854"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3856"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3859"
+  HREF="node184.html">Hooks execution</A>
+<B> Up:</B> <A NAME="tex2html3853"
+  HREF="node178.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html3847"
+  HREF="node182.html">Overloaded methods</A>
+ &nbsp; <B>  <A NAME="tex2html3855"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3857"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

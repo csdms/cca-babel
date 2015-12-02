@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Bindings generation</TITLE>
+<META NAME="description" CONTENT="Bindings generation">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node205.html">
+<LINK REL="previous" HREF="node203.html">
+<LINK REL="up" HREF="node203.html">
+<LINK REL="next" HREF="node205.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4190"
+  HREF="node205.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4184"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4178"
+  HREF="node203.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4186"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4188"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4191"
+  HREF="node205.html">Object management</A>
+<B> Up:</B> <A NAME="tex2html4185"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4179"
+  HREF="node203.html">Client-side</A>
+ &nbsp; <B>  <A NAME="tex2html4187"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4189"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03431000000000000000"></A>
+<A NAME="11707"></A>
+<A NAME="11708"></A><A NAME="11709"></A>
+<BR>
+Bindings generation
+</H2>
+
+<P>
+The following is an example of invoking Babel to create the Fortran 90 
+stubs for a SIDL file<A NAME="tex2html41"
+  HREF="footnode.html#foot11981"><SUP><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="11711"></A>
+
+<P>
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -exclude-external -client=f90 file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>or simply
+<BLOCKQUOTE>
+<TT> <TT>%</TT> <TT><B>babel -E -c=f90 file.sidl</B></TT>
+<BR>
+</TT></BLOCKQUOTE>
+<P>
+As a result, a makefile fragment called <TT>babel.make</TT>, numerous C header 
+and source files, and some Fortran 90 files will be created.  Files ending in
+<TT>_fStub.c</TT> (i.e., <TT>STUBSRCS</TT> in <TT>babel.make</TT>) are called 
+by the Fortran 90 module which in turn allow Fortran 90 to call SIDL 
+methods.  Files ending in <TT>_type.F90</TT> (i.e., <TT>STUBMODULESRCS</TT> 
+in <TT>babel.make</TT>) contain derived type definitions for classes and 
+interfaces.  The remaining files ending in <TT>.F90</TT> (i.e., 
+<TT>TYPEMODULESRCS</TT> in <TT>babel.make</TT>) are Fortran 90 modules 
+containing methods.  All of these files need to be compiled and 
+linked into the application.  
+
+<P>
+Normally, IOR files (i.e., those ending in <TT>_IOR.c</TT>) are linked 
+together with the implementation file, so probably don't need to be compiled.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Hooks execution</TITLE>
+<META NAME="description" CONTENT="Hooks execution">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node268.html">
+<LINK REL="previous" HREF="node266.html">
+<LINK REL="up" HREF="node258.html">
+<LINK REL="next" HREF="node268.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5165"
+  HREF="node268.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5159"
+  HREF="node258.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5153"
+  HREF="node266.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5161"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5163"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5166"
+  HREF="node268.html">Contract enforcement</A>
+<B> Up:</B> <A NAME="tex2html5160"
+  HREF="node258.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html5154"
+  HREF="node266.html">Exception catching</A>
+ &nbsp; <B>  <A NAME="tex2html5162"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5164"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03638000000000000000"></A><A NAME="ss:python:sethooks"></A><A NAME="15869"></A><A NAME="15870"></A>
+<A NAME="15871"></A><A NAME="15872"></A>
+<A NAME="15873"></A><A NAME="15874"></A>
+<BR>
+Hooks execution
+</H2>
+
+<P>
+If a given component supports pre- and post-method invocation instrumentation,
+also known as ``hooks'', their execution can be enabled or disabled at
+runtime through the built-in <TT>_set_hooks</TT> method.  For example,
+given the following SIDL specification<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package hooks version 1.0
+{
+  class Basics {
+    /**
+     * Basic illustration of hooks for static methods.
+     */
+    static int aStaticMeth(in int i, out int o, inout int io);
+
+    /**
+     * Basic illustration of hooks for static methods.
+     */
+    int aNonStaticMeth(in int i, out int o, inout int io);
+  }
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+which has a single static function and a member function for the
+<TT>Basics</TT> class, the processes for enabling and disabling
+execution of the implementation-specific hooks are<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">
+  obj = hooks.Basics.Basics()
+  
+#
+# Enable hooks execution (enabled by default)
+# ...for non-static methods
+#
+    hooks.Basics._set_hooks_static(1)
+#
+# ...for static methods
+#
+    obj._set_hooks(1)
+
+#
+# ...do something important...
+#
+  
+#
+# Disable hooks execution
+# ...for non-static methods
+#
+    hooks.Basics._set_hooks_static(0)
+#
+# ...for static methods
+#
+    obj._set_hooks(0)
+
+#
+# ...do something important...
+#
+</PRE></td></tr></table></blockquote>
+<P>
+It is important to keep in mind that the <TT>_set_hooks_static</TT>
+method must be used to enable/disable invocation of hooks for static 
+methods and the <TT>_set_hooks</TT> method must be used for those of
+non-static methods.  Also, Babel does not provide client access to the
+<TT>_pre</TT> and <TT>_post</TT> methods; therefore, they cannot be invoked
+directly.  More information on the instrumentation process is provided
+in Subsection&nbsp;<A HREF="node142.html#ss:c:hooksimpl">6.4.5</A>.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

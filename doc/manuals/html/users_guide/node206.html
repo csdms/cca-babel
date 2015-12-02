@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Static methods</TITLE>
+<META NAME="description" CONTENT="Static methods">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node207.html">
+<LINK REL="previous" HREF="node205.html">
+<LINK REL="up" HREF="node203.html">
+<LINK REL="next" HREF="node207.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4218"
+  HREF="node207.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4212"
+  HREF="node203.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4206"
+  HREF="node205.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4214"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4216"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4219"
+  HREF="node207.html">Overloaded methods</A>
+<B> Up:</B> <A NAME="tex2html4213"
+  HREF="node203.html">Client-side</A>
+<B> Previous:</B> <A NAME="tex2html4207"
+  HREF="node205.html">Object management</A>
+ &nbsp; <B>  <A NAME="tex2html4215"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4217"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03433000000000000000"></A>
+<A NAME="11759"></A>
+<BR>
+Static methods
+</H2>
+
+<P>
+Below is an example illustrating a call to <TT>addSearchPath()</TT>, which
+is a static method in the <TT><I CLASS="slanted">sidl.Loader</I></TT> class.
+<A NAME="11762"></A>
+<A NAME="11763"></A>
+<A NAME="11764"></A><A NAME="11765"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">  use sidl_Loader
+  use sidl_BaseInterface
+  type(sidl_BaseInterface_t) :: exception
+  ! later
+  call addSearchPath('/try/looking/here', exception)
+      </PRE></td></tr></table></blockquote>
+<P>
+Note the function is invoked directly, without an object reference
+argument.
+
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

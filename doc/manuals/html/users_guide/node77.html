@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function: slice</TITLE>
+<META NAME="description" CONTENT="Function: slice">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node78.html">
+<LINK REL="previous" HREF="node76.html">
+<LINK REL="up" HREF="node71.html">
+<LINK REL="next" HREF="node78.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2097"
+  HREF="node78.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2091"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2085"
+  HREF="node76.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2093"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2095"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2098"
+  HREF="node78.html">Function: borrow</A>
+<B> Up:</B> <A NAME="tex2html2092"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2086"
+  HREF="node76.html">Function: create2dRow</A>
+ &nbsp; <B>  <A NAME="tex2html2094"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2096"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION02448600000000000000"></A><A NAME="3573"></A>
+<BR>
+Function: slice
+</H3>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">/* C */
+struct sidl_double__array *
+sidl_double__array_slice(struct sidl_double__array *src,
+                         int32_t                    dimen,
+                         const int32_t              numElem[],
+                         const int32_t             *srcStart,
+                         const int32_t             *srcStride,
+                         const int32_t             *newStart);
+//
+// C++
+array&lt;double&gt;
+sidl::array&lt;double&gt;::slice(int dimen,
+                           const int32_t numElem[],
+                           const int32_t *srcStart = 0,
+                           const int32_t *srcStride = 0,
+                           const int32_t *newStart = 0);
+C
+C FORTRAN 77
+       subroutine sidl_double__array_slice_f(src, dimen, numElem, srcStart,
+      $                       srcStride, newStart, result)
+       integer*8 src, result
+       integer*4 dimen
+       integer*4 numElem(srcDimen), srcStart(srcDimen)
+       integer*4 srcStride(srcDimen),  newStart(dimen)
+!
+! FORTRAN 90
+subroutine slice(src, dimen, numElem, srcStart, srcStride, newStart, result)
+  type(sidl_double_3d), intent(in) :: src     ! type depends on dimension
+  type(sidl_double_2d), intent(out) :: result ! type depends on dimension
+  integer (selected_int_kind(9)), intent(in) :: dimen
+  integer (selected_int_kind(9)), intent(in), dimension(:) :: &amp;
+     numElem, srcStart, srcStride, newStart
+
+// Java
+  public native Array _slice(int dimen, int[] numElem, int[] srcStart,
+			     int[] srcStride, int[] newStart);
+</PRE></td></tr></table></blockquote>
+<P>
+This method will create a sub-array of another array. The resulting
+array shares data with the original array.  The new array can be of
+the same dimension or potentially less than the original array.  If
+you are removing a dimension, indicate the dimensions to remove by
+setting <TT>numElem[i]</TT> to zero for any dimension <TT>i</TT> that
+should go away in the new array.  The meaning of each argument is
+covered below.
+<DL>
+<DT><STRONG>src</STRONG></DT>
+<DD>the array to be created will be a subset of this array.  If
+this argument is NULL, NULL will be returned.  The returned array
+borrows data from <TT>src</TT>, so modifying one array modifies both.
+In C++, the <TT>this</TT> pointer takes the place of <TT>src</TT>.
+</DD>
+<DT><STRONG>dimen</STRONG></DT>
+<DD>this argument must be greater than zero and less than or
+equal to the dimension of <TT>src</TT>.  An illegal value will cause a
+NULL return value.
+</DD>
+<DT><STRONG>numElem</STRONG></DT>
+<DD>this specifies how many elements from src should be
+in the new array in each dimension.  A zero entry indicates that the 
+dimension should not appear in the new array. This argument should
+be an array with an entry for each dimension of <TT>src</TT>. 
+<TT>NULL</TT> will be returned for <TT>src</TT> if either
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="RIGHT"><TT>srcStart[i] + numElem[i] * srcStride[i]</TT></TD>
+<TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$&gt;$"></SPAN></TD>
+<TD ALIGN="LEFT"><TT>upper[i]</TT>,   or</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><TT>srcStart[i] + numElem[i] * srcStride[i]</TT></TD>
+<TD ALIGN="CENTER"><SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$&lt;$"></SPAN></TD>
+<TD ALIGN="LEFT"><TT>lower[i]</TT></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+</DD>
+<DT><STRONG>srcStart</STRONG></DT>
+<DD>this parameter specifies which element of <TT>src</TT>
+will be the first element of the new array.  If this argument is NULL,
+the first element of <TT>src</TT> will be the first element of the new
+array.  If non-NULL, this argument provides the coordinates of an
+element of <TT>src</TT>, so it must have an entry for each dimension of
+<TT>src</TT>.  <TT>NULL</TT> will be returned for <TT>src</TT> if either
+<DIV ALIGN="CENTER">
+<TT>srcStart[i] &lt; lower[i]</TT>,  or <TT>srcStart[i] &gt; upper[i]</TT>.
+
+</DIV>
+
+<P>
+</DD>
+<DT><STRONG>srcStride</STRONG></DT>
+<DD>this argument lets you specify the stride between
+elements of <TT>src</TT> for each dimension.  For example with a stride
+of 2, you could create a sub-array with only the odd or even elements
+of <TT>src</TT>.  If this argument is NULL, the stride is taken to be
+one in each dimension.  If non-NULL, this argument should be an array
+with an entry for each dimension of <TT>src</TT>.  The stride values are
+relative to the original source array, <TT>src</TT>, so the default
+stride of one in each dimension is appropriate for cases where you
+want a dense subsection of the original array.
+</DD>
+<DT><STRONG>newLower</STRONG></DT>
+<DD>this argument is like the <TT>lower</TT> argument in a
+create method.  It sets the coordinates for the first element in the
+new array.  If this argument is NULL, the values indicated by
+<TT>srcStart</TT> will be used.  If non-NULL, this should be an array
+with <TT>dimen</TT> elements.
+</DD>
+</DL>
+Assuming the method is successful and the return value is named
+newArray, <TT>src[srcStart]</TT> refers to the same underlying element
+as <TT>newArray[newStart]</TT>.
+
+<P>
+If <TT>src</TT> is not a borrowed array (i.e., it manages its own data),
+the returned array can manage its by keeping a reference to
+<TT>src</TT>.  It is not considered a borrowed array for purposes of
+<TT>smartCopy</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2097"
+  HREF="node78.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2091"
+  HREF="node71.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2085"
+  HREF="node76.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2093"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2095"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2098"
+  HREF="node78.html">Function: borrow</A>
+<B> Up:</B> <A NAME="tex2html2092"
+  HREF="node71.html">The Array API</A>
+<B> Previous:</B> <A NAME="tex2html2086"
+  HREF="node76.html">Function: create2dRow</A>
+ &nbsp; <B>  <A NAME="tex2html2094"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2096"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

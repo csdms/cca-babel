@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Parameter Passing</TITLE>
+<META NAME="description" CONTENT="Parameter Passing">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node116.html">
+<LINK REL="previous" HREF="node114.html">
+<LINK REL="up" HREF="node112.html">
+<LINK REL="next" HREF="node116.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2629"
+  HREF="node116.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2623"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2617"
+  HREF="node114.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2625"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2627"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2630"
+  HREF="node116.html">Method Overloading</A>
+<B> Up:</B> <A NAME="tex2html2624"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2618"
+  HREF="node114.html">Methods on Objects</A>
+ &nbsp; <B>  <A NAME="tex2html2626"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2628"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02473000000000000000">
+Parameter Passing</A>
+</H2>
+
+<P>
+Each parameter in a method call obeys the following syntax
+<BLOCKQUOTE>
+<TT> [ (modifier) ] (mode) (type) (name)
+</TT></BLOCKQUOTE><A NAME="6243"></A><A NAME="6244"></A><A NAME="6245"></A><A NAME="6246"></A><A NAME="6247"></A>
+Where <TT>(mode)</TT> is one of <TT><I CLASS="slanted">in</I></TT>, 
+<TT><I CLASS="slanted">out</I></TT>, or <TT><I CLASS="slanted">inout</I></TT>;  <TT>(type)</TT> is
+any SIDL recognized type; and <TT>(name)</TT> is
+any non-reserved word<A NAME="tex2html32"
+  HREF="footnode.html#foot6290"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>.
+The <TT>(modifier)</TT> is optional, and currently
+unimplemented.  SIDL currently reserves the word
+<TT><I CLASS="slanted">copy</I></TT> for future use as an parameter modifier, 
+and may add others in the future<A NAME="tex2html33"
+  HREF="footnode.html#foot6257"><SUP><SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>.
+
+<P>
+For new users, the parameter's mode (e.g. <TT><I CLASS="slanted">in</I></TT>, 
+<TT><I CLASS="slanted">out</I></TT>, or <TT><I CLASS="slanted">inout</I></TT>) is perhaps the most troublesome.
+On the surface, it's easy to explain that <TT><I CLASS="slanted">in</I></TT> parameters
+are passed into the code, <TT><I CLASS="slanted">out</I></TT> parameters come out, 
+and <TT><I CLASS="slanted">inout</I></TT> parameters do both.  More specifically the rules are:
+
+<P>
+
+<OL>
+<LI><TT><I CLASS="slanted">in</I></TT> does not mean <TT>const</TT>.
+</LI>
+<LI><TT><I CLASS="slanted">in</I></TT> arguments are passed by value, therefore what happens
+	   inside the function has no effect on the value passed in (from the
+	   perspective of the caller).
+</LI>
+<LI><TT><I CLASS="slanted">inout</I></TT> arguments are passed by reference.  The callee is
+	   allowed to do whatever it wants with the data passed in,
+	   and changes made by the callee are sent back to the caller.
+	   For interfaces, classes, and normal arrays, the callee
+	   can even destroy the reference, create a new object or
+	   array, and return a reference to it.
+</LI>
+<LI>Objects, interfaces and arrays should be allocated using the
+  create methods provided. Types created on the stack should never be
+  passed as an <TT><I CLASS="slanted">inout</I></TT> argument, since the implementation
+  may want to destroy it.
+</LI>
+<LI><TT><I CLASS="slanted">out</I></TT> arguments are also passed by reference, but the 
+           incoming value is ignore and typically overwritten.
+	   <SPAN  CLASS="textit">Do Not</SPAN> attempt to
+	   pass in a value to a function through an out argument.  There is no
+	   guarantee  that the data will make it to the Implementation, and if the
+	   data is lost, there is no guarantee  the reference will be correctly destroyed.
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2629"
+  HREF="node116.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2623"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2617"
+  HREF="node114.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2625"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2627"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2630"
+  HREF="node116.html">Method Overloading</A>
+<B> Up:</B> <A NAME="tex2html2624"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2618"
+  HREF="node114.html">Methods on Objects</A>
+ &nbsp; <B>  <A NAME="tex2html2626"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2628"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

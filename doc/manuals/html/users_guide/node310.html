@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Non-Blocking Babel RMI</TITLE>
+<META NAME="description" CONTENT="Non-Blocking Babel RMI">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node306.html">
+<LINK REL="up" HREF="node294.html">
+<LINK REL="next" HREF="node311.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5864"
+  HREF="node311.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5858"
+  HREF="node294.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5854"
+  HREF="node309.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5860"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5862"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5865"
+  HREF="node311.html">Protocols</A>
+<B> Up:</B> <A NAME="tex2html5859"
+  HREF="node294.html">Remote Method Invocation</A>
+<B> Previous:</B> <A NAME="tex2html5855"
+  HREF="node309.html">De-publishing Babel Objects</A>
+ &nbsp; <B>  <A NAME="tex2html5861"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5863"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04150000000000000000"></A><A NAME="s:RMInonblock"></A><A NAME="17732"></A>
+<BR>
+Non-Blocking Babel RMI
+</H1>
+
+<P>
+Non-Blocking RMI is an even more advanced topic, but it is essential to
+high-speed distributed computing<A NAME="17733"></A>.  Non-Blocking RMI allows the user to
+mix work and communication.  Many scientific computing related methods
+may take a very long time to complete, and the client might like to do
+some work while waiting.  Non-blocking calls return immediately after
+sending the information to the server.  When the response comes back,
+the user can make a special call to access the data.  During the time
+between the send and the receive, the client is free to do other work.
+
+<P>
+There are two types of Non-blocking RMI in Babel, Nonblocking and
+oneway<A NAME="17734"></A><A NAME="17735"></A>.  Both are declared as attributes on the method in SIDL.  The
+difference is that with oneway communication, the client does not
+expect any return values.  A oneway method will not even return an
+exception, unless it occurs during communication with the server.  On
+the other hand, a non-blocking call can have return arguments.  The
+user will send a request, and get a <TT><I CLASS="slanted">sidl.rmi.Ticket</I></TT>. Later, the
+user may use the <TT><I CLASS="slanted">Ticket</I></TT><A NAME="17738"></A><A NAME="17739"></A> to receive the out arguments.  
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html5866"
+  HREF="node311.html">Protocols</A>
+<LI><A NAME="tex2html5867"
+  HREF="node312.html">Nonblocking SIDL</A>
+<LI><A NAME="tex2html5868"
+  HREF="node313.html">Tickets</A>
+<LI><A NAME="tex2html5869"
+  HREF="node314.html">Non-blocking Usage</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5864"
+  HREF="node311.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5858"
+  HREF="node294.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5854"
+  HREF="node309.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5860"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5862"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5865"
+  HREF="node311.html">Protocols</A>
+<B> Up:</B> <A NAME="tex2html5859"
+  HREF="node294.html">Remote Method Invocation</A>
+<B> Previous:</B> <A NAME="tex2html5855"
+  HREF="node309.html">De-publishing Babel Objects</A>
+ &nbsp; <B>  <A NAME="tex2html5861"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5863"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

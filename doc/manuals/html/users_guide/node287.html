@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Packages</TITLE>
+<META NAME="description" CONTENT="Packages">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node288.html">
+<LINK REL="previous" HREF="node286.html">
+<LINK REL="up" HREF="node285.html">
+<LINK REL="next" HREF="node288.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html5460"
+  HREF="node288.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5454"
+  HREF="node285.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5448"
+  HREF="node286.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5456"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5458"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html5461"
+  HREF="node288.html">Interfaces</A>
+<B> Up:</B> <A NAME="tex2html5455"
+  HREF="node285.html">Basic Structure</A>
+<B> Previous:</B> <A NAME="tex2html5449"
+  HREF="node286.html">Common Elements</A>
+ &nbsp; <B>  <A NAME="tex2html5457"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html5459"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03832000000000000000"></A>
+<A NAME="17373"></A>
+<BR>
+Packages
+</H2>
+In addition to the common elements, packages retain elements and attributes
+associated with SIDL packages.  These include whether or not the package is 
+<SPAN  CLASS="textit">final</SPAN> along with a list of the symbols contained within the package.  
+The list of symbols consists of the tuple: name, type, and version.
+
+<P>
+For example, the XML representation of the toplevel SIDL package (i.e., 
+<TT><I CLASS="slanted">sidl</I></TT>) is:
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!DOCTYPE Symbol PUBLIC "-//CCA//sidl Symbol DTD v1.1//EN"
+  "/babel/share/repository/sidl.dtd"&gt;
+&lt;Symbol&gt;
+  &lt;SymbolName name="sidl" version="0.9.12" /&gt;
+  &lt;Metadata date="20051208 10:47:28 PST"&gt;
+    &lt;MetadataEntry key="source-url"
+    value="file:/babel/runtime/sidl/sidl.sidl" /&gt;
+    &lt;MetadataEntry key="babel-version" value="0.10.51" /&gt;
+    &lt;MetadataEntry key="xml-url"
+    value="/babel/share/repository/sidl-v0.9.12.xml" /&gt;
+    &lt;MetadataEntry key="source-line" value="39" /&gt;
+  &lt;/Metadata&gt;
+  &lt;Comment&gt;The 
+  &lt;code&gt;sidl&lt;/code&gt;package contains the fundamental type and
+  interface definitions for the 
+  &lt;code&gt;sidl&lt;/code&gt;interface definition language. It defines common
+  run-time libraries and common base classes and interfaces. Every
+  interface implicitly inherits from 
+  &lt;code&gt;sidl.BaseInterface&lt;/code&gt;and every class implicitly
+  inherits from 
+  &lt;code&gt;sidl.BaseClass&lt;/code&gt;.&lt;/Comment&gt;
+  &lt;Package final="false"&gt;
+    &lt;PackageSymbol name="BaseInterface" type="interface"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="BaseClass" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="io" type="package" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="BaseException" type="interface"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="RuntimeException" type="interface"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="SIDLException" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="PreViolation" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="PostViolation" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="InvViolation" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="Scope" type="enum" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="Resolve" type="enum" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="DLL" type="class" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="Finder" type="interface"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="DFinder" type="class" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="Loader" type="class" version="0.9.12" /&gt;
+    &lt;PackageSymbol name="ClassInfo" type="interface"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="ClassInfoI" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="MemoryAllocationException" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="CastException" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="LangSpecificException" type="class"
+    version="0.9.12" /&gt;
+    &lt;PackageSymbol name="rmi" type="package" version="0.9.12" /&gt;
+  &lt;/Package&gt;
+&lt;/Symbol&gt;
+</PRE></td></tr></table></blockquote>
+<P>
+<BR><HR>
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

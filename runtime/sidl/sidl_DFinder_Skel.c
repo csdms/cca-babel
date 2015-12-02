@@ -1,0 +1,183 @@
+/*
+ * File:          sidl_DFinder_Skel.c
+ * Symbol:        sidl.DFinder-v0.9.17
+ * Symbol Type:   class
+ * Babel Version: 1.4.0 (Revision: 6607 release-1-4-0-branch)
+ * Release:       $Name:  $
+ * Revision:      @(#) $Id: $
+ * Description:   Server-side glue code for sidl.DFinder
+ * 
+ * Copyright (c) 2000-2002, Lawrence Livermore National Security, LLC.
+ * Produced at the Lawrence Livermore National Laboratory.
+ * Written by the Components Team <components@llnl.gov>
+ * All rights reserved.
+ * 
+ * This file is part of Babel. For more information, see
+ * http://www.llnl.gov/CASC/components/. Please read the COPYRIGHT file
+ * for Our Notice and the LICENSE file for the GNU Lesser General Public
+ * License.
+ * 
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License (as published by
+ * the Free Software Foundation) version 2.1 dated February 1999.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the IMPLIED WARRANTY OF
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the terms and
+ * conditions of the GNU Lesser General Public License for more details.
+ * 
+ * You should have recieved a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ * WARNING: Automatically generated; changes will be lost
+ * 
+ */
+
+#include "sidl_DFinder_IOR.h"
+#include "sidl_DFinder.h"
+#include <stddef.h>
+
+#ifdef WITH_RMI
+#ifndef included_sidl_BaseInterface_h
+#include "sidl_BaseInterface.h"
+#endif
+#endif /* WITH_RMI */
+extern
+void
+impl_sidl_DFinder__load(
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+void
+impl_sidl_DFinder__ctor(
+  /* in */ sidl_DFinder self,
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+void
+impl_sidl_DFinder__ctor2(
+  /* in */ sidl_DFinder self,
+  /* in */ void* private_data,
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+void
+impl_sidl_DFinder__dtor(
+  /* in */ sidl_DFinder self,
+  /* out */ sidl_BaseInterface *_ex);
+
+#ifdef WITH_RMI
+extern struct sidl_BaseInterface__object* 
+  impl_sidl_DFinder_fconnect_sidl_BaseInterface(const char* url, sidl_bool ar, 
+  sidl_BaseInterface *_ex);
+#endif /*WITH_RMI*/
+extern
+sidl_DLL
+impl_sidl_DFinder_findLibrary(
+  /* in */ sidl_DFinder self,
+  /* in */ const char* sidl_name,
+  /* in */ const char* target,
+  /* in */ enum sidl_Scope__enum lScope,
+  /* in */ enum sidl_Resolve__enum lResolve,
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+void
+impl_sidl_DFinder_setSearchPath(
+  /* in */ sidl_DFinder self,
+  /* in */ const char* path_name,
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+char*
+impl_sidl_DFinder_getSearchPath(
+  /* in */ sidl_DFinder self,
+  /* out */ sidl_BaseInterface *_ex);
+
+extern
+void
+impl_sidl_DFinder_addSearchPath(
+  /* in */ sidl_DFinder self,
+  /* in */ const char* path_fragment,
+  /* out */ sidl_BaseInterface *_ex);
+
+#ifdef WITH_RMI
+extern struct sidl_BaseInterface__object* 
+  impl_sidl_DFinder_fconnect_sidl_BaseInterface(const char* url, sidl_bool ar, 
+  sidl_BaseInterface *_ex);
+#endif /*WITH_RMI*/
+static sidl_DLL
+skel_sidl_DFinder_findLibrary(
+  /* in */ struct sidl_DFinder__object*self,
+  /* in */ const char* sidl_name,
+  /* in */ const char* target,
+  /* in */ int64_t lScope,
+  /* in */ int64_t lResolve,
+/* out */ struct sidl_BaseInterface__object **_ex)
+{
+  sidl_DLL _return;
+  _return =
+    impl_sidl_DFinder_findLibrary(
+      self,
+      sidl_name,
+      target,
+      lScope,
+      lResolve,
+      _ex);
+  return _return;
+}
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void
+sidl_DFinder__set_epv(struct sidl_DFinder__epv *epv)
+{
+  epv->f__ctor = impl_sidl_DFinder__ctor;
+  epv->f__ctor2 = impl_sidl_DFinder__ctor2;
+  epv->f__dtor = impl_sidl_DFinder__dtor;
+  epv->f_findLibrary = skel_sidl_DFinder_findLibrary;
+  epv->f_setSearchPath = impl_sidl_DFinder_setSearchPath;
+  epv->f_getSearchPath = impl_sidl_DFinder_getSearchPath;
+  epv->f_addSearchPath = impl_sidl_DFinder_addSearchPath;
+
+}
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void sidl_DFinder__call_load(void) { 
+  sidl_BaseInterface _throwaway_exception = NULL;
+  impl_sidl_DFinder__load(&_throwaway_exception);
+}
+#ifdef WITH_RMI
+struct sidl_BaseInterface__object* 
+  skel_sidl_DFinder_fconnect_sidl_BaseInterface(const char* url, sidl_bool ar, 
+  sidl_BaseInterface *_ex) { 
+  return sidl_BaseInterface__connectI(url, ar, _ex);
+}
+
+#endif /*WITH_RMI*/
+struct sidl_DFinder__data*
+sidl_DFinder__get_data(sidl_DFinder self)
+{
+  return (struct sidl_DFinder__data*)(self ? self->d_data : NULL);
+}
+
+void sidl_DFinder__set_data(
+  sidl_DFinder self,
+  struct sidl_DFinder__data* data)
+{
+  if (self) {
+    self->d_data = data;
+  }
+}
+#ifdef __cplusplus
+}
+#endif

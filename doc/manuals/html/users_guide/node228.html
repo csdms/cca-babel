@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type casting</TITLE>
+<META NAME="description" CONTENT="Type casting">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node223.html">
+<LINK REL="up" HREF="node219.html">
+<LINK REL="next" HREF="node229.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html4560"
+  HREF="node229.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4554"
+  HREF="node219.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4550"
+  HREF="node227.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4556"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4558"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4561"
+  HREF="node229.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html4555"
+  HREF="node219.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4551"
+  HREF="node227.html">Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html4557"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4559"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03524000000000000000"></A><A NAME="ss:java:casting"></A><A NAME="13846"></A><A NAME="13847"></A>
+<A NAME="13848"></A>
+<BR>
+Type casting
+</H2>
+
+<P>
+There are two issues associated with casting of types in the Java bindings.
+The simplest is the casting of SIDL objects implemented in Java.  The second
+involves the casting of SIDL interfaces which, as discussed in 
+Subsection&nbsp;<A HREF="node224.html#sss:Java:ifcs">10.2.3</A>, is a little more involved.  This subsection 
+describes the normal, object casting process before that of the Java 
+equivalents of SIDL interfaces.
+
+<P>
+In some cases it is necessary to cast the internal representation of
+an object as well as the Java object.  (For example, getting an object
+from a SIDL array of superclass objects.)  In these cases a Java cast is
+insufficient.  Therefore two built-in casting functions have
+been provided<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN> <TT>_cast()</TT> and <TT>_cast2()</TT>.  
+The static <TT>_cast(object)</TT><A NAME="13853"></A> function returns a new 
+Java object based on the <TT>object</TT> argument.  For example, 
+<TT>foo.bar newobj = (foo.bar) foo.bar._cast(oldobj)</TT> will cast 
+<TT>oldobj</TT>, an object of type <TT>sidl.BaseClass</TT>, to 
+<TT>foo.bar</TT>.  If this is an invalid cast, <TT>_cast</TT> will 
+return <TT>null</TT>. 
+<A NAME="13863"></A>
+<A NAME="13864"></A>
+
+<P>
+The <TT>_cast2(``ClassName'')</TT> method, on the other hand, casts an
+object to a named type (i.e., <TT>ClassName</TT>).  It performs
+basically the same function as <TT>_cast</TT>, but the form is
+<TT>object._cast2(``ClassName'')</TT>, where <TT>ClassName</TT> must be a 
+fully qualified name<A NAME="13870"></A>.  If the cast is invalid, or a class of 
+that name cannot be found, <TT>null</TT> is returned.
+
+<P>
+Both functions
+return a <TT>sidl.BaseClass</TT> which must then be Java casted to the
+correct Java class type.  They both also create a new Java object that 
+owns a new reference to the IOR object.  Although you never have to 
+worry about reference counting in Java<A NAME="13874"></A>,
+it is important to remember that casting leaves two valid objects.
+
+<P>
+As mentioned in Subsection&nbsp;<A HREF="node224.html#sss:Java:ifcs">10.2.3</A>, SIDL interfaces are mapped
+to wrapper classes that inherit from an interface.  As a result, they
+can be Java cast to their ancestor interfaces but must be Babel cast to
+any classes.  In the following example, <TT>Subclass</TT> implements 
+<TT>SuperInterface</TT><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13878"></A>
+<A NAME="13879"></A>
+<A NAME="13880"></A><A NAME="13881"></A>
+<A NAME="13882"></A><A NAME="13883"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">SuperInterface.Array1 arry = new SuperInterface.Array1(5, true);
+SubClass obj = new SubClass();
+arry.set(0, (SuperInterface)obj);
+obj = null;
+SuperInterface temp = arry.get(0);
+obj = (SubClass) temp;   //INCORRECT Will throw ClassCastException
+
+obj = (SubClass) SubClass._cast((SuperInterface.Wrapper)temp); //CORRECT
+</PRE></td></tr></table></blockquote>
+<P>
+Finally, in some cases, as when the interface is retrieved from an array, Java 
+casting the interface is not necessary before Babel casting it; however, 
+that is not true in general.
+The following is an example of casting an interface in a Java implementation<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="13885"></A>
+<A NAME="13886"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">
+public objarg.SubClass toClass_Impl (/*in*/ objarg.Iface ifcy ) {
+  // DO-NOT-DELETE splicer.begin(objarg.SubClass.toClass)
+  objarg.SubClass ret =  (objarg.SubClass) 
+    ((objarg.Iface.Wrapper)ifcy)._cast2("objarg.SubClass");
+  return ret;
+  // DO-NOT-DELETE splicer.end(objarg.SubClass.toClass)
+}
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html4560"
+  HREF="node229.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4554"
+  HREF="node219.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4550"
+  HREF="node227.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4556"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4558"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html4561"
+  HREF="node229.html">Client-side</A>
+<B> Up:</B> <A NAME="tex2html4555"
+  HREF="node219.html">Basics</A>
+<B> Previous:</B> <A NAME="tex2html4551"
+  HREF="node227.html">Arrays</A>
+ &nbsp; <B>  <A NAME="tex2html4557"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html4559"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

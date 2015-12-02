@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Method Overloading</TITLE>
+<META NAME="description" CONTENT="Method Overloading">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node115.html">
+<LINK REL="up" HREF="node112.html">
+<LINK REL="next" HREF="node117.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html2641"
+  HREF="node117.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2635"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2631"
+  HREF="node115.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2637"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2639"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2642"
+  HREF="node117.html">XML Repositories</A>
+<B> Up:</B> <A NAME="tex2html2636"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2632"
+  HREF="node115.html">Parameter Passing</A>
+ &nbsp; <B>  <A NAME="tex2html2638"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2640"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION02474000000000000000"></A><A NAME="6274"></A><A NAME="6275"></A>
+<A NAME="sec:overloading"></A>
+<BR>
+Method Overloading
+</H2>
+Method overloading is the object-oriented practice of defining more than one 
+method with the same name in a class.  Doing so allows the convenient reuse of 
+a method name when, for example, the underlying implementations differ based
+on the types of the arguments.  Actually, support for overloaded methods 
+typically relies on the signature<A NAME="6277"></A>
+<A NAME="6278"></A><A NAME="6279"></A> of each method to ensure uniqueness.  In 
+this case, the signature consists of the method name along with the number, 
+types, and ordering of its arguments.  
+
+<P>
+Since Babel supports languages that do not support method overloading, a 
+mechanism for generating unique names was needed.  These are typically generated 
+by compilers based on hashing the argument types into the method name.  However, 
+developers often manually address this with far fewer characters than would be 
+used by a compiler.  Consequently, it was determined it would be more efficient 
+to leave the task of identifying the unique name to the developer.  Therefore, 
+Babel allows the specification of the base, or short,
+<A NAME="6280"></A> <A NAME="6281"></A> method name along with an 
+optional method name extension as illustrated in the SIDL file below for the 
+<TT>getValue</TT> method.  
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">package Overload version 1.0 {
+
+  class Sample {
+    int      getValue ( );
+    int      getValue[Int]( in int v );
+    double   getValue[Double]( in double v );
+  }
+}
+</I></PRE></td></tr></table></blockquote>
+<P>
+Thus, the full method name<A NAME="6284"></A> <A NAME="6285"></A>
+is the concatenation of the short name followed 
+by the name extension.  When generating code for supported languages, Babel 
+makes use of either the short or full method name as appropriate for the 
+language(s) involved.  For those that support method overloading, such 
+as C++ and Java, Babel relies only on the short method name, thus ignoring 
+the extension.  For the rest, like C, Fortran, and Python, Babel must make 
+use of the full name to ensure methods are uniquely identified.  
+
+<P>
+In the example above, the first method specification takes no arguments so has 
+no name extension.  This is acceptable because there are no potentially 
+conflicting methods at this point for any programming language supported by 
+Babel.  The second method, with the user-defined name extension of <TT>Int</TT>, 
+takes a single int argument, resulting in the unique method name 
+<TT>getValueInt</TT>.  The last method, with a user-defined name extension of 
+<TT>Double</TT>, takes a single double argument, resulting in the unique method 
+name of <TT>getValueDouble</TT>.  Examples of calling overloaded methods from 
+Babel-supported languages can be found in the respective language binding 
+chapters.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2641"
+  HREF="node117.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2635"
+  HREF="node112.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2631"
+  HREF="node115.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2637"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2639"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html2642"
+  HREF="node117.html">XML Repositories</A>
+<B> Up:</B> <A NAME="tex2html2636"
+  HREF="node112.html">Objects</A>
+<B> Previous:</B> <A NAME="tex2html2632"
+  HREF="node115.html">Parameter Passing</A>
+ &nbsp; <B>  <A NAME="tex2html2638"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html2640"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

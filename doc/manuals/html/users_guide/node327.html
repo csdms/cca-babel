@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Deployment of Babel-Enabled Libraries</TITLE>
+<META NAME="description" CONTENT="Deployment of Babel-Enabled Libraries">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="previous" HREF="node326.html">
+<LINK REL="up" HREF="node315.html">
+<LINK REL="next" HREF="node328.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html6115"
+  HREF="node328.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6109"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6105"
+  HREF="node326.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6111"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6113"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6116"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Up:</B> <A NAME="tex2html6110"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6106"
+  HREF="node326.html">SCL Files for Dynamic</A>
+ &nbsp; <B>  <A NAME="tex2html6112"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6114"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04270000000000000000"></A>
+<A NAME="18807"></A>
+<BR>
+Deployment of Babel-Enabled Libraries
+</H1>
+
+<P>
+At this point, there is no standard -- or even recommended -- model for 
+deploying Babel enabled libraries.  Below are a few examples of how our
+developer-customers are currently packaging their code.
+
+<P>
+<DL>
+<DT><STRONG>Server Source Only</STRONG></DT>
+<DD>With this option your users are expected to have Babel installed on their 
+system.  In this mode, developers simply include a SIDL file and their 
+corresponding implementation files.  The user in this case must build the 
+software, call Babel to generate the client bindings in the language of 
+choice, and link it all together into a final application.
+
+<P>
+</DD>
+<DT><STRONG>Client and Server Source</STRONG></DT>
+<DD>This option tries to hide Babel as much as possible.  In this mode, the 
+developer pre-generates many different client language bindings and 
+distributes them along with their code and the sources for the Babel 
+runtime library.  Then the user has a ``batteries included'' package 
+that's ready to run out of the box. The user may not even be aware that 
+Babel has been used unless they pay careful attention to how the package 
+was built.
+
+<P>
+</DD>
+<DT><STRONG>Server Libraries Only</STRONG></DT>
+<DD>Finally, in this mode only the SIDL file and the precompiled shared library 
+files are distributed.  This is not an open-source solution, though users 
+still need to build the language bindings to access the shared library.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6115"
+  HREF="node328.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6109"
+  HREF="node315.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6105"
+  HREF="node326.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6111"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6113"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html6116"
+  HREF="node328.html">Creating Objects with Pre-Initialized</A>
+<B> Up:</B> <A NAME="tex2html6110"
+  HREF="node315.html">Building Portable Polyglot Software</A>
+<B> Previous:</B> <A NAME="tex2html6106"
+  HREF="node326.html">SCL Files for Dynamic</A>
+ &nbsp; <B>  <A NAME="tex2html6112"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html6114"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>

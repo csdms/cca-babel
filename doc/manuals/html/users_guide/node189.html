@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Private data</TITLE>
+<META NAME="description" CONTENT="Private data">
+<META NAME="keywords" CONTENT="users_guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="users_guide.css">
+
+<LINK REL="next" HREF="node190.html">
+<LINK REL="previous" HREF="node188.html">
+<LINK REL="up" HREF="node186.html">
+<LINK REL="next" HREF="node190.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html3943"
+  HREF="node190.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3937"
+  HREF="node186.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3931"
+  HREF="node188.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3939"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3941"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3944"
+  HREF="node190.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html3938"
+  HREF="node186.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3932"
+  HREF="node188.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html3940"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3942"
+  HREF="node475.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION03343000000000000000"></A>
+<A NAME="10116"></A>
+<A NAME="10117"></A>
+<BR>
+Private data
+</H2>
+
+<P>
+Any variables declared in the implementation source file will, by
+virtue of Babel's encapsulation, be private.  
+Special initialization procedures can be added to
+the built-in <TT>_load()</TT> method that is guaranteed to be called
+exactly once per class to set global class data -- <SPAN  CLASS="textit">before</SPAN> any 
+user-defined methods can even be invoked.  Alternatively,
+if private data (sometimes referred to as state) needs to be added 
+to a FORTRAN 77 class, SIDL arrays 
+can be used to store the data.  This is certainly not the
+only way to implement a FORTRAN 77 class with state, but it's one 
+that will work wherever Babel works.  
+
+<P>
+The SIDL IOR keeps a pointer (i.e., a C <TT>void *</TT>) for each object
+in order to support private data.  Like their C equivalents, each
+FORTRAN 77 skeleton provides two functions for accessing the private
+pointer.  Although the pointer arguments to the methods are
+64-bit integers in FORTRAN 77, the number of bits actually
+stored by the IOR is determined by <TT>sizeof(void *)</TT>.
+Babel/SIDL does not provide a low level mechanism for FORTRAN 77 to
+allocate memory to use for the private data pointer.
+
+<P>
+The following example illustrates the process of managing private data
+using the automatically generated constructor subroutine, <TT>_ctor</TT><SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="10123"></A>
+<A NAME="10124"></A>
+<A NAME="10125"></A><A NAME="10126"></A>
+<A NAME="10127"></A><A NAME="10128"></A>
+<A NAME="10129"></A><A NAME="10130"></A>
+<A NAME="10131"></A><A NAME="10132"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine example_withState__ctor_fi(self, exception)
+        implicit none
+        integer*8 self, exception
+C       DO-NOT-DELETE splicer.begin(example.withState._ctor)
+        integer*8 statearray, logarray, dblarray
+        call sidl_opaque__array_create1d_f(2, statearray)
+        call sidl_bool__array_create1d_f(3, logarray)
+        call sidl_double__array_create1d_f(2, dblarray)
+        if ((statearray .ne. 0) .and. (logarray .ne. 0) .and.
+     $       (dblarray .ne. 0)) then
+           call sidl_opaque__array_set1_f(statearray, 0, logarray)
+           call sidl_opaque__array_set1_f(statearray, 1, dblarray)
+        else
+C          a real implementation would not leak memory like this one
+           statearray = 0
+        endif
+        call example_withState__set_data_f(self, statearray)
+C       DO-NOT-DELETE splicer.end(example.withState._ctor)
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+Of course, it is up to the implementation to associate 
+elements of the arrays with particular state variables.  For example,
+element 0 of the double array could be the kinematic
+viscosity and element 1 the airspeed velocity of an unladen
+swallow.<A NAME="10134"></A>  Element 0 of the boolean array could specify 
+African (true) or
+European (false).  The destructor implementation for this class could look 
+something like<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="10135"></A>
+<A NAME="10136"></A><A NAME="10137"></A>
+<A NAME="10138"></A><A NAME="10139"></A>
+<A NAME="10140"></A><A NAME="10141"></A>
+<A NAME="10142"></A><A NAME="10143"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine example_withState__dtor_fi(self, exception)
+        implicit none
+        integer*8 self, exception
+C       DO-NOT-DELETE splicer.begin(example.withState._dtor)
+        integer*8 statearray, logarray, dblarray
+        call example_withState__get_data_f(self, statearray)
+        if (statearray .ne. 0) then
+           call sidl_opaque__array_get1_f(statearray, 0, logarray)
+           call sidl_opaque__array_get1_f(statearray, 1, dblarray)
+           call sidl_bool__array_deleteRef_f(logarray)
+           call sidl_double__array_deleteRef_f(dblarray)
+           call sidl_opaque__array_deleteRef_f(statearray)
+C       the following two lines are not strictly necessary
+           statearray = 0
+           call example_withState__set_data_f(self, statearray)
+        endif
+C       DO-NOT-DELETE splicer.end(example.withState._dtor)
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+Continuing with this example, an accessor function for the airspeed velocity 
+of an unladen swallow could be implemented as follows<SPAN CLASS="MATH"><IMG
+ WIDTH="7" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$:$"></SPAN>
+<A NAME="10145"></A>
+<A NAME="10146"></A><A NAME="10147"></A>
+<A NAME="10148"></A><A NAME="10149"></A>
+
+<P>
+<BR>
+<PRE  CLASS="verbatim">        subroutine example_withState_getAirspeedVelocity_fi(
+     $     self, velocity, exception)
+        implicit none
+        integer*8 self, exception
+        real*8 velocity
+C       DO-NOT-DELETE splicer.begin(example.withState.getAirspeedVelocity)
+        integer*8 statearray, dblarray
+        call example_withState__get_data_f(self, statearray)
+        if (statearray .ne. 0) then
+           call sidl_opaque__array_get1_f(statearray, 1, dblarray)
+           call sidl_double__array_get1_f(dblarray, 1, velocity)
+        endif
+C       DO-NOT-DELETE splicer.end(example.withState.getAirspeedVelocity)
+        end
+</PRE></td></tr></table></blockquote>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html3943"
+  HREF="node190.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3937"
+  HREF="node186.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3931"
+  HREF="node188.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3939"
+  HREF="node14.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3941"
+  HREF="node475.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html3944"
+  HREF="node190.html">Exception throwing</A>
+<B> Up:</B> <A NAME="tex2html3938"
+  HREF="node186.html">Implementation-side</A>
+<B> Previous:</B> <A NAME="tex2html3932"
+  HREF="node188.html">Bindings implementation</A>
+ &nbsp; <B>  <A NAME="tex2html3940"
+  HREF="node14.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html3942"
+  HREF="node475.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<br><br>babel-1.4.0<br>users_guide Last Modified 2008-10-16<br><br><a href="http://www.llnl.gov/CASC/components">http://www.llnl.gov/CASC/components</a><br><a href="mailto:components@llnl.gov">components@llnl.gov</a>
+</ADDRESS>
+</BODY>
+</HTML>
