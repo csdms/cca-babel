@@ -175,7 +175,7 @@ AC_CACHE_CHECK([for path to libjvm.{a,so} or client/libjvm.{a,so} ],
      ;;
    darwin*)
      llnl_cv_lib_jvm=`find $javatopdir -follow \
-	-name "libjvm_compat.*" -print  2> /dev/null | head -n 1`
+	-name "JavaVM" -print  2> /dev/null | head -n 1`
      ;;
    aix*)
      llnl_cv_lib_jvm=`find $javatopdir  \
@@ -215,7 +215,7 @@ AC_CACHE_CHECK([for directory where libjvm.{a,so} or client/libjvm.{a,so} reside
      ;;
    darwin*)
      llnl_cv_lib_jvm_dir=`find $javatopdir -follow \
-	-name "libjvm_compat.*" -exec dirname {} \; 2> /dev/null | head -n 1`
+	-name "JavaVM" -exec dirname {} \; 2> /dev/null | head -n 1`
      ;;
    aix*)
      llnl_cv_lib_jvm_dir=`find $javatopdir \
