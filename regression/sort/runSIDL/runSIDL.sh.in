@@ -1,0 +1,148 @@
+#!/bin/bash
+## File:        runSIDL.sh
+## Package:     Babel regression driver
+## Revision:    $Revision$
+## Modified:    $Date$
+## Description: regression driver for sidl generation tests
+##
+## Copyright (c) 2003, The Regents of the University of Calfornia.
+## Produced at the Lawrence Livermore National Laboratory.
+## Written by the Components Team <components@llnl.gov>
+## UCRL-CODE-2002-054
+## All rights reserved.
+##
+## This file is part of Babel. For more information, see
+## http:##www.llnl.gov/CASC/components/. Please read the COPYRIGHT file
+## for Our Notice and the LICENSE file for the GNU Lesser General Public
+## License.
+##
+## This program is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License (as published by
+## the Free Software Foundation) version 2.1 dated February 1999.
+##
+## This program is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY; without even the IMPLIED WARRANTY OF
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the terms and
+## conditions of the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this program; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+
+#
+# Run the tests
+#
+
+echo "TEST_BEGIN 1 sort.sidl->sidl"
+echo "PART 1"
+diff ./sidl/sort.sidl ./xml/sort.sidl > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+
+echo
+echo "TEST_BEGIN 1 sort.Comparator.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.Comparator-*.xml > temp
+grep -v Metadata ./xml2/sort.Comparator-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.CompInt.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.CompInt-*.xml > temp
+grep -v Metadata ./xml2/sort.CompInt-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.Container.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.Container-*.xml > temp
+grep -v Metadata ./xml2/sort.Container-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.Counter.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.Counter-*.xml > temp
+grep -v Metadata ./xml2/sort.Counter-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.HeapSort.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.HeapSort-*.xml > temp
+grep -v Metadata ./xml2/sort.HeapSort-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.Integer.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.Integer-*.xml > temp
+grep -v Metadata ./xml2/sort.Integer-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.IntegerContainer.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.IntegerContainer-*.xml > temp
+grep -v Metadata ./xml2/sort.IntegerContainer-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.MergeSort.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.MergeSort-*.xml > temp
+grep -v Metadata ./xml2/sort.MergeSort-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.QuickSort.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.QuickSort-*.xml > temp
+grep -v Metadata ./xml2/sort.QuickSort-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.SimpleCounter.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.SimpleCounter-*.xml > temp
+grep -v Metadata ./xml2/sort.SimpleCounter-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.SortingAlgorithm.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.SortingAlgorithm-*.xml > temp
+grep -v Metadata ./xml2/sort.SortingAlgorithm-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.SortTest.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort.SortTest-*.xml > temp
+grep -v Metadata ./xml2/sort.SortTest-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+echo
+echo "TEST_BEGIN 1 sort.XML->XML"
+echo "PART 1"
+grep -v Metadata ./xml/sort-*.xml > temp
+grep -v Metadata ./xml2/sort-*.xml > temp2
+diff temp temp2 > /dev/null \
+     && (echo "RESULT 1 PASS" && echo "TEST_RESULT PASS") \
+     || (echo "RESULT 1 FAIL" && echo "TEST_RESULT FAIL") 
+
+rm -rf temp temp2
