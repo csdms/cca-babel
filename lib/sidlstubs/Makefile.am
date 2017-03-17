@@ -33,7 +33,9 @@ SUBDIRS = $(CXX_SUBDIR) $(F77_SUBDIR) $(F90_SUBDIR) $(JAVA_SUBDIR) $(F03_SUBDIR)
 
 install-data-hook:
 	@if test ! -h $(DESTDIR)$(includedir)/c; then 		\
-	  (cd $(DESTDIR)$(includedir) ; ln -s . c ); 		\
+		(cd $(DESTDIR)$(includedir) && mkdir -p c && cd c ; \
+		 for f in sidl_*.h; do ln -s ../$$f $$f ; done ; \
+		 ln -s ../sidl.h sidl.h ; ) \
 	fi
 
 uinstall-hook:
