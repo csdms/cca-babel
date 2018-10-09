@@ -183,7 +183,7 @@ AC_SUBST(LIBTOOL_DEPS)
 #AC_LIBTOOL_WIN32_DLL
 #AC_LIBTOOL_DLOPEN
 #AM_PROG_LIBTOOL
-#AC_LIB_LTDL
+AC_LIB_LTDL
 CCA_DIAGNOSE_END([LIBTOOL])
 
 ############################################################
